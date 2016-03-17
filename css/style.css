@@ -1430,6 +1430,11 @@ footer.article-footer {
 .article-nav .prev a {
   padding-left: 4%;
 }
+@media only screen and (min-width: 768px) {
+  .article-nav .prev a {
+    margin-top: 20px;
+  }
+}
 .article-nav .prev a:hover {
   background: #505050;
   color: #fff;
@@ -1442,6 +1447,11 @@ footer.article-footer {
 }
 .article-nav .next a {
   padding-right: 4%;
+}
+@media only screen and (min-width: 768px) {
+  .article-nav .next a {
+    margin-top: 20px;
+  }
 }
 .article-nav .next a:hover {
   background: #505050;
