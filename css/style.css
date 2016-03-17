@@ -433,15 +433,27 @@ body >header a {
 }
 #imglogo img {
   width: 4em;
+  -webkit-border-radius: 4em/2;
+  border-radius: 4em/2;
+  -webkit-border-radius: 4em/2;
+  -moz-border-radius: 4em/2;
 }
 @media only screen and (min-width: 768px) {
   #imglogo img {
     width: 5em;
+    -webkit-border-radius: 5em/2;
+    border-radius: 5em/2;
+    -webkit-border-radius: 5em/2;
+    -moz-border-radius: 5em/2;
   }
 }
 @media only screen and (min-width: 1024px) {
   #imglogo img {
     width: 5.5em;
+    -webkit-border-radius: 5.5em/2;
+    border-radius: 5.5em/2;
+    -webkit-border-radius: 5.5em/2;
+    -moz-border-radius: 5.5em/2;
   }
 }
 #textlogo {
