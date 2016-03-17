@@ -918,13 +918,13 @@ article header.article-info >p.article-author {
   text-align: right;
   border-bottom: 1px solid #dbdbdb;
 }
+article header.article-info >p.article-author >a {
+  color: #505050;
+}
 @media only screen and (min-width: 768px) {
   article header.article-info >p.article-author {
     float: right;
     border-bottom: none;
-  }
-  article header.article-info >p.article-author >a {
-    color: #505050;
   }
 }
 article header.article-info >p.article-time {
