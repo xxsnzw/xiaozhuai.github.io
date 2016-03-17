@@ -1417,10 +1417,6 @@ footer.article-footer {
   .article-nav {
     padding: 0;
   }
-  .article-nav .pre>a,
-  .article-nav .next>a {
-    margin-top: 20px;
-  }
 }
 .article-nav strong {
   font-size: 1em;
@@ -1432,6 +1428,7 @@ footer.article-footer {
   overflow: hidden;
 }
 .article-nav .prev a {
+  margin-top: 20px;
   padding-left: 4%;
 }
 .article-nav .prev a:hover {
@@ -1445,6 +1442,7 @@ footer.article-footer {
   content: "\f053";
 }
 .article-nav .next a {
+  margin-top: 20px;
   padding-right: 4%;
 }
 .article-nav .next a:hover {
