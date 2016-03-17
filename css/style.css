@@ -1178,6 +1178,7 @@ article .article-content table th {
   border-top: 2px solid #dbdbdb;
   border-left: 2px solid #dbdbdb;
   border-right: 2px solid #dbdbdb;
+  background: #505050;
   padding: 0.5em;
   line-height: 1.3em;
 }
