@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xiaozhuai.github.io/2015/12/20/build_android_with_osx/</loc>
+    
+    <lastmod>2016-03-18T23:39:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xiaozhuai.github.io/2015/12/25/add_java_lib_for_android_source/</loc>
     
     <lastmod>2016-03-18T23:07:07.000Z</lastmod>
