@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaozhuai.github.io/"/>
-  <updated>2016-03-18T22:08:28.000Z</updated>
+  <updated>2016-03-18T22:47:23.000Z</updated>
   <id>http://xiaozhuai.github.io/</id>
   
   <author>
@@ -14,6 +14,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>eclipse导入安卓源码与eclipse中的报错消除</title>
+    <link href="http://xiaozhuai.github.io/2015/12/28/import_android_source_to_eclipse/"/>
+    <id>http://xiaozhuai.github.io/2015/12/28/import_android_source_to_eclipse/</id>
+    <published>2015-12-28T11:25:24.000Z</published>
+    <updated>2016-03-18T22:47:23.000Z</updated>
+    
+    <content type="html">&lt;p&gt;在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法&lt;/p&gt;
+&lt;h2 id=&quot;导入源码&quot;&gt;&lt;a href=&quot;#导入源码&quot; class=&quot;headerlink&quot; title=&quot;导入源码&quot;&gt;&lt;/a&gt;导入源码&lt;/h2&gt;&lt;h3 id=&quot;复制-classpath文件到源码根目录&quot;&gt;&lt;a href=&quot;#复制-classpath文件到源码根目录&quot; class=&quot;headerlink&quot; title=&quot;复制.classpath文件到源码根目录&quot;&gt;&lt;/a&gt;复制.classpath文件到源码根目录&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; AndroidSource&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ cp development/ide/eclipse/.classpath ./&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;使用统一的代码格式化风格&quot;&gt;&lt;a href=&quot;#使用统一的代码格式化风格&quot; class=&quot;headerlink&quot; title=&quot;使用统一的代码格式化风格&quot;&gt;&lt;/a&gt;使用统一的代码格式化风格&lt;/h3&gt;&lt;p&gt;在eclipse中点击Window - Preferences - Java - Code Style - Formatter选择development/ide/eclipse/android-formatting.xml&lt;/p&gt;
+&lt;h3 id=&quot;使用源码提供的导入顺序和结构&quot;&gt;&lt;a href=&quot;#使用源码提供的导入顺序和结构&quot; class=&quot;headerlink&quot; title=&quot;使用源码提供的导入顺序和结构&quot;&gt;&lt;/a&gt;使用源码提供的导入顺序和结构&lt;/h3&gt;&lt;p&gt;在eclipse中点击Window - Preferences - Java - Code Style - Organize Imports选择development/ide/eclipse/android-importorder&lt;/p&gt;
+&lt;h3 id=&quot;导入源码-1&quot;&gt;&lt;a href=&quot;#导入源码-1&quot; class=&quot;headerlink&quot; title=&quot;导入源码&quot;&gt;&lt;/a&gt;导入源码&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;新建Java Project（不是Android project）&lt;/li&gt;
+&lt;li&gt;选择从已存在的工程导入，选择安卓源码所在目录，填写项目名称，例如Android、cm11等&lt;/li&gt;
+&lt;li&gt;点击finish，等待导入完成&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;排除源码中的报错&quot;&gt;&lt;a href=&quot;#排除源码中的报错&quot; class=&quot;headerlink&quot; title=&quot;排除源码中的报错&quot;&gt;&lt;/a&gt;排除源码中的报错&lt;/h2&gt;&lt;h3 id=&quot;编译源码&quot;&gt;&lt;a href=&quot;#编译源码&quot; class=&quot;headerlink&quot; title=&quot;编译源码&quot;&gt;&lt;/a&gt;编译源码&lt;/h3&gt;&lt;p&gt;要排除源码内的报错，首先是必须完整的编译一次源码。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; build/envsetup.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ lunch full-eng&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ make -jN   &lt;span class=&quot;comment&quot;&gt;#N为编译线程数&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;编译完成后刷新项目，某些报错已经没有了。&lt;/p&gt;
+&lt;h3 id=&quot;import语句报错&quot;&gt;&lt;a href=&quot;#import语句报错&quot; class=&quot;headerlink&quot; title=&quot;import语句报错&quot;&gt;&lt;/a&gt;import语句报错&lt;/h3&gt;&lt;p&gt;import语句报错，某个类找不到。&lt;/p&gt;
+&lt;h4 id=&quot;情形一&quot;&gt;&lt;a href=&quot;#情形一&quot; class=&quot;headerlink&quot; title=&quot;情形一&quot;&gt;&lt;/a&gt;情形一&lt;/h4&gt;&lt;p&gt;如果该类包含在一个static_java_lib（可以通过Android.mk）来确定。&lt;br&gt;例如spongycastle-light-jdk15on这就是一个静态java库，源码编译完成后会生成jar文件，那么只需要在.classpath中加入该jar即可。&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;classpathentry&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;kind&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;lib&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;path&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;out/target/common/obj/JAVA_LIBRARIES/spongycastle-light-jdk15on_intermediates/javalib.jar&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;情形二&quot;&gt;&lt;a href=&quot;#情形二&quot; class=&quot;headerlink&quot; title=&quot;情形二&quot;&gt;&lt;/a&gt;情形二&lt;/h4&gt;&lt;p&gt;如果该类库并未被编译成一个jar，而是以源码形式存在于android项目中。&lt;br&gt;例如volley，这时需要将该类库的src目录加入到.classpath中&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;classpathentry&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;excluding&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;Android.mk&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;kind&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;src&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;path&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;frameworks/volley/src&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这里确认src的位置很重要，并不是目录名是src就加这个目录，关键是看包名。先查看eclipse中import的类的包名。&lt;br&gt;包名的第一段是类库所在文件夹的根目录名，例如com.xxx.xxx，那么src目录应该是com这个目录的父目录。&lt;br&gt;通常是src命名的，也有的是src/main/java这种的形式，根据包名来判断应该怎么添加。&lt;/p&gt;
+&lt;h4 id=&quot;情形三&quot;&gt;&lt;a href=&quot;#情形三&quot; class=&quot;headerlink&quot; title=&quot;情形三&quot;&gt;&lt;/a&gt;情形三&lt;/h4&gt;&lt;p&gt;R.java找不到&lt;br&gt;这种情况一般是没有完整编译过安卓源码，完整编译一次即可。参见编译源码&lt;/p&gt;
+&lt;h3 id=&quot;package语句报错&quot;&gt;&lt;a href=&quot;#package语句报错&quot; class=&quot;headerlink&quot; title=&quot;package语句报错&quot;&gt;&lt;/a&gt;package语句报错&lt;/h3&gt;&lt;p&gt;这种情况比较特殊了，通常情况下，java的类的包名是对应着文件夹的结构的。&lt;br&gt;例如类Test1.java，在src/com/my/test目录下，那么其包名就应该是com.my.test。&lt;br&gt;Test.java中的第一行有效代码就是申明包名，应该是这样的：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;package&lt;/span&gt; com.fiui.test;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果这一行报错让你移到别的包或者改包名，那么通常是因为某些项目没有遵守上述的规范导致的，eclipse必须按照目录结构来指定包名。而在android源码编译中用的是Gradle编译器，并不强制遵守上述规范，只是作为习惯，大部分都遵守了这种规范。&lt;/p&gt;
+&lt;p&gt;在Gradle中，允许一种情况，如下：&lt;br&gt;在src/com/my/packagetest目录下，有一个类Test2.java，&lt;br&gt;正常情况下，Test2.java第一行是这样的：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;package&lt;/span&gt; com.fiui.packagetest;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;但Gradle中可以不是这样的，例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;package&lt;/span&gt; com.fiui.test;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样就导致了eclipse不认识包名，但gradle却依然编译正常。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;需要说明的是，编译成jar或者dex之后，gradle里这种特殊的写法会按照标准重新生成目录结构。&lt;/p&gt;
+&lt;p&gt;gradle编译之后，会把src/com/fiui/packagetest/Test2.java编译到包com.fiui.test下。&lt;/p&gt;
+&lt;p&gt;可以反编译来验证一下。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这时候，要去除eclipse报错，只能把这些类复制到其正确的包名的目录下，删除原错误包对应的目录。但这样一来会改变源码的目录结构，如果你从自己的git服务器上获取源码，那么推荐你修改一下，一劳永逸。如果你没有自己的git服务器，建议不要修改。&lt;/p&gt;
+&lt;h3 id=&quot;import-aidl报错&quot;&gt;&lt;a href=&quot;#import-aidl报错&quot; class=&quot;headerlink&quot; title=&quot;import aidl报错&quot;&gt;&lt;/a&gt;import aidl报错&lt;/h3&gt;&lt;p&gt;该情况出现在某些某些aidl中。&lt;br&gt;不能直接import一个aidl，而是import一个aidl编译出来的java文件。&lt;br&gt;例如源码中的：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;packages/apps/Calendar/src/com/android/lunar/ILunarService.aidl&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这时候在eclispe中&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; com.android.lunar.ILunarService;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;就会提示一个错误，ILunarService类不存在。&lt;br&gt;解决该错误需要事先完整编译过安卓源码，然后在out/target/common/obj/下找到该aidl生成的java文件然后导入eclipse即可。&lt;/p&gt;
+&lt;p&gt;例如这里的ILunarService.aidl最终在&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;out/target/common/obj/APPS/Calendar_intermediates/src/src&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;目录中被发现。通常该目录下还有一个扩展名为.p的文件。&lt;br&gt;并且通常目录路径的最后是src/src&lt;br&gt;那么在.classpath中加入&lt;/p&gt;
+&lt;figure class=&quot;highlight xml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;classpathentry&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;kind&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;src&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;path&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;out/target/common/obj/APPS/Calendar_intermediates/src/src/&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;对于APK，通常在&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;out/target/common/obj/APPS/[module_name]__intermediates/src/src&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;对于JAR,通常在&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;out/target/common/obj/JAVA_LIBRARIES/[module_name]__intermediates/src/src&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法&lt;/p&gt;
+&lt;h2 id=&quot;导入源码&quot;&gt;&lt;a href=&quot;#导入源码&quot; class=&quot;headerlink&quot; title=&quot;导入源码&quot;&gt;&lt;/a&gt;导入源码&lt;/h2&gt;&lt;
+    
+    </summary>
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/categories/%E5%AE%89%E5%8D%93/"/>
+    
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
+    
+      <category term="eclipse" scheme="http://xiaozhuai.github.io/tags/eclipse/"/>
+    
+  </entry>
   
   <entry>
     <title>为eclipse安装jadClipse插件</title>

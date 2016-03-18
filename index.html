@@ -80,6 +80,113 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/12/28/import_android_source_to_eclipse/" title="eclipse导入安卓源码与eclipse中的报错消除" itemprop="url">eclipse导入安卓源码与eclipse中的报错消除</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-28T11:25:24.000Z" itemprop="datePublished"> 发表于 2015-12-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法</p>
+<h2 id="导入源码"><a href="#导入源码" class="headerlink" title="导入源码"></a>导入源码</h2><h3 id="复制-classpath文件到源码根目录"><a href="#复制-classpath文件到源码根目录" class="headerlink" title="复制.classpath文件到源码根目录"></a>复制.classpath文件到源码根目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource</span><br><span class="line">$ cp development/ide/eclipse/.classpath ./</span><br></pre></td></tr></table></figure>
+<h3 id="使用统一的代码格式化风格"><a href="#使用统一的代码格式化风格" class="headerlink" title="使用统一的代码格式化风格"></a>使用统一的代码格式化风格</h3><p>在eclipse中点击Window - Preferences - Java - Code Style - Formatter选择development/ide/eclipse/android-formatting.xml</p>
+<h3 id="使用源码提供的导入顺序和结构"><a href="#使用源码提供的导入顺序和结构" class="headerlink" title="使用源码提供的导入顺序和结构"></a>使用源码提供的导入顺序和结构</h3><p>在eclipse中点击Window - Preferences - Java - Code Style - Organize Imports选择development/ide/eclipse/android-importorder</p>
+<h3 id="导入源码-1"><a href="#导入源码-1" class="headerlink" title="导入源码"></a>导入源码</h3><ol>
+<li>新建Java Project（不是Android project）</li>
+<li>选择从已存在的工程导入，选择安卓源码所在目录，填写项目名称，例如Android、cm11等</li>
+<li>点击finish，等待导入完成</li>
+</ol>
+<h2 id="排除源码中的报错"><a href="#排除源码中的报错" class="headerlink" title="排除源码中的报错"></a>排除源码中的报错</h2><h3 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h3><p>要排除源码内的报错，首先是必须完整的编译一次源码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> build/envsetup.sh</span><br><span class="line">$ lunch full-eng</span><br><span class="line">$ make -jN   <span class="comment">#N为编译线程数</span></span><br></pre></td></tr></table></figure>
+<p>编译完成后刷新项目，某些报错已经没有了。</p>
+<h3 id="import语句报错"><a href="#import语句报错" class="headerlink" title="import语句报错"></a>import语句报错</h3><p>import语句报错，某个类找不到。</p>
+<h4 id="情形一"><a href="#情形一" class="headerlink" title="情形一"></a>情形一</h4><p>如果该类包含在一个static_java_lib（可以通过Android.mk）来确定。<br>例如spongycastle-light-jdk15on这就是一个静态java库，源码编译完成后会生成jar文件，那么只需要在.classpath中加入该jar即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"lib"</span> <span class="attr">path</span>=<span class="string">"out/target/common/obj/JAVA_LIBRARIES/spongycastle-light-jdk15on_intermediates/javalib.jar"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="情形二"><a href="#情形二" class="headerlink" title="情形二"></a>情形二</h4><p>如果该类库并未被编译成一个jar，而是以源码形式存在于android项目中。<br>例如volley，这时需要将该类库的src目录加入到.classpath中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">excluding</span>=<span class="string">"Android.mk"</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"frameworks/volley/src"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里确认src的位置很重要，并不是目录名是src就加这个目录，关键是看包名。先查看eclipse中import的类的包名。<br>包名的第一段是类库所在文件夹的根目录名，例如com.xxx.xxx，那么src目录应该是com这个目录的父目录。<br>通常是src命名的，也有的是src/main/java这种的形式，根据包名来判断应该怎么添加。</p>
+<h4 id="情形三"><a href="#情形三" class="headerlink" title="情形三"></a>情形三</h4><p>R.java找不到<br>这种情况一般是没有完整编译过安卓源码，完整编译一次即可。参见编译源码</p>
+<h3 id="package语句报错"><a href="#package语句报错" class="headerlink" title="package语句报错"></a>package语句报错</h3><p>这种情况比较特殊了，通常情况下，java的类的包名是对应着文件夹的结构的。<br>例如类Test1.java，在src/com/my/test目录下，那么其包名就应该是com.my.test。<br>Test.java中的第一行有效代码就是申明包名，应该是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.test;</span><br></pre></td></tr></table></figure>
+<p>如果这一行报错让你移到别的包或者改包名，那么通常是因为某些项目没有遵守上述的规范导致的，eclipse必须按照目录结构来指定包名。而在android源码编译中用的是Gradle编译器，并不强制遵守上述规范，只是作为习惯，大部分都遵守了这种规范。</p>
+<p>在Gradle中，允许一种情况，如下：<br>在src/com/my/packagetest目录下，有一个类Test2.java，<br>正常情况下，Test2.java第一行是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.packagetest;</span><br></pre></td></tr></table></figure>
+<p>但Gradle中可以不是这样的，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.test;</span><br></pre></td></tr></table></figure>
+<p>这样就导致了eclipse不认识包名，但gradle却依然编译正常。</p>
+<blockquote>
+<p>需要说明的是，编译成jar或者dex之后，gradle里这种特殊的写法会按照标准重新生成目录结构。</p>
+<p>gradle编译之后，会把src/com/fiui/packagetest/Test2.java编译到包com.fiui.test下。</p>
+<p>可以反编译来验证一下。</p>
+</blockquote>
+<p>这时候，要去除eclipse报错，只能把这些类复制到其正确的包名的目录下，删除原错误包对应的目录。但这样一来会改变源码的目录结构，如果你从自己的git服务器上获取源码，那么推荐你修改一下，一劳永逸。如果你没有自己的git服务器，建议不要修改。</p>
+<h3 id="import-aidl报错"><a href="#import-aidl报错" class="headerlink" title="import aidl报错"></a>import aidl报错</h3><p>该情况出现在某些某些aidl中。<br>不能直接import一个aidl，而是import一个aidl编译出来的java文件。<br>例如源码中的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packages/apps/Calendar/src/com/android/lunar/ILunarService.aidl</span><br></pre></td></tr></table></figure>
+<p>这时候在eclispe中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.android.lunar.ILunarService;</span><br></pre></td></tr></table></figure>
+<p>就会提示一个错误，ILunarService类不存在。<br>解决该错误需要事先完整编译过安卓源码，然后在out/target/common/obj/下找到该aidl生成的java文件然后导入eclipse即可。</p>
+<p>例如这里的ILunarService.aidl最终在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/APPS/Calendar_intermediates/src/src</span><br></pre></td></tr></table></figure>
+<p>目录中被发现。通常该目录下还有一个扩展名为.p的文件。<br>并且通常目录路径的最后是src/src<br>那么在.classpath中加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"out/target/common/obj/APPS/Calendar_intermediates/src/src/"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于APK，通常在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/APPS/[module_name]__intermediates/src/src</span><br></pre></td></tr></table></figure>
+<p>对于JAR,通常在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/JAVA_LIBRARIES/[module_name]__intermediates/src/src</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/eclipse/">eclipse</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/28/import_android_source_to_eclipse/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/28/import_android_source_to_eclipse/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/12/26/jad_clipse/" title="为eclipse安装jadClipse插件" itemprop="url">为eclipse安装jadClipse插件</a>
   </h1>
   <p class="article-author">By
@@ -398,7 +505,7 @@
 		  
 		
 		  
-			<li><a href="/categories/安卓/" title="安卓">安卓<sup>3</sup></a></li>
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>4</sup></a></li>
 		  
 		
 		</ul>
@@ -411,7 +518,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/安卓/" title="安卓">安卓<sup>4</sup></a></li>
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>2</sup></a></li>
 			
 		
 			
@@ -420,6 +531,14 @@
 		
 			
 				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			
@@ -432,18 +551,6 @@
 		
 			
 				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 		</ul>

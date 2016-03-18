@@ -1,0 +1,541 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>eclipse导入安卓源码与eclipse中的报错消除 | Welcome to xiaozhuai&#39;s github blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="xiaozhuai">
+    
+
+    
+    <meta name="description" content="在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法
+导入源码复制.classpath文件到源码根目录12$ cd AndroidSource$ cp development/ide/eclipse/.classpath ./
+使用统一的代码格式化风格在eclipse中点击Window - Preferences - Java - Cod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eclipse导入安卓源码与eclipse中的报错消除">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/28/import_android_source_to_eclipse/index.html">
+<meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
+<meta property="og:description" content="在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法
+导入源码复制.classpath文件到源码根目录12$ cd AndroidSource$ cp development/ide/eclipse/.classpath ./
+使用统一的代码格式化风格在eclipse中点击Window - Preferences - Java - Cod">
+<meta property="og:updated_time" content="2016-03-18T22:47:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="eclipse导入安卓源码与eclipse中的报错消除">
+<meta name="twitter:description" content="在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法
+导入源码复制.classpath文件到源码根目录12$ cd AndroidSource$ cp development/ide/eclipse/.classpath ./
+使用统一的代码格式化风格在eclipse中点击Window - Preferences - Java - Cod">
+<meta name="twitter:creator" content="@xiaozhuai7">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Welcome to xiaozhuai&#39;s github blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Welcome to xiaozhuai&#39;s github blog" title="Welcome to xiaozhuai&#39;s github blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Welcome to xiaozhuai&#39;s github blog">Welcome to xiaozhuai&#39;s github blog</a></h1>
+				<h2 class="blog-motto">xiaozhuai&#39;s blog</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xiaozhuai.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/28/import_android_source_to_eclipse/" title="eclipse导入安卓源码与eclipse中的报错消除" itemprop="url">eclipse导入安卓源码与eclipse中的报错消除</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-28T11:25:24.000Z" itemprop="datePublished"> 发表于 2015-12-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#导入源码"><span class="toc-number">1.</span> <span class="toc-text">导入源码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#复制-classpath文件到源码根目录"><span class="toc-number">1.1.</span> <span class="toc-text">复制.classpath文件到源码根目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用统一的代码格式化风格"><span class="toc-number">1.2.</span> <span class="toc-text">使用统一的代码格式化风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用源码提供的导入顺序和结构"><span class="toc-number">1.3.</span> <span class="toc-text">使用源码提供的导入顺序和结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入源码-1"><span class="toc-number">1.4.</span> <span class="toc-text">导入源码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排除源码中的报错"><span class="toc-number">2.</span> <span class="toc-text">排除源码中的报错</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译源码"><span class="toc-number">2.1.</span> <span class="toc-text">编译源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import语句报错"><span class="toc-number">2.2.</span> <span class="toc-text">import语句报错</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#情形一"><span class="toc-number">2.2.1.</span> <span class="toc-text">情形一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#情形二"><span class="toc-number">2.2.2.</span> <span class="toc-text">情形二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#情形三"><span class="toc-number">2.2.3.</span> <span class="toc-text">情形三</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package语句报错"><span class="toc-number">2.3.</span> <span class="toc-text">package语句报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import-aidl报错"><span class="toc-number">2.4.</span> <span class="toc-text">import aidl报错</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法</p>
+<h2 id="导入源码"><a href="#导入源码" class="headerlink" title="导入源码"></a>导入源码</h2><h3 id="复制-classpath文件到源码根目录"><a href="#复制-classpath文件到源码根目录" class="headerlink" title="复制.classpath文件到源码根目录"></a>复制.classpath文件到源码根目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource</span><br><span class="line">$ cp development/ide/eclipse/.classpath ./</span><br></pre></td></tr></table></figure>
+<h3 id="使用统一的代码格式化风格"><a href="#使用统一的代码格式化风格" class="headerlink" title="使用统一的代码格式化风格"></a>使用统一的代码格式化风格</h3><p>在eclipse中点击Window - Preferences - Java - Code Style - Formatter选择development/ide/eclipse/android-formatting.xml</p>
+<h3 id="使用源码提供的导入顺序和结构"><a href="#使用源码提供的导入顺序和结构" class="headerlink" title="使用源码提供的导入顺序和结构"></a>使用源码提供的导入顺序和结构</h3><p>在eclipse中点击Window - Preferences - Java - Code Style - Organize Imports选择development/ide/eclipse/android-importorder</p>
+<h3 id="导入源码-1"><a href="#导入源码-1" class="headerlink" title="导入源码"></a>导入源码</h3><ol>
+<li>新建Java Project（不是Android project）</li>
+<li>选择从已存在的工程导入，选择安卓源码所在目录，填写项目名称，例如Android、cm11等</li>
+<li>点击finish，等待导入完成</li>
+</ol>
+<h2 id="排除源码中的报错"><a href="#排除源码中的报错" class="headerlink" title="排除源码中的报错"></a>排除源码中的报错</h2><h3 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h3><p>要排除源码内的报错，首先是必须完整的编译一次源码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> build/envsetup.sh</span><br><span class="line">$ lunch full-eng</span><br><span class="line">$ make -jN   <span class="comment">#N为编译线程数</span></span><br></pre></td></tr></table></figure>
+<p>编译完成后刷新项目，某些报错已经没有了。</p>
+<h3 id="import语句报错"><a href="#import语句报错" class="headerlink" title="import语句报错"></a>import语句报错</h3><p>import语句报错，某个类找不到。</p>
+<h4 id="情形一"><a href="#情形一" class="headerlink" title="情形一"></a>情形一</h4><p>如果该类包含在一个static_java_lib（可以通过Android.mk）来确定。<br>例如spongycastle-light-jdk15on这就是一个静态java库，源码编译完成后会生成jar文件，那么只需要在.classpath中加入该jar即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"lib"</span> <span class="attr">path</span>=<span class="string">"out/target/common/obj/JAVA_LIBRARIES/spongycastle-light-jdk15on_intermediates/javalib.jar"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="情形二"><a href="#情形二" class="headerlink" title="情形二"></a>情形二</h4><p>如果该类库并未被编译成一个jar，而是以源码形式存在于android项目中。<br>例如volley，这时需要将该类库的src目录加入到.classpath中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">excluding</span>=<span class="string">"Android.mk"</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"frameworks/volley/src"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里确认src的位置很重要，并不是目录名是src就加这个目录，关键是看包名。先查看eclipse中import的类的包名。<br>包名的第一段是类库所在文件夹的根目录名，例如com.xxx.xxx，那么src目录应该是com这个目录的父目录。<br>通常是src命名的，也有的是src/main/java这种的形式，根据包名来判断应该怎么添加。</p>
+<h4 id="情形三"><a href="#情形三" class="headerlink" title="情形三"></a>情形三</h4><p>R.java找不到<br>这种情况一般是没有完整编译过安卓源码，完整编译一次即可。参见编译源码</p>
+<h3 id="package语句报错"><a href="#package语句报错" class="headerlink" title="package语句报错"></a>package语句报错</h3><p>这种情况比较特殊了，通常情况下，java的类的包名是对应着文件夹的结构的。<br>例如类Test1.java，在src/com/my/test目录下，那么其包名就应该是com.my.test。<br>Test.java中的第一行有效代码就是申明包名，应该是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.test;</span><br></pre></td></tr></table></figure>
+<p>如果这一行报错让你移到别的包或者改包名，那么通常是因为某些项目没有遵守上述的规范导致的，eclipse必须按照目录结构来指定包名。而在android源码编译中用的是Gradle编译器，并不强制遵守上述规范，只是作为习惯，大部分都遵守了这种规范。</p>
+<p>在Gradle中，允许一种情况，如下：<br>在src/com/my/packagetest目录下，有一个类Test2.java，<br>正常情况下，Test2.java第一行是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.packagetest;</span><br></pre></td></tr></table></figure>
+<p>但Gradle中可以不是这样的，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.test;</span><br></pre></td></tr></table></figure>
+<p>这样就导致了eclipse不认识包名，但gradle却依然编译正常。</p>
+<blockquote>
+<p>需要说明的是，编译成jar或者dex之后，gradle里这种特殊的写法会按照标准重新生成目录结构。</p>
+<p>gradle编译之后，会把src/com/fiui/packagetest/Test2.java编译到包com.fiui.test下。</p>
+<p>可以反编译来验证一下。</p>
+</blockquote>
+<p>这时候，要去除eclipse报错，只能把这些类复制到其正确的包名的目录下，删除原错误包对应的目录。但这样一来会改变源码的目录结构，如果你从自己的git服务器上获取源码，那么推荐你修改一下，一劳永逸。如果你没有自己的git服务器，建议不要修改。</p>
+<h3 id="import-aidl报错"><a href="#import-aidl报错" class="headerlink" title="import aidl报错"></a>import aidl报错</h3><p>该情况出现在某些某些aidl中。<br>不能直接import一个aidl，而是import一个aidl编译出来的java文件。<br>例如源码中的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packages/apps/Calendar/src/com/android/lunar/ILunarService.aidl</span><br></pre></td></tr></table></figure>
+<p>这时候在eclispe中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.android.lunar.ILunarService;</span><br></pre></td></tr></table></figure>
+<p>就会提示一个错误，ILunarService类不存在。<br>解决该错误需要事先完整编译过安卓源码，然后在out/target/common/obj/下找到该aidl生成的java文件然后导入eclipse即可。</p>
+<p>例如这里的ILunarService.aidl最终在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/APPS/Calendar_intermediates/src/src</span><br></pre></td></tr></table></figure>
+<p>目录中被发现。通常该目录下还有一个扩展名为.p的文件。<br>并且通常目录路径的最后是src/src<br>那么在.classpath中加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"out/target/common/obj/APPS/Calendar_intermediates/src/src/"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于APK，通常在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/APPS/[module_name]__intermediates/src/src</span><br></pre></td></tr></table></figure>
+<p>对于JAR,通常在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/JAVA_LIBRARIES/[module_name]__intermediates/src/src</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/eclipse/">eclipse</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"3362066484## e.g. 2176287895 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2089180" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/12/26/jad_clipse/"  title="为eclipse安装jadClipse插件">
+ <strong>下一篇&nbsp;</strong><br/> 
+ <span>为eclipse安装jadClipse插件
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/28/import_android_source_to_eclipse/" data-title="eclipse导入安卓源码与eclipse中的报错消除" data-url="http://xiaozhuai.github.io/2015/12/28/import_android_source_to_eclipse/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#导入源码"><span class="toc-number">1.</span> <span class="toc-text">导入源码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#复制-classpath文件到源码根目录"><span class="toc-number">1.1.</span> <span class="toc-text">复制.classpath文件到源码根目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用统一的代码格式化风格"><span class="toc-number">1.2.</span> <span class="toc-text">使用统一的代码格式化风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用源码提供的导入顺序和结构"><span class="toc-number">1.3.</span> <span class="toc-text">使用源码提供的导入顺序和结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入源码-1"><span class="toc-number">1.4.</span> <span class="toc-text">导入源码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排除源码中的报错"><span class="toc-number">2.</span> <span class="toc-text">排除源码中的报错</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译源码"><span class="toc-number">2.1.</span> <span class="toc-text">编译源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import语句报错"><span class="toc-number">2.2.</span> <span class="toc-text">import语句报错</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#情形一"><span class="toc-number">2.2.1.</span> <span class="toc-text">情形一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#情形二"><span class="toc-number">2.2.2.</span> <span class="toc-text">情形二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#情形三"><span class="toc-number">2.2.3.</span> <span class="toc-text">情形三</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package语句报错"><span class="toc-number">2.3.</span> <span class="toc-text">package语句报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#import-aidl报错"><span class="toc-number">2.4.</span> <span class="toc-text">import aidl报错</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="xiaozhuai" data-width="100%" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>4</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recovery/" title="recovery">recovery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/隐藏API/" title="隐藏API">隐藏API<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xiaozhuai.github.io" target="_blank" title="My Blog">My Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.fiui.org" target="_blank" title="FIUI Project">FIUI Project</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=3362066484&verifier=45b5120d&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m XiaoZhuai <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/xiaozhuai7" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/xiaozhuai" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/xiaozhuai7" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/xiaozhuai7" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:xz@fiui.org" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://xiaozhuai.github.io" target="_blank" title="hexo">xiaozhuai</a>, all right reserved. © 2016 
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaozhuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
