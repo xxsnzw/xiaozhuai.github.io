@@ -157,24 +157,12 @@
 </header>
     <div class="article-content">
         
-        <p>git的一些常用配置。</p>
-<h2 id="git设置邮箱和姓名"><a href="#git设置邮箱和姓名" class="headerlink" title="git设置邮箱和姓名"></a>git设置邮箱和姓名</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"xiaozhuai"</span>  </span><br><span class="line">$ git config --global user.email <span class="string">"xz@fiui.org"</span></span><br></pre></td></tr></table></figure>
-<h2 id="默认使用用户名密码登陆"><a href="#默认使用用户名密码登陆" class="headerlink" title="默认使用用户名密码登陆"></a>默认使用用户名密码登陆</h2><h3 id="unix-linux系统下的配置"><a href="#unix-linux系统下的配置" class="headerlink" title="unix-linux系统下的配置"></a>unix-linux系统下的配置</h3><p>创建～/.netrc文件，写入下面的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">machine [domain]</span><br><span class="line">login [username]</span><br><span class="line">password [password]</span><br></pre></td></tr></table></figure>
-<p>例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">machine github.com</span><br><span class="line">login xiaozhuai</span><br><span class="line">password ******</span><br></pre></td></tr></table></figure>
-<p>支持添加多个git服务器用户名和密码，以后就不需要每次都填了</p>
-<h3 id="windows下的配置"><a href="#windows下的配置" class="headerlink" title="windows下的配置"></a>windows下的配置</h3><p>新建一个系统环境变量，名为HOME，指定一个目录<br>在%HOME%下新建文件_netrc<br>写入上面相同的内容即可</p>
-<h2 id="git默认使用http代理"><a href="#git默认使用http代理" class="headerlink" title="git默认使用http代理"></a>git默认使用http代理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global http.proxy http://proxy.com:1234</span><br><span class="line">$ git config --global https.proxy http://proxy.com:1234</span><br></pre></td></tr></table></figure>
-<h2 id="git关闭ssl验证"><a href="#git关闭ssl验证" class="headerlink" title="git关闭ssl验证"></a>git关闭ssl验证</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global http.sslverify <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<h2 id="git设置默认commit编辑器"><a href="#git设置默认commit编辑器" class="headerlink" title="git设置默认commit编辑器"></a>git设置默认commit编辑器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.editor vim</span><br></pre></td></tr></table></figure>
-<h2 id="git出现The-remote-end-hung-up-unexpectedly错误"><a href="#git出现The-remote-end-hung-up-unexpectedly错误" class="headerlink" title="git出现The remote end hung up unexpectedly错误"></a>git出现The remote end hung up unexpectedly错误</h2><p>设置postbuffer到最大值（1GB）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global http.postBuffer 524288000</span><br></pre></td></tr></table></figure>
-<h2 id="git换行符自动转换与安全换行符"><a href="#git换行符自动转换与安全换行符" class="headerlink" title="git换行符自动转换与安全换行符"></a>git换行符自动转换与安全换行符</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.autocrlf <span class="literal">false</span>/<span class="literal">true</span> <span class="comment">#关闭/开启换行符自动转换</span></span><br><span class="line">$ git config --global core.safecrlf <span class="literal">false</span>/<span class="literal">true</span> <span class="comment">#关闭/开启安全换行符</span></span><br></pre></td></tr></table></figure>
-<h2 id="git查看设置列表"><a href="#git查看设置列表" class="headerlink" title="git查看设置列表"></a>git查看设置列表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config <span class="_">-l</span></span><br></pre></td></tr></table></figure>
+        <p>git的一些常用配置。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/12/30/git_config/#more">Read More</a>
           
        </p>
     </div>
@@ -233,55 +221,12 @@
 </header>
     <div class="article-content">
         
-        <p>在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法</p>
-<h2 id="导入源码"><a href="#导入源码" class="headerlink" title="导入源码"></a>导入源码</h2><h3 id="复制-classpath文件到源码根目录"><a href="#复制-classpath文件到源码根目录" class="headerlink" title="复制.classpath文件到源码根目录"></a>复制.classpath文件到源码根目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource</span><br><span class="line">$ cp development/ide/eclipse/.classpath ./</span><br></pre></td></tr></table></figure>
-<h3 id="使用统一的代码格式化风格"><a href="#使用统一的代码格式化风格" class="headerlink" title="使用统一的代码格式化风格"></a>使用统一的代码格式化风格</h3><p>在eclipse中点击Window - Preferences - Java - Code Style - Formatter选择development/ide/eclipse/android-formatting.xml</p>
-<h3 id="使用源码提供的导入顺序和结构"><a href="#使用源码提供的导入顺序和结构" class="headerlink" title="使用源码提供的导入顺序和结构"></a>使用源码提供的导入顺序和结构</h3><p>在eclipse中点击Window - Preferences - Java - Code Style - Organize Imports选择development/ide/eclipse/android-importorder</p>
-<h3 id="导入源码-1"><a href="#导入源码-1" class="headerlink" title="导入源码"></a>导入源码</h3><ol>
-<li>新建Java Project（不是Android project）</li>
-<li>选择从已存在的工程导入，选择安卓源码所在目录，填写项目名称，例如Android、cm11等</li>
-<li>点击finish，等待导入完成</li>
-</ol>
-<h2 id="排除源码中的报错"><a href="#排除源码中的报错" class="headerlink" title="排除源码中的报错"></a>排除源码中的报错</h2><h3 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h3><p>要排除源码内的报错，首先是必须完整的编译一次源码。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> build/envsetup.sh</span><br><span class="line">$ lunch full-eng</span><br><span class="line">$ make -jN   <span class="comment">#N为编译线程数</span></span><br></pre></td></tr></table></figure>
-<p>编译完成后刷新项目，某些报错已经没有了。</p>
-<h3 id="import语句报错"><a href="#import语句报错" class="headerlink" title="import语句报错"></a>import语句报错</h3><p>import语句报错，某个类找不到。</p>
-<h4 id="情形一"><a href="#情形一" class="headerlink" title="情形一"></a>情形一</h4><p>如果该类包含在一个static_java_lib（可以通过Android.mk）来确定。<br>例如spongycastle-light-jdk15on这就是一个静态java库，源码编译完成后会生成jar文件，那么只需要在.classpath中加入该jar即可。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"lib"</span> <span class="attr">path</span>=<span class="string">"out/target/common/obj/JAVA_LIBRARIES/spongycastle-light-jdk15on_intermediates/javalib.jar"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="情形二"><a href="#情形二" class="headerlink" title="情形二"></a>情形二</h4><p>如果该类库并未被编译成一个jar，而是以源码形式存在于android项目中。<br>例如volley，这时需要将该类库的src目录加入到.classpath中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">excluding</span>=<span class="string">"Android.mk"</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"frameworks/volley/src"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这里确认src的位置很重要，并不是目录名是src就加这个目录，关键是看包名。先查看eclipse中import的类的包名。<br>包名的第一段是类库所在文件夹的根目录名，例如com.xxx.xxx，那么src目录应该是com这个目录的父目录。<br>通常是src命名的，也有的是src/main/java这种的形式，根据包名来判断应该怎么添加。</p>
-<h4 id="情形三"><a href="#情形三" class="headerlink" title="情形三"></a>情形三</h4><p>R.java找不到<br>这种情况一般是没有完整编译过安卓源码，完整编译一次即可。参见编译源码</p>
-<h3 id="package语句报错"><a href="#package语句报错" class="headerlink" title="package语句报错"></a>package语句报错</h3><p>这种情况比较特殊了，通常情况下，java的类的包名是对应着文件夹的结构的。<br>例如类Test1.java，在src/com/my/test目录下，那么其包名就应该是com.my.test。<br>Test.java中的第一行有效代码就是申明包名，应该是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.test;</span><br></pre></td></tr></table></figure>
-<p>如果这一行报错让你移到别的包或者改包名，那么通常是因为某些项目没有遵守上述的规范导致的，eclipse必须按照目录结构来指定包名。而在android源码编译中用的是Gradle编译器，并不强制遵守上述规范，只是作为习惯，大部分都遵守了这种规范。</p>
-<p>在Gradle中，允许一种情况，如下：<br>在src/com/my/packagetest目录下，有一个类Test2.java，<br>正常情况下，Test2.java第一行是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.packagetest;</span><br></pre></td></tr></table></figure>
-<p>但Gradle中可以不是这样的，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.fiui.test;</span><br></pre></td></tr></table></figure>
-<p>这样就导致了eclipse不认识包名，但gradle却依然编译正常。</p>
-<blockquote>
-<p>需要说明的是，编译成jar或者dex之后，gradle里这种特殊的写法会按照标准重新生成目录结构。</p>
-<p>gradle编译之后，会把src/com/fiui/packagetest/Test2.java编译到包com.fiui.test下。</p>
-<p>可以反编译来验证一下。</p>
-</blockquote>
-<p>这时候，要去除eclipse报错，只能把这些类复制到其正确的包名的目录下，删除原错误包对应的目录。但这样一来会改变源码的目录结构，如果你从自己的git服务器上获取源码，那么推荐你修改一下，一劳永逸。如果你没有自己的git服务器，建议不要修改。</p>
-<h3 id="import-aidl报错"><a href="#import-aidl报错" class="headerlink" title="import aidl报错"></a>import aidl报错</h3><p>该情况出现在某些某些aidl中。<br>不能直接import一个aidl，而是import一个aidl编译出来的java文件。<br>例如源码中的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packages/apps/Calendar/src/com/android/lunar/ILunarService.aidl</span><br></pre></td></tr></table></figure>
-<p>这时候在eclispe中</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.android.lunar.ILunarService;</span><br></pre></td></tr></table></figure>
-<p>就会提示一个错误，ILunarService类不存在。<br>解决该错误需要事先完整编译过安卓源码，然后在out/target/common/obj/下找到该aidl生成的java文件然后导入eclipse即可。</p>
-<p>例如这里的ILunarService.aidl最终在</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/APPS/Calendar_intermediates/src/src</span><br></pre></td></tr></table></figure>
-<p>目录中被发现。通常该目录下还有一个扩展名为.p的文件。<br>并且通常目录路径的最后是src/src<br>那么在.classpath中加入</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"out/target/common/obj/APPS/Calendar_intermediates/src/src/"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>对于APK，通常在</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/APPS/[module_name]__intermediates/src/src</span><br></pre></td></tr></table></figure>
-<p>对于JAR,通常在</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out/target/common/obj/JAVA_LIBRARIES/[module_name]__intermediates/src/src</span><br></pre></td></tr></table></figure>
+        <p>在安卓源码环境下开发的时候，需要将安卓源码整个导入到eclipse中，下面给出导入方法和导入后源码报错的排除方法<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/12/28/import_android_source_to_eclipse/#more">Read More</a>
           
        </p>
     </div>
@@ -340,23 +285,12 @@
 </header>
     <div class="article-content">
         
-        <p>jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。</p>
-<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><h3 id="下载jadClipse-eclipse-plugin-jar"><a href="#下载jadClipse-eclipse-plugin-jar" class="headerlink" title="下载jadClipse(eclipse plugin jar)"></a>下载jadClipse(eclipse plugin jar)</h3><p>从下面的链接下面jadClipse插件<br><a href="http://jadclipse.sourceforge.net" target="_blank" rel="external">http://jadclipse.sourceforge.net</a><br>将插件的jar文件放置到eclipse安装目录下的plugins目录</p>
-<h3 id="下载jad-binary"><a href="#下载jad-binary" class="headerlink" title="下载jad(binary)"></a>下载jad(binary)</h3><p>从下面的链接选择适合自己系统版本的jad下载<br><a href="http://varaneckas.com/jad" target="_blank" rel="external">http://varaneckas.com/jad</a></p>
-<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><h4 id="unix-like系统下的配置"><a href="#unix-like系统下的配置" class="headerlink" title="unix-like系统下的配置"></a>unix-like系统下的配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir bin</span><br><span class="line">$ cp jad ~/bin/</span><br><span class="line">$ chmod 755 ~/bin/jad</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile <span class="comment"># or maybe ~/.bashrc</span></span><br></pre></td></tr></table></figure>
-<h4 id="windows系统下的配置"><a href="#windows系统下的配置" class="headerlink" title="windows系统下的配置"></a>windows系统下的配置</h4><p>将jad放置到任意一个目录下，最好路径中不包含中文或者空格。<br>在系统环境变量PATH中添加jad所在目录路径</p>
-<h3 id="eclipse配置"><a href="#eclipse配置" class="headerlink" title="eclipse配置"></a>eclipse配置</h3><ol>
-<li>点击Window - Preferences - Java - JadClipse，第一栏的path填写jad的完整路径名，例如/home/yourname/bin/jad</li>
-<li>点击File - Restart，来重新加载插件，使jadClipse生效</li>
-<li>点击Window - Preferences - General - Editors - File Associations，找到并选择*.class without source，点击下面的Add…找到JadClipse Class File Viewer，选择并确定</li>
-<li>选中JadClipse Class File Viewer 点 Default 确定</li>
-<li>重启eclipse</li>
-</ol>
-<h3 id="使用jadClipse前后的对比"><a href="#使用jadClipse前后的对比" class="headerlink" title="使用jadClipse前后的对比"></a>使用jadClipse前后的对比</h3><p><img src="/img/eclipse_without_jadclipse.png" alt="没有使用jadClipse时，CTRL+鼠标右键跳转后的界面"><br><img src="/img/eclipse_with_jadclipse.png" alt="使用了jadClipse后，CTRL+鼠标右键跳转后的界面"></p>
-
+        <p>jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/12/26/jad_clipse/#more">Read More</a>
           
        </p>
     </div>
@@ -415,35 +349,12 @@
 </header>
     <div class="article-content">
         
-        <p>在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。</p>
-<h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><h3 id="添加一个类库目录"><a href="#添加一个类库目录" class="headerlink" title="添加一个类库目录"></a>添加一个类库目录</h3><p>我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource</span><br><span class="line">$ mkdir mylib</span><br></pre></td></tr></table></figure>
-<h3 id="在mylib目录添加Android-mk"><a href="#在mylib目录添加Android-mk" class="headerlink" title="在mylib目录添加Android.mk"></a>在mylib目录添加Android.mk</h3><p>新建Android.mk</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">$ touch Android.mk</span><br></pre></td></tr></table></figure>
-<p>写入下面的内容</p>
-<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS) </span><br><span class="line"><span class="comment">#调用此目录下所有的mk文件</span></span><br><span class="line">include $(call all-makefiles-under, $(LOCAL_PATH))</span><br></pre></td></tr></table></figure>
-<h2 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h2><h3 id="情景一"><a href="#情景一" class="headerlink" title="情景一"></a>情景一</h3><p>该类库为编译好的jar文件,例如okhttputils.jar</p>
-<p>创建类库目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">$ mkdir OkHttpUtils</span><br><span class="line">$ <span class="built_in">cd</span> OkHttpUtils</span><br><span class="line">$ mkdir lib</span><br><span class="line">$ cp [your_path_to_okhttputils.jar] ./lib/</span><br></pre></td></tr></table></figure>
-<p>创建Android.mk</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource/mylib/OkHttpUtils</span><br><span class="line">$ touch Android.mk</span><br></pre></td></tr></table></figure>
-<p>写入下面的内容</p>
-<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS) </span><br><span class="line">LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := okhttputils:lib/OkHttpUtils.jar</span><br><span class="line">include $(BUILD_MULTI_PREBUILT)</span><br></pre></td></tr></table></figure>
-<h3 id="情景二"><a href="#情景二" class="headerlink" title="情景二"></a>情景二</h3><p>该类库为未编译的.java源码，例如FiuiOtaLib</p>
-<p>创建类库目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">$ mkdir FiuiOtaLib</span><br><span class="line">$ <span class="built_in">cd</span> OkHttpUtils</span><br><span class="line">$ mkdir src</span><br></pre></td></tr></table></figure>
-<p>拷贝源码至AndroidSource/mylib/FiuiOtaLib/src下</p>
-<p>创建Android.mk</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource/mylib/FiuiOtaLib</span><br><span class="line">$ touch Android.mk</span><br></pre></td></tr></table></figure>
-<p>写入下面的内容</p>
-<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_MODULE := fiuiotalib</span><br><span class="line">LOCAL_JAVA_LIBRARIES := gson</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okio</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_STATIC_JAVA_LIBRARY)</span><br></pre></td></tr></table></figure>
-<p>如果源码引用了其它的第三方类库，那么使用<br>LOCAL_JAVA_LIBRARIES += <em>*</em><br>来引用该库，注意千万不能是LOCAL_STATIC_JAVA_LIBRARIES,<br>这会引发一些错误。<br>另外请务必使用LOCAL_PROGUARD_ENABLED := disabled，否则可能无法编译通过</p>
-<h2 id="在APK中引用这类库"><a href="#在APK中引用这类库" class="headerlink" title="在APK中引用这类库"></a>在APK中引用这类库</h2><p>Android.mk示例如下：<br><figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_MODULE_TAGS := optional</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_PACKAGE_NAME := FiuiOTA</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES := fiuiotalib</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += gson</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okio</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_PACKAGE)</span><br></pre></td></tr></table></figure></p>
-<p>apk中引用类库请务必使用LOCAL_STATIC_JAVA_LIBRARIES<br>如果要使用LOCAL_JAVA_LIBRARIES，那么请你明白你自己在做什么，这么写需要boot.img中的内核启动脚本中将该jar加入CLASSPATH</p>
-
+        <p>在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/12/25/add_java_lib_for_android_source/#more">Read More</a>
           
        </p>
     </div>
@@ -502,17 +413,12 @@
 </header>
     <div class="article-content">
         
-        <p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。</p>
-<h2 id="自动执行recovery命令"><a href="#自动执行recovery命令" class="headerlink" title="自动执行recovery命令"></a>自动执行recovery命令</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>向/cache/recovery/command写入配置文本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   --send_intent=anystring                            #在屏幕上打印文本 </span></span><br><span class="line"><span class="comment"># *   --update_package=path                              #刷入zip卡刷包的路径 </span></span><br><span class="line"><span class="comment"># *   --wipe_data                                        #清除data分区，然后重启 </span></span><br><span class="line"><span class="comment"># *   --wipe_media                                       #清除内置媒体内容（很少用），然后重启 </span></span><br><span class="line"><span class="comment"># *   --locale=zh_CN                                     #指定屏幕上的文字为中文</span></span><br><span class="line"><span class="comment"># *   --wipe_cache                                       #清除cache分区，然后重启</span></span><br><span class="line"><span class="comment"># *   --set_encrypted_filesystem=on|off                  #打开/关闭加密文件系统</span></span><br></pre></td></tr></table></figure>
-<p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>向/cache/recovery/openrecoveryscript写入脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   install /sdcard/rom.zip                            #刷写/sdcard/rom.zip</span></span><br><span class="line"><span class="comment"># *   wipe data                                          #清除/data分区</span></span><br><span class="line"><span class="comment"># *   wipe cache                                         #清除/cache分区</span></span><br><span class="line"><span class="comment"># *   wipe dalvik                                        #清除dalvik缓存</span></span><br><span class="line"><span class="comment"># *   backup SDBOM                                       #压缩备份/system,/data,/boot分区数据,不使用md5校验</span></span><br><span class="line"><span class="comment"># *   backup SDBOM myrom                                 #功能同上,备份到myrom文件夹</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom      #恢复myrom文件夹中的所有分区数据到手机</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom DM   #仅恢复/data分区</span></span><br><span class="line"><span class="comment"># *   mount system                                       #挂载/system分区</span></span><br><span class="line"><span class="comment"># *   unmount system                                     #卸载载/system分区</span></span><br><span class="line"><span class="comment"># *   set tw_signed_zip_verify 0                         #关闭签名校验</span></span><br><span class="line"><span class="comment"># *   set tw_time_zone CST6;CDT                          #设置时区</span></span><br><span class="line"><span class="comment"># *   mkdir /sdcard/folder1/folder2                      #创建文件夹</span></span><br><span class="line"><span class="comment"># *   cmd chmod 755 /system/bin/htcdumlock               #使用shell命令,修改权限,注意要先mount</span></span><br></pre></td></tr></table></figure>
-<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自信验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
-
+        <p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/12/22/recovery_auto_command/#more">Read More</a>
           
        </p>
     </div>
@@ -571,13 +477,12 @@
 </header>
     <div class="article-content">
         
-        <p>android.os.SystemProperties类可以用来获取安卓系统的prop键值对信息，在安卓shell环境下等价方法为getprop与seprop命令。在安卓中这个类是隐藏的，无法在第三方app中调用，因此可以使用反射的方法来使用这个类， 下面构造一个新的类型SysProp，使用反射机制来完整的拷贝android.os.SystemProperties类的功能</p>
-<h2 id="SysProp源码"><a href="#SysProp源码" class="headerlink" title="SysProp源码"></a>SysProp源码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysProp</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		String value = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"get"</span>, String.class);</span><br><span class="line">			value = (String) method.invoke(<span class="keyword">null</span>, key);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">get</span><span class="params">(String key, String defaultValue)</span> </span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		String value = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"get"</span>, String.class, String.class);</span><br><span class="line">			value = (String) method.invoke(<span class="keyword">null</span>, key, defaultValue);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">(String key, <span class="keyword">int</span> defaultValue)</span></span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"getInt"</span>, String.class, <span class="keyword">int</span>.class);</span><br><span class="line">			value = (Integer) method.invoke(<span class="keyword">null</span>, key, defaultValue);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">getLong</span><span class="params">(String key, <span class="keyword">long</span> defaultValue)</span></span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">long</span> value = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"getLong"</span>, String.class, <span class="keyword">long</span>.class);</span><br><span class="line">			value = (Long) method.invoke(<span class="keyword">null</span>, key, defaultValue);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">getBoolean</span><span class="params">(String key, <span class="keyword">boolean</span> defaultValue)</span></span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">boolean</span> value = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"getBoolean"</span>, String.class, <span class="keyword">boolean</span>.class);</span><br><span class="line">			value = (Boolean) method.invoke(<span class="keyword">null</span>, key, defaultValue);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, String value)</span></span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"set"</span>, String.class, String.class);</span><br><span class="line">			method.invoke(<span class="keyword">null</span>, key, value);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addChangeCallback</span><span class="params">(Runnable runnable)</span></span>&#123;</span><br><span class="line">		Class&lt;?&gt; SysProp = <span class="keyword">null</span>;</span><br><span class="line">		Method method = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			SysProp = Class.forName(<span class="string">"android.os.SystemProperties"</span>);</span><br><span class="line">			method = SysProp.getMethod(<span class="string">"addChangeCallback"</span>, Runnable.class);</span><br><span class="line">			method.invoke(<span class="keyword">null</span>, runnable);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="SysProp附件"><a href="#SysProp附件" class="headerlink" title="SysProp附件"></a>SysProp附件</h2><p><a href="/file/SysProp.java">SysProp.java</a></p>
-
+        <p>android.os.SystemProperties类可以用来获取安卓系统的prop键值对信息，在安卓shell环境下等价方法为getprop与seprop命令。在安卓中这个类是隐藏的，无法在第三方app中调用，因此可以使用反射的方法来使用这个类， 下面构造一个新的类型SysProp，使用反射机制来完整的拷贝android.os.SystemProperties类的功能<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/12/20/sysprop/#more">Read More</a>
           
        </p>
     </div>
@@ -674,15 +579,15 @@
 			
 		
 			
+				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
@@ -690,15 +595,15 @@
 			
 		
 			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 			
@@ -710,7 +615,7 @@
 			
 		
 			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 		</ul>

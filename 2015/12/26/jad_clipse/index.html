@@ -11,21 +11,18 @@
     
 
     
-    <meta name="description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。
-安装方法下载jadClipse(eclipse plugin jar)从下面的链接下面jadClipse插件http://jadclipse.sourcefor">
+    <meta name="description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为eclipse安装jadClipse插件">
 <meta property="og:url" content="http://xiaozhuai.github.io/2015/12/26/jad_clipse/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。
-安装方法下载jadClipse(eclipse plugin jar)从下面的链接下面jadClipse插件http://jadclipse.sourcefor">
+<meta property="og:description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。">
 <meta property="og:image" content="http://xiaozhuai.github.io/img/eclipse_without_jadclipse.png">
 <meta property="og:image" content="http://xiaozhuai.github.io/img/eclipse_with_jadclipse.png">
-<meta property="og:updated_time" content="2016-03-18T22:08:28.000Z">
+<meta property="og:updated_time" content="2016-03-18T23:43:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为eclipse安装jadClipse插件">
-<meta name="twitter:description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。
-安装方法下载jadClipse(eclipse plugin jar)从下面的链接下面jadClipse插件http://jadclipse.sourcefor">
+<meta name="twitter:description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。">
 <meta name="twitter:image" content="http://xiaozhuai.github.io/img/eclipse_without_jadclipse.png">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
@@ -105,7 +102,7 @@
 		
 		</div>
 		
-		<p>jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。</p>
+		<p>jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。<br><a id="more"></a></p>
 <h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><h3 id="下载jadClipse-eclipse-plugin-jar"><a href="#下载jadClipse-eclipse-plugin-jar" class="headerlink" title="下载jadClipse(eclipse plugin jar)"></a>下载jadClipse(eclipse plugin jar)</h3><p>从下面的链接下面jadClipse插件<br><a href="http://jadclipse.sourceforge.net" target="_blank" rel="external">http://jadclipse.sourceforge.net</a><br>将插件的jar文件放置到eclipse安装目录下的plugins目录</p>
 <h3 id="下载jad-binary"><a href="#下载jad-binary" class="headerlink" title="下载jad(binary)"></a>下载jad(binary)</h3><p>从下面的链接选择适合自己系统版本的jad下载<br><a href="http://varaneckas.com/jad" target="_blank" rel="external">http://varaneckas.com/jad</a></p>
 <h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><h4 id="unix-like系统下的配置"><a href="#unix-like系统下的配置" class="headerlink" title="unix-like系统下的配置"></a>unix-like系统下的配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir bin</span><br><span class="line">$ cp jad ~/bin/</span><br><span class="line">$ chmod 755 ~/bin/jad</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile <span class="comment"># or maybe ~/.bashrc</span></span><br></pre></td></tr></table></figure>
@@ -264,15 +261,15 @@
 			
 		
 			
+				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
@@ -280,15 +277,15 @@
 			
 		
 			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 			
@@ -300,7 +297,7 @@
 			
 		
 			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 		</ul>

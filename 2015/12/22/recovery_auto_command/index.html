@@ -11,22 +11,16 @@
     
 
     
-    <meta name="description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。
-自动执行recovery命令方法一向/cache/recovery/command写入配置文本
-12345678# * 以下命令可能被支持 # *   --send_intent=anystring                            #在屏幕上打印文本 # *   -">
+    <meta name="description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重启至recovery自动执行recovery命令">
 <meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。
-自动执行recovery命令方法一向/cache/recovery/command写入配置文本
-12345678# * 以下命令可能被支持 # *   --send_intent=anystring                            #在屏幕上打印文本 # *   -">
-<meta property="og:updated_time" content="2016-03-18T21:13:59.000Z">
+<meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+<meta property="og:updated_time" content="2016-03-18T23:44:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重启至recovery自动执行recovery命令">
-<meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。
-自动执行recovery命令方法一向/cache/recovery/command写入配置文本
-12345678# * 以下命令可能被支持 # *   --send_intent=anystring                            #在屏幕上打印文本 # *   -">
+<meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -105,7 +99,7 @@
 		
 		</div>
 		
-		<p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。</p>
+		<p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。<br><a id="more"></a></p>
 <h2 id="自动执行recovery命令"><a href="#自动执行recovery命令" class="headerlink" title="自动执行recovery命令"></a>自动执行recovery命令</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>向/cache/recovery/command写入配置文本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   --send_intent=anystring                            #在屏幕上打印文本 </span></span><br><span class="line"><span class="comment"># *   --update_package=path                              #刷入zip卡刷包的路径 </span></span><br><span class="line"><span class="comment"># *   --wipe_data                                        #清除data分区，然后重启 </span></span><br><span class="line"><span class="comment"># *   --wipe_media                                       #清除内置媒体内容（很少用），然后重启 </span></span><br><span class="line"><span class="comment"># *   --locale=zh_CN                                     #指定屏幕上的文字为中文</span></span><br><span class="line"><span class="comment"># *   --wipe_cache                                       #清除cache分区，然后重启</span></span><br><span class="line"><span class="comment"># *   --set_encrypted_filesystem=on|off                  #打开/关闭加密文件系统</span></span><br></pre></td></tr></table></figure>
 <p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
@@ -258,15 +252,15 @@
 			
 		
 			
+				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
@@ -274,15 +268,15 @@
 			
 		
 			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 			
@@ -294,7 +288,7 @@
 			
 		
 			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 		</ul>
