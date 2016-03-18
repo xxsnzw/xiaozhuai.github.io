@@ -44,10 +44,10 @@
   
   <entry>
     <title>为android源码添加java类库</title>
-    <link href="http://xiaozhuai.github.io/2015/12/22/add_java_lib_for_android_source/"/>
-    <id>http://xiaozhuai.github.io/2015/12/22/add_java_lib_for_android_source/</id>
-    <published>2015-12-22T12:08:53.000Z</published>
-    <updated>2016-03-18T21:42:08.000Z</updated>
+    <link href="http://xiaozhuai.github.io/2015/12/25/add_java_lib_for_android_source/"/>
+    <id>http://xiaozhuai.github.io/2015/12/25/add_java_lib_for_android_source/</id>
+    <published>2015-12-25T11:45:12.000Z</published>
+    <updated>2016-03-18T21:43:28.000Z</updated>
     
     <content type="html">&lt;p&gt;在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。&lt;/p&gt;
 &lt;h2 id=&quot;步骤一&quot;&gt;&lt;a href=&quot;#步骤一&quot; class=&quot;headerlink&quot; title=&quot;步骤一&quot;&gt;&lt;/a&gt;步骤一&lt;/h2&gt;&lt;h3 id=&quot;添加一个类库目录&quot;&gt;&lt;a href=&quot;#添加一个类库目录&quot; class=&quot;headerlink&quot; title=&quot;添加一个类库目录&quot;&gt;&lt;/a&gt;添加一个类库目录&lt;/h3&gt;&lt;p&gt;我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库&lt;/p&gt;
