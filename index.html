@@ -80,6 +80,101 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/01/02/build_android_with_osx/" title="mac osx编译安卓源码（cm源码）" itemprop="url">mac osx编译安卓源码（cm源码）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-02T01:02:15.000Z" itemprop="datePublished"> 发表于 2016-01-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在mac osx环境下编译安卓源码，这里以编译cm11源码为例。</p>
+<h2 id="建立一个分区来储存源码"><a href="#建立一个分区来储存源码" class="headerlink" title="建立一个分区来储存源码"></a>建立一个分区来储存源码</h2><p>通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。<br>这里先新建一个区分大小写的文件系统。<br>可以分一个真实的无路分区，或者创建一个dmg镜像。<br>具体方法可以google一下，就不重点说了。</p>
+<h2 id="使用repo"><a href="#使用repo" class="headerlink" title="使用repo"></a>使用repo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/bin</span><br><span class="line">$ curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile</span><br><span class="line">$ chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
+<p>这一步和linux完全一样</p>
+<h2 id="同步源码"><a href="#同步源码" class="headerlink" title="同步源码"></a>同步源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ repo init -u [url]</span><br><span class="line">$ repo sync -jN <span class="comment">#N为同步源码使用的线程数</span></span><br></pre></td></tr></table></figure>
+<p>这一步和linux下完全一样</p>
+<h2 id="下载xcode5-1-1"><a href="#下载xcode5-1-1" class="headerlink" title="下载xcode5.1.1"></a>下载xcode5.1.1</h2><p>下载xcode5.1.1，必须使用这个版本的，我是试过很多个版本都无法成功编译。5.1.1这个版本是我自己测试可以编译通过的版本。<br>可以通过查看build/core/combo/HOST_darwin-x86.mk文件<br>搜索mac_sdk_versions_supported来确定源码支持的xcodesdk版本。<br>我尝试过不修改xcode版本，只修改xcode的sdk，依然不行，所以还是老老实实安装xcode5.1.1吧。</p>
+<p>如果你之前没有安装过xcode，那么直接安装xcode5.1.1就行了。<br>如果之前安装过其他版本的xcode，那么先把原先的xcode.app改名为xcode[version].app，例如xcode7.2.app。然后安装xcode5.1.1，安装完成后改名为xcode5.1.1.app。<br>xcode5.1.1下载链接如下，已百度云。密码nzce<br><a href="http://pan.baidu.com/s/1kUaF7oj" target="_blank" rel="external">http://pan.baidu.com/s/1kUaF7oj</a><br>如果之前安装过xcode，那么你需要修改xcode默认使用的版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo xcode-select <span class="_">-s</span> /Applications/Xcode5.1.1.app</span><br></pre></td></tr></table></figure>
+<p>然后安装xcode命令行工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo xcode-select --install</span><br></pre></td></tr></table></figure>
+<h2 id="安装MacPort"><a href="#安装MacPort" class="headerlink" title="安装MacPort"></a>安装MacPort</h2><p>从下面的链接下载安装<br><a href="http://www.macports.org/install.php" target="_blank" rel="external">http://www.macports.org/install.php</a></p>
+<h2 id="安装homebrew"><a href="#安装homebrew" class="headerlink" title="安装homebrew"></a>安装homebrew</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>确保你的~/.bash_profile中包含</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">"/opt/local/bin:/opt/local/sbin:<span class="variable">$PATH</span>"</span></span><br></pre></td></tr></table></figure>
+<p>并且它应该位于所有的PATH变量赋值语句的后面</p>
+<h2 id="使用MacPort安装编译环境"><a href="#使用MacPort安装编译环境" class="headerlink" title="使用MacPort安装编译环境"></a>使用MacPort安装编译环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo port install gmake libsdl gnupg</span><br></pre></td></tr></table></figure>
+<h2 id="使用homebrew安装额外的工具"><a href="#使用homebrew安装额外的工具" class="headerlink" title="使用homebrew安装额外的工具"></a>使用homebrew安装额外的工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install gnu-sed ag</span><br></pre></td></tr></table></figure>
+<h2 id="配置～-bash-profile"><a href="#配置～-bash-profile" class="headerlink" title="配置～/.bash_profile"></a>配置～/.bash_profile</h2><p>编辑～/.bash_profile，加入下面的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#设置mac编译android源码</span></span><br><span class="line"><span class="built_in">export</span> BUILD_MAC_SDK_EXPERIMENTAL=1</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置macsdk版本，为xcode下默认的sdk版本号</span></span><br><span class="line"><span class="built_in">export</span> MAC_SDK_VERSION=10.8</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置最大打开文件数，在mac下默认的比较小，如果你使用多线程编译的话，可能会超出默认的设置，这里改大一点</span></span><br><span class="line"><span class="built_in">ulimit</span> -S -n 1024</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置安卓编译ccache</span></span><br><span class="line"><span class="built_in">export</span> USE_CCACHE=1</span><br></pre></td></tr></table></figure>
+<h2 id="使用ccahe加速编译"><a href="#使用ccahe加速编译" class="headerlink" title="使用ccahe加速编译"></a>使用ccahe加速编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource</span><br><span class="line">$ prebuilts/misc/darwin-x86/ccache/ccache -M 50G <span class="comment">#50G指定ccache使用的最大空间</span></span><br></pre></td></tr></table></figure>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>这里以编译1+手机为例，oneplus one(bacon)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource</span><br><span class="line"><span class="built_in">source</span> build/envsetup.sh</span><br><span class="line">lunch cm_bacon-user</span><br><span class="line">make -j32</span><br></pre></td></tr></table></figure>
+<h2 id="编译过程中可能出现的错误"><a href="#编译过程中可能出现的错误" class="headerlink" title="编译过程中可能出现的错误"></a>编译过程中可能出现的错误</h2><h3 id="编译内核出现perl脚本错误"><a href="#编译内核出现perl脚本错误" class="headerlink" title="编译内核出现perl脚本错误"></a>编译内核出现perl脚本错误</h3><p>如下语句报错</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="keyword">defined</span>(@val))&#123;</span><br><span class="line">    <span class="regexp">//</span>******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!@val)&#123;</span><br><span class="line">    <span class="regexp">//</span>*******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即可，二者完全等价，报错与perl版本有关</p>
+<h3 id="stat命令错误"><a href="#stat命令错误" class="headerlink" title="stat命令错误"></a>stat命令错误</h3><p>编译过程中出现stat命令参数错误。<br>由于mac使用bstat，linux使用gstat。二者功能类似，但参数选项不同。<br>先使用homebrew安装coreutils</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils</span><br></pre></td></tr></table></figure>
+<p>这时候已经有gstat了，将其软链接为stat，借助port的目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/Cellar/coreutils/8.24/bin/gstat /opt/<span class="built_in">local</span>/bin/<span class="built_in">stat</span></span><br></pre></td></tr></table></figure>
+<p>这里的路径和coreutils版本有关，请自己查看版本确定正确的路径</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/cm/">cm</a><a href="/tags/编译/">编译</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/01/02/build_android_with_osx/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/01/02/build_android_with_osx/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/12/30/git_config/" title="git常用配置" itemprop="url">git常用配置</a>
   </h1>
   <p class="article-author">By
@@ -494,101 +589,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/20/build_android_with_osx/" title="mac osx编译安卓源码（cm源码）" itemprop="url">mac osx编译安卓源码（cm源码）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
-		
-  <p class="article-time">
-    <time datetime="2015-12-19T17:05:38.000Z" itemprop="datePublished"> 发表于 2015-12-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>在mac osx环境下编译安卓源码，这里以编译cm11源码为例。</p>
-<h2 id="建立一个分区来储存源码"><a href="#建立一个分区来储存源码" class="headerlink" title="建立一个分区来储存源码"></a>建立一个分区来储存源码</h2><p>通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。<br>这里先新建一个区分大小写的文件系统。<br>可以分一个真实的无路分区，或者创建一个dmg镜像。<br>具体方法可以google一下，就不重点说了。</p>
-<h2 id="使用repo"><a href="#使用repo" class="headerlink" title="使用repo"></a>使用repo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/bin</span><br><span class="line">$ curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile</span><br><span class="line">$ chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
-<p>这一步和linux完全一样</p>
-<h2 id="同步源码"><a href="#同步源码" class="headerlink" title="同步源码"></a>同步源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ repo init -u [url]</span><br><span class="line">$ repo sync -jN <span class="comment">#N为同步源码使用的线程数</span></span><br></pre></td></tr></table></figure>
-<p>这一步和linux下完全一样</p>
-<h2 id="下载xcode5-1-1"><a href="#下载xcode5-1-1" class="headerlink" title="下载xcode5.1.1"></a>下载xcode5.1.1</h2><p>下载xcode5.1.1，必须使用这个版本的，我是试过很多个版本都无法成功编译。5.1.1这个版本是我自己测试可以编译通过的版本。<br>可以通过查看build/core/combo/HOST_darwin-x86.mk文件<br>搜索mac_sdk_versions_supported来确定源码支持的xcodesdk版本。<br>我尝试过不修改xcode版本，只修改xcode的sdk，依然不行，所以还是老老实实安装xcode5.1.1吧。</p>
-<p>如果你之前没有安装过xcode，那么直接安装xcode5.1.1就行了。<br>如果之前安装过其他版本的xcode，那么先把原先的xcode.app改名为xcode[version].app，例如xcode7.2.app。然后安装xcode5.1.1，安装完成后改名为xcode5.1.1.app。<br>xcode5.1.1下载链接如下，已百度云。密码nzce<br><a href="http://pan.baidu.com/s/1kUaF7oj" target="_blank" rel="external">http://pan.baidu.com/s/1kUaF7oj</a><br>如果之前安装过xcode，那么你需要修改xcode默认使用的版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo xcode-select <span class="_">-s</span> /Applications/Xcode5.1.1.app</span><br></pre></td></tr></table></figure>
-<p>然后安装xcode命令行工具</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo xcode-select --install</span><br></pre></td></tr></table></figure>
-<h2 id="安装MacPort"><a href="#安装MacPort" class="headerlink" title="安装MacPort"></a>安装MacPort</h2><p>从下面的链接下载安装<br><a href="http://www.macports.org/install.php" target="_blank" rel="external">http://www.macports.org/install.php</a></p>
-<h2 id="安装homebrew"><a href="#安装homebrew" class="headerlink" title="安装homebrew"></a>安装homebrew</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)</span>"</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>确保你的~/.bash_profile中包含</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">"/opt/local/bin:/opt/local/sbin:<span class="variable">$PATH</span>"</span></span><br></pre></td></tr></table></figure>
-<p>并且它应该位于所有的PATH变量赋值语句的后面</p>
-<h2 id="使用MacPort安装编译环境"><a href="#使用MacPort安装编译环境" class="headerlink" title="使用MacPort安装编译环境"></a>使用MacPort安装编译环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo port install gmake libsdl gnupg</span><br></pre></td></tr></table></figure>
-<h2 id="使用homebrew安装额外的工具"><a href="#使用homebrew安装额外的工具" class="headerlink" title="使用homebrew安装额外的工具"></a>使用homebrew安装额外的工具</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install gnu-sed ag</span><br></pre></td></tr></table></figure>
-<h2 id="配置～-bash-profile"><a href="#配置～-bash-profile" class="headerlink" title="配置～/.bash_profile"></a>配置～/.bash_profile</h2><p>编辑～/.bash_profile，加入下面的内容</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#设置mac编译android源码</span></span><br><span class="line"><span class="built_in">export</span> BUILD_MAC_SDK_EXPERIMENTAL=1</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置macsdk版本，为xcode下默认的sdk版本号</span></span><br><span class="line"><span class="built_in">export</span> MAC_SDK_VERSION=10.8</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置最大打开文件数，在mac下默认的比较小，如果你使用多线程编译的话，可能会超出默认的设置，这里改大一点</span></span><br><span class="line"><span class="built_in">ulimit</span> -S -n 1024</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置安卓编译ccache</span></span><br><span class="line"><span class="built_in">export</span> USE_CCACHE=1</span><br></pre></td></tr></table></figure>
-<h2 id="使用ccahe加速编译"><a href="#使用ccahe加速编译" class="headerlink" title="使用ccahe加速编译"></a>使用ccahe加速编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> AndroidSource</span><br><span class="line">$ prebuilts/misc/darwin-x86/ccache/ccache -M 50G <span class="comment">#50G指定ccache使用的最大空间</span></span><br></pre></td></tr></table></figure>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>这里以编译1+手机为例，oneplus one(bacon)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource</span><br><span class="line"><span class="built_in">source</span> build/envsetup.sh</span><br><span class="line">lunch cm_bacon-user</span><br><span class="line">make -j32</span><br></pre></td></tr></table></figure>
-<h2 id="编译过程中可能出现的错误"><a href="#编译过程中可能出现的错误" class="headerlink" title="编译过程中可能出现的错误"></a>编译过程中可能出现的错误</h2><h3 id="编译内核出现perl脚本错误"><a href="#编译内核出现perl脚本错误" class="headerlink" title="编译内核出现perl脚本错误"></a>编译内核出现perl脚本错误</h3><p>如下语句报错</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="keyword">defined</span>(@val))&#123;</span><br><span class="line">    <span class="regexp">//</span>******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>改为</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!@val)&#123;</span><br><span class="line">    <span class="regexp">//</span>*******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即可，二者完全等价，报错与perl版本有关</p>
-<h3 id="stat命令错误"><a href="#stat命令错误" class="headerlink" title="stat命令错误"></a>stat命令错误</h3><p>编译过程中出现stat命令参数错误。<br>由于mac使用bstat，linux使用gstat。二者功能类似，但参数选项不同。<br>先使用homebrew安装coreutils</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils</span><br></pre></td></tr></table></figure>
-<p>这时候已经有gstat了，将其软链接为stat，借助port的目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/Cellar/coreutils/8.24/bin/gstat /opt/<span class="built_in">local</span>/bin/<span class="built_in">stat</span></span><br></pre></td></tr></table></figure>
-<p>这里的路径和coreutils版本有关，请自己查看版本确定正确的路径</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/安卓/">安卓</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/cm/">cm</a><a href="/tags/编译/">编译</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/12/20/build_android_with_osx/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/20/build_android_with_osx/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/12/20/sysprop/" title="利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能" itemprop="url">利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能</a>
   </h1>
   <p class="article-author">By
@@ -705,15 +705,15 @@
 			
 		
 			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
@@ -721,15 +721,15 @@
 			
 		
 			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 			
@@ -741,7 +741,7 @@
 			
 		
 			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 		</ul>
