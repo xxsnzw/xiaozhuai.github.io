@@ -11,22 +11,16 @@
     
 
     
-    <meta name="description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。
-建立一个分区来储存源码通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。这里先新建一个区分大小写的文件系统。可以分一个真实的无路分区，或者创建一个dmg镜像。具体方法可以google一下，就不重点说了。
-使用repo1234$ mkdir ~/bin$ curl https://stora">
+    <meta name="description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mac osx编译安卓源码（cm源码）">
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/01/02/build_android_with_osx/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。
-建立一个分区来储存源码通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。这里先新建一个区分大小写的文件系统。可以分一个真实的无路分区，或者创建一个dmg镜像。具体方法可以google一下，就不重点说了。
-使用repo1234$ mkdir ~/bin$ curl https://stora">
-<meta property="og:updated_time" content="2016-03-18T23:40:55.000Z">
+<meta property="og:description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。">
+<meta property="og:updated_time" content="2016-03-18T23:42:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac osx编译安卓源码（cm源码）">
-<meta name="twitter:description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。
-建立一个分区来储存源码通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。这里先新建一个区分大小写的文件系统。可以分一个真实的无路分区，或者创建一个dmg镜像。具体方法可以google一下，就不重点说了。
-使用repo1234$ mkdir ~/bin$ curl https://stora">
+<meta name="twitter:description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -105,7 +99,7 @@
 		
 		</div>
 		
-		<p>在mac osx环境下编译安卓源码，这里以编译cm11源码为例。</p>
+		<p>在mac osx环境下编译安卓源码，这里以编译cm11源码为例。<br><a id="more"></a></p>
 <h2 id="建立一个分区来储存源码"><a href="#建立一个分区来储存源码" class="headerlink" title="建立一个分区来储存源码"></a>建立一个分区来储存源码</h2><p>通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。<br>这里先新建一个区分大小写的文件系统。<br>可以分一个真实的无路分区，或者创建一个dmg镜像。<br>具体方法可以google一下，就不重点说了。</p>
 <h2 id="使用repo"><a href="#使用repo" class="headerlink" title="使用repo"></a>使用repo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/bin</span><br><span class="line">$ curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile</span><br><span class="line">$ chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
 <p>这一步和linux完全一样</p>
@@ -276,19 +270,11 @@
 			
 		
 			
-				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>1</sup></a></li>
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 			
@@ -296,11 +282,19 @@
 			
 		
 			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 			
@@ -312,7 +306,7 @@
 			
 		
 			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
 			
 		
 		</ul>
