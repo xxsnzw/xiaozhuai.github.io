@@ -80,28 +80,31 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/17/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/12/26/jad_clipse/" title="为eclipse安装jadClipse插件" itemprop="url">为eclipse安装jadClipse插件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-16T21:44:28.000Z" itemprop="datePublished"> 发表于 2016-03-17</time>
+    <time datetime="2015-12-26T07:05:03.000Z" itemprop="datePublished"> 发表于 2015-12-26</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。</p>
+<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><h3 id="下载jadClipse-eclipse-plugin-jar"><a href="#下载jadClipse-eclipse-plugin-jar" class="headerlink" title="下载jadClipse(eclipse plugin jar)"></a>下载jadClipse(eclipse plugin jar)</h3><p>从下面的链接下面jadClipse插件<br><a href="http://jadclipse.sourceforge.net" target="_blank" rel="external">http://jadclipse.sourceforge.net</a><br>将插件的jar文件放置到eclipse安装目录下的plugins目录</p>
+<h3 id="下载jad-binary"><a href="#下载jad-binary" class="headerlink" title="下载jad(binary)"></a>下载jad(binary)</h3><p>从下面的链接选择适合自己系统版本的jad下载<br><a href="http://varaneckas.com/jad" target="_blank" rel="external">http://varaneckas.com/jad</a></p>
+<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><h4 id="unix-like系统下的配置"><a href="#unix-like系统下的配置" class="headerlink" title="unix-like系统下的配置"></a>unix-like系统下的配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir bin</span><br><span class="line">$ cp jad ~/bin/</span><br><span class="line">$ chmod 755 ~/bin/jad</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile <span class="comment"># or maybe ~/.bashrc</span></span><br></pre></td></tr></table></figure>
+<h4 id="windows系统下的配置"><a href="#windows系统下的配置" class="headerlink" title="windows系统下的配置"></a>windows系统下的配置</h4><p>将jad放置到任意一个目录下，最好路径中不包含中文或者空格。<br>在系统环境变量PATH中添加jad所在目录路径</p>
+<h3 id="eclipse配置"><a href="#eclipse配置" class="headerlink" title="eclipse配置"></a>eclipse配置</h3><ol>
+<li>点击Window - Preferences - Java - JadClipse，第一栏的path填写jad的完整路径名，例如/home/yourname/bin/jad</li>
+<li>点击File - Restart，来重新加载插件，使jadClipse生效</li>
+<li>点击Window - Preferences - General - Editors - File Associations，找到并选择*.class without source，点击下面的Add…找到JadClipse Class File Viewer，选择并确定</li>
+<li>选中JadClipse Class File Viewer 点 Default 确定</li>
+<li>重启eclipse<h3 id="使用jadClipse前后的对比"><a href="#使用jadClipse前后的对比" class="headerlink" title="使用jadClipse前后的对比"></a>使用jadClipse前后的对比</h3><img src="/img/eclipse_without_jadclipse.png" alt="没有使用jadClipse时，CTRL+鼠标右键跳转后的界面"><br><img src="/img/eclipse_with_jadclipse.png" alt="使用了jadClipse后，CTRL+鼠标右键跳转后的界面"></li>
+</ol>
 
         
         
@@ -112,6 +115,16 @@
     <footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/eclipse/">eclipse</a><a href="/tags/adt/">adt</a><a href="/tags/反编译/">反编译</a>
+  </div>
 
 </div>
 
@@ -121,7 +134,7 @@
 <div class="comments-count">
 	
 	  	<span></span>
-		<a href="/2016/03/17/hello-world/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/17/hello-world/" data-count-type="comments">&nbsp;</a>
+		<a href="/2015/12/26/jad_clipse/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/26/jad_clipse/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
@@ -380,6 +393,10 @@
 		<ul>
 		
 		  
+			<li><a href="/categories/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/安卓/" title="安卓">安卓<sup>3</sup></a></li>
 		  
 		
@@ -393,7 +410,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/安卓/" title="安卓">安卓<sup>3</sup></a></li>
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>4</sup></a></li>
 			
 		
 			
@@ -402,6 +419,18 @@
 		
 			
 				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			

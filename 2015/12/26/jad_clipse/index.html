@@ -4,29 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>重启至recovery自动执行recovery命令 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>为eclipse安装jadClipse插件 | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。
-自动执行recovery命令方法一向/cache/recovery/command写入配置文本
-12345678# * 以下命令可能被支持 # *   --send_intent=anystring                            #在屏幕上打印文本 # *   -">
+    <meta name="description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。
+安装方法下载jadClipse(eclipse plugin jar)从下面的链接下面jadClipse插件http://jadclipse.sourcefor">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重启至recovery自动执行recovery命令">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/index.html">
+<meta property="og:title" content="为eclipse安装jadClipse插件">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/26/jad_clipse/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。
-自动执行recovery命令方法一向/cache/recovery/command写入配置文本
-12345678# * 以下命令可能被支持 # *   --send_intent=anystring                            #在屏幕上打印文本 # *   -">
-<meta property="og:updated_time" content="2016-03-18T21:13:59.000Z">
+<meta property="og:description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。
+安装方法下载jadClipse(eclipse plugin jar)从下面的链接下面jadClipse插件http://jadclipse.sourcefor">
+<meta property="og:image" content="http://xiaozhuai.github.io/img/eclipse_without_jadclipse.png">
+<meta property="og:image" content="http://xiaozhuai.github.io/img/eclipse_with_jadclipse.png">
+<meta property="og:updated_time" content="2016-03-18T22:06:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重启至recovery自动执行recovery命令">
-<meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。
-自动执行recovery命令方法一向/cache/recovery/command写入配置文本
-12345678# * 以下命令可能被支持 # *   --send_intent=anystring                            #在屏幕上打印文本 # *   -">
+<meta name="twitter:title" content="为eclipse安装jadClipse插件">
+<meta name="twitter:description" content="jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。
+安装方法下载jadClipse(eclipse plugin jar)从下面的链接下面jadClipse插件http://jadclipse.sourcefor">
+<meta name="twitter:image" content="http://xiaozhuai.github.io/img/eclipse_without_jadclipse.png">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -85,14 +85,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/22/recovery_auto_command/" title="重启至recovery自动执行recovery命令" itemprop="url">重启至recovery自动执行recovery命令</a>
+      <a href="/2015/12/26/jad_clipse/" title="为eclipse安装jadClipse插件" itemprop="url">为eclipse安装jadClipse插件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-22T12:08:53.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    <time datetime="2015-12-26T07:05:03.000Z" itemprop="datePublished"> 发表于 2015-12-26</time>
     
   </p>
 </header>
@@ -101,17 +101,22 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装方法"><span class="toc-number">1.</span> <span class="toc-text">安装方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载jadClipse-eclipse-plugin-jar"><span class="toc-number">1.1.</span> <span class="toc-text">下载jadClipse(eclipse plugin jar)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载jad-binary"><span class="toc-number">1.2.</span> <span class="toc-text">下载jad(binary)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统配置"><span class="toc-number">1.3.</span> <span class="toc-text">系统配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#unix-like系统下的配置"><span class="toc-number">1.3.1.</span> <span class="toc-text">unix-like系统下的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#windows系统下的配置"><span class="toc-number">1.3.2.</span> <span class="toc-text">windows系统下的配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eclipse配置"><span class="toc-number">1.4.</span> <span class="toc-text">eclipse配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用jadClipse前后的对比"><span class="toc-number">1.5.</span> <span class="toc-text">使用jadClipse前后的对比</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。</p>
-<h2 id="自动执行recovery命令"><a href="#自动执行recovery命令" class="headerlink" title="自动执行recovery命令"></a>自动执行recovery命令</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>向/cache/recovery/command写入配置文本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   --send_intent=anystring                            #在屏幕上打印文本 </span></span><br><span class="line"><span class="comment"># *   --update_package=path                              #刷入zip卡刷包的路径 </span></span><br><span class="line"><span class="comment"># *   --wipe_data                                        #清除data分区，然后重启 </span></span><br><span class="line"><span class="comment"># *   --wipe_media                                       #清除内置媒体内容（很少用），然后重启 </span></span><br><span class="line"><span class="comment"># *   --locale=zh_CN                                     #指定屏幕上的文字为中文</span></span><br><span class="line"><span class="comment"># *   --wipe_cache                                       #清除cache分区，然后重启</span></span><br><span class="line"><span class="comment"># *   --set_encrypted_filesystem=on|off                  #打开/关闭加密文件系统</span></span><br></pre></td></tr></table></figure>
-<p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>向/cache/recovery/openrecoveryscript写入脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   install /sdcard/rom.zip                            #刷写/sdcard/rom.zip</span></span><br><span class="line"><span class="comment"># *   wipe data                                          #清除/data分区</span></span><br><span class="line"><span class="comment"># *   wipe cache                                         #清除/cache分区</span></span><br><span class="line"><span class="comment"># *   wipe dalvik                                        #清除dalvik缓存</span></span><br><span class="line"><span class="comment"># *   backup SDBOM                                       #压缩备份/system,/data,/boot分区数据,不使用md5校验</span></span><br><span class="line"><span class="comment"># *   backup SDBOM myrom                                 #功能同上,备份到myrom文件夹</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom      #恢复myrom文件夹中的所有分区数据到手机</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom DM   #仅恢复/data分区</span></span><br><span class="line"><span class="comment"># *   mount system                                       #挂载/system分区</span></span><br><span class="line"><span class="comment"># *   unmount system                                     #卸载载/system分区</span></span><br><span class="line"><span class="comment"># *   set tw_signed_zip_verify 0                         #关闭签名校验</span></span><br><span class="line"><span class="comment"># *   set tw_time_zone CST6;CDT                          #设置时区</span></span><br><span class="line"><span class="comment"># *   mkdir /sdcard/folder1/folder2                      #创建文件夹</span></span><br><span class="line"><span class="comment"># *   cmd chmod 755 /system/bin/htcdumlock               #使用shell命令,修改权限,注意要先mount</span></span><br></pre></td></tr></table></figure>
-<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自信验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
+		<p>jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。</p>
+<h2 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h2><h3 id="下载jadClipse-eclipse-plugin-jar"><a href="#下载jadClipse-eclipse-plugin-jar" class="headerlink" title="下载jadClipse(eclipse plugin jar)"></a>下载jadClipse(eclipse plugin jar)</h3><p>从下面的链接下面jadClipse插件<br><a href="http://jadclipse.sourceforge.net" target="_blank" rel="external">http://jadclipse.sourceforge.net</a><br>将插件的jar文件放置到eclipse安装目录下的plugins目录</p>
+<h3 id="下载jad-binary"><a href="#下载jad-binary" class="headerlink" title="下载jad(binary)"></a>下载jad(binary)</h3><p>从下面的链接选择适合自己系统版本的jad下载<br><a href="http://varaneckas.com/jad" target="_blank" rel="external">http://varaneckas.com/jad</a></p>
+<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><h4 id="unix-like系统下的配置"><a href="#unix-like系统下的配置" class="headerlink" title="unix-like系统下的配置"></a>unix-like系统下的配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir bin</span><br><span class="line">$ cp jad ~/bin/</span><br><span class="line">$ chmod 755 ~/bin/jad</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"~/bin:<span class="variable">$PATH</span>"</span> &gt;&gt; ~/.bash_profile <span class="comment"># or maybe ~/.bashrc</span></span><br></pre></td></tr></table></figure>
+<h4 id="windows系统下的配置"><a href="#windows系统下的配置" class="headerlink" title="windows系统下的配置"></a>windows系统下的配置</h4><p>将jad放置到任意一个目录下，最好路径中不包含中文或者空格。<br>在系统环境变量PATH中添加jad所在目录路径</p>
+<h3 id="eclipse配置"><a href="#eclipse配置" class="headerlink" title="eclipse配置"></a>eclipse配置</h3><ol>
+<li>点击Window - Preferences - Java - JadClipse，第一栏的path填写jad的完整路径名，例如/home/yourname/bin/jad</li>
+<li>点击File - Restart，来重新加载插件，使jadClipse生效</li>
+<li>点击Window - Preferences - General - Editors - File Associations，找到并选择*.class without source，点击下面的Add…找到JadClipse Class File Viewer，选择并确定</li>
+<li>选中JadClipse Class File Viewer 点 Default 确定</li>
+<li>重启eclipse<h3 id="使用jadClipse前后的对比"><a href="#使用jadClipse前后的对比" class="headerlink" title="使用jadClipse前后的对比"></a>使用jadClipse前后的对比</h3><img src="/img/eclipse_without_jadclipse.png" alt="没有使用jadClipse时，CTRL+鼠标右键跳转后的界面"><br><img src="/img/eclipse_with_jadclipse.png" alt="使用了jadClipse后，CTRL+鼠标右键跳转后的界面"></li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,13 +124,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+  <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/recovery/">recovery</a>
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/eclipse/">eclipse</a><a href="/tags/adt/">adt</a><a href="/tags/反编译/">反编译</a>
   </div>
 
 </div>
@@ -170,19 +175,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/25/add_java_lib_for_android_source/" title="为android源码添加java类库">
-  <strong>&nbsp;上一篇</strong><br/>
-  <span>
-  为android源码添加java类库</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/20/sysprop/"  title="利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能">
+<a href="/2015/12/25/add_java_lib_for_android_source/"  title="为android源码添加java类库">
  <strong>下一篇&nbsp;</strong><br/> 
- <span>利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能
+ <span>为android源码添加java类库
 </span>
 </a>
 </div>
@@ -191,7 +188,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/22/recovery_auto_command/" data-title="重启至recovery自动执行recovery命令" data-url="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/26/jad_clipse/" data-title="为eclipse安装jadClipse插件" data-url="http://xiaozhuai.github.io/2015/12/26/jad_clipse/"></div>
 </section>
 
 
@@ -201,7 +198,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装方法"><span class="toc-number">1.</span> <span class="toc-text">安装方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载jadClipse-eclipse-plugin-jar"><span class="toc-number">1.1.</span> <span class="toc-text">下载jadClipse(eclipse plugin jar)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载jad-binary"><span class="toc-number">1.2.</span> <span class="toc-text">下载jad(binary)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统配置"><span class="toc-number">1.3.</span> <span class="toc-text">系统配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#unix-like系统下的配置"><span class="toc-number">1.3.1.</span> <span class="toc-text">unix-like系统下的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#windows系统下的配置"><span class="toc-number">1.3.2.</span> <span class="toc-text">windows系统下的配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eclipse配置"><span class="toc-number">1.4.</span> <span class="toc-text">eclipse配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用jadClipse前后的对比"><span class="toc-number">1.5.</span> <span class="toc-text">使用jadClipse前后的对比</span></a></li></ol></li></ol>
  
   </div>
 

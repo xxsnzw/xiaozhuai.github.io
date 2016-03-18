@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaozhuai.github.io/"/>
-  <updated>2016-03-16T21:44:28.000Z</updated>
+  <updated>2016-03-18T22:06:56.000Z</updated>
   <id>http://xiaozhuai.github.io/</id>
   
   <author>
@@ -16,29 +16,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://xiaozhuai.github.io/2016/03/17/hello-world/"/>
-    <id>http://xiaozhuai.github.io/2016/03/17/hello-world/</id>
-    <published>2016-03-16T21:44:28.000Z</published>
-    <updated>2016-03-16T21:44:28.000Z</updated>
+    <title>为eclipse安装jadClipse插件</title>
+    <link href="http://xiaozhuai.github.io/2015/12/26/jad_clipse/"/>
+    <id>http://xiaozhuai.github.io/2015/12/26/jad_clipse/</id>
+    <published>2015-12-26T07:05:03.000Z</published>
+    <updated>2016-03-18T22:06:56.000Z</updated>
     
-    <content type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Generate-static-files&quot;&gt;&lt;a href=&quot;#Generate-static-files&quot; class=&quot;headerlink&quot; title=&quot;Generate static files&quot;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo generate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Deploy-to-remote-sites&quot;&gt;&lt;a href=&quot;#Deploy-to-remote-sites&quot; class=&quot;headerlink&quot; title=&quot;Deploy to remote sites&quot;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。&lt;/p&gt;
+&lt;h2 id=&quot;安装方法&quot;&gt;&lt;a href=&quot;#安装方法&quot; class=&quot;headerlink&quot; title=&quot;安装方法&quot;&gt;&lt;/a&gt;安装方法&lt;/h2&gt;&lt;h3 id=&quot;下载jadClipse-eclipse-plugin-jar&quot;&gt;&lt;a href=&quot;#下载jadClipse-eclipse-plugin-jar&quot; class=&quot;headerlink&quot; title=&quot;下载jadClipse(eclipse plugin jar)&quot;&gt;&lt;/a&gt;下载jadClipse(eclipse plugin jar)&lt;/h3&gt;&lt;p&gt;从下面的链接下面jadClipse插件&lt;br&gt;&lt;a href=&quot;http://jadclipse.sourceforge.net&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jadclipse.sourceforge.net&lt;/a&gt;&lt;br&gt;将插件的jar文件放置到eclipse安装目录下的plugins目录&lt;/p&gt;
+&lt;h3 id=&quot;下载jad-binary&quot;&gt;&lt;a href=&quot;#下载jad-binary&quot; class=&quot;headerlink&quot; title=&quot;下载jad(binary)&quot;&gt;&lt;/a&gt;下载jad(binary)&lt;/h3&gt;&lt;p&gt;从下面的链接选择适合自己系统版本的jad下载&lt;br&gt;&lt;a href=&quot;http://varaneckas.com/jad&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://varaneckas.com/jad&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;系统配置&quot;&gt;&lt;a href=&quot;#系统配置&quot; class=&quot;headerlink&quot; title=&quot;系统配置&quot;&gt;&lt;/a&gt;系统配置&lt;/h3&gt;&lt;h4 id=&quot;unix-like系统下的配置&quot;&gt;&lt;a href=&quot;#unix-like系统下的配置&quot; class=&quot;headerlink&quot; title=&quot;unix-like系统下的配置&quot;&gt;&lt;/a&gt;unix-like系统下的配置&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; ~&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ mkdir bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ cp jad ~/bin/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ chmod 755 ~/bin/jad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;~/bin:&lt;span class=&quot;variable&quot;&gt;$PATH&lt;/span&gt;&quot;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile &lt;span class=&quot;comment&quot;&gt;# or maybe ~/.bashrc&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;windows系统下的配置&quot;&gt;&lt;a href=&quot;#windows系统下的配置&quot; class=&quot;headerlink&quot; title=&quot;windows系统下的配置&quot;&gt;&lt;/a&gt;windows系统下的配置&lt;/h4&gt;&lt;p&gt;将jad放置到任意一个目录下，最好路径中不包含中文或者空格。&lt;br&gt;在系统环境变量PATH中添加jad所在目录路径&lt;/p&gt;
+&lt;h3 id=&quot;eclipse配置&quot;&gt;&lt;a href=&quot;#eclipse配置&quot; class=&quot;headerlink&quot; title=&quot;eclipse配置&quot;&gt;&lt;/a&gt;eclipse配置&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;点击Window - Preferences - Java - JadClipse，第一栏的path填写jad的完整路径名，例如/home/yourname/bin/jad&lt;/li&gt;
+&lt;li&gt;点击File - Restart，来重新加载插件，使jadClipse生效&lt;/li&gt;
+&lt;li&gt;点击Window - Preferences - General - Editors - File Associations，找到并选择*.class without source，点击下面的Add…找到JadClipse Class File Viewer，选择并确定&lt;/li&gt;
+&lt;li&gt;选中JadClipse Class File Viewer 点 Default 确定&lt;/li&gt;
+&lt;li&gt;重启eclipse&lt;h3 id=&quot;使用jadClipse前后的对比&quot;&gt;&lt;a href=&quot;#使用jadClipse前后的对比&quot; class=&quot;headerlink&quot; title=&quot;使用jadClipse前后的对比&quot;&gt;&lt;/a&gt;使用jadClipse前后的对比&lt;/h3&gt;&lt;img src=&quot;/img/eclipse_without_jadclipse.png&quot; alt=&quot;没有使用jadClipse时，CTRL+鼠标右键跳转后的界面&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/eclipse_with_jadclipse.png&quot; alt=&quot;使用了jadClipse后，CTRL+鼠标右键跳转后的界面&quot;&gt;&lt;/li&gt;
+&lt;/ol&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      &lt;p&gt;jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。&lt;/p&gt;
+&lt;h2 id=&quot;安装方法&quot;
     
     </summary>
     
+      <category term="JAVA" scheme="http://xiaozhuai.github.io/categories/JAVA/"/>
+    
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
+    
+      <category term="eclipse" scheme="http://xiaozhuai.github.io/tags/eclipse/"/>
+    
+      <category term="adt" scheme="http://xiaozhuai.github.io/tags/adt/"/>
+    
+      <category term="反编译" scheme="http://xiaozhuai.github.io/tags/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
     
   </entry>
   
