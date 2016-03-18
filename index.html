@@ -141,6 +141,93 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/12/22/add_java_lib_for_android_source/" title="为android源码添加java类库" itemprop="url">为android源码添加java类库</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-22T12:08:53.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。</p>
+<h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><h3 id="添加一个类库目录"><a href="#添加一个类库目录" class="headerlink" title="添加一个类库目录"></a>添加一个类库目录</h3><p>我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource</span><br><span class="line">mkdir mylib</span><br></pre></td></tr></table></figure>
+<h3 id="在mylib目录添加Android-mk"><a href="#在mylib目录添加Android-mk" class="headerlink" title="在mylib目录添加Android.mk"></a>在mylib目录添加Android.mk</h3><p>新建Android.mk</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">touch Android.mk</span><br></pre></td></tr></table></figure>
+<p>写入下面的内容</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS) </span><br><span class="line"><span class="comment">#调用此目录下所有的mk文件</span></span><br><span class="line">include $(call all-makefiles-under, $(LOCAL_PATH))</span><br></pre></td></tr></table></figure>
+<h2 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h2><h3 id="情景一"><a href="#情景一" class="headerlink" title="情景一"></a>情景一</h3><p>该类库为编译好的jar文件,例如okhttputils.jar</p>
+<p>创建类库目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">mkdir OkHttpUtils</span><br><span class="line"><span class="built_in">cd</span> OkHttpUtils</span><br><span class="line">mkdir lib</span><br><span class="line">cp [your_path_to_okhttputils.jar] ./lib/</span><br></pre></td></tr></table></figure>
+<p>创建Android.mk</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib/OkHttpUtils</span><br><span class="line">touch Android.mk</span><br></pre></td></tr></table></figure>
+<p>写入下面的内容</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS) </span><br><span class="line">LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := okhttputils:lib/OkHttpUtils.jar</span><br><span class="line">include $(BUILD_MULTI_PREBUILT)</span><br></pre></td></tr></table></figure>
+<h3 id="情景二"><a href="#情景二" class="headerlink" title="情景二"></a>情景二</h3><p>该类库为未编译的.java源码，例如FiuiOtaLib</p>
+<p>创建类库目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">mkdir FiuiOtaLib</span><br><span class="line"><span class="built_in">cd</span> OkHttpUtils</span><br><span class="line">mkdir src</span><br></pre></td></tr></table></figure>
+<p>拷贝源码至AndroidSource/mylib/FiuiOtaLib/src下</p>
+<p>创建Android.mk</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib/FiuiOtaLib</span><br><span class="line">touch Android.mk</span><br></pre></td></tr></table></figure>
+<p>写入下面的内容</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_MODULE := fiuiotalib</span><br><span class="line">LOCAL_JAVA_LIBRARIES := gson</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okio</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_STATIC_JAVA_LIBRARY)</span><br></pre></td></tr></table></figure>
+<p>如果源码引用了其它的第三方类库，那么使用<br>LOCAL_JAVA_LIBRARIES += <em>*</em><br>来引用该库，注意千万不能是LOCAL_STATIC_JAVA_LIBRARIES,<br>这会引发一些错误。<br>另外请务必使用LOCAL_PROGUARD_ENABLED := disabled，否则可能无法编译通过</p>
+<h2 id="在APK中引用这类库"><a href="#在APK中引用这类库" class="headerlink" title="在APK中引用这类库"></a>在APK中引用这类库</h2><p>Android.mk示例如下：<br><figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_MODULE_TAGS := optional</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_PACKAGE_NAME := FiuiOTA</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES := fiuiotalib</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += gson</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okio</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_PACKAGE)</span><br></pre></td></tr></table></figure></p>
+<p>apk中引用类库请务必使用LOCAL_STATIC_JAVA_LIBRARIES<br>如果要使用LOCAL_JAVA_LIBRARIES，那么请你明白你自己在做什么，这么写需要boot.img中的内核启动脚本中将该jar加入CLASSPATH</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/安卓源码/">安卓源码</a><a href="/tags/cm源码/">cm源码</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/22/add_java_lib_for_android_source/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/22/add_java_lib_for_android_source/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/12/22/recovery_auto_command/" title="重启至recovery自动执行recovery命令" itemprop="url">重启至recovery自动执行recovery命令</a>
   </h1>
   <p class="article-author">By
@@ -293,7 +380,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/安卓/" title="安卓">安卓<sup>2</sup></a></li>
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>3</sup></a></li>
 		  
 		
 		</ul>
@@ -306,7 +393,15 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/安卓/" title="安卓">安卓<sup>2</sup></a></li>
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
 			
 		
 			

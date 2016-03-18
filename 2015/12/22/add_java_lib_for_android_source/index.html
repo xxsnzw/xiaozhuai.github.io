@@ -1,0 +1,519 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>为android源码添加java类库 | Welcome to xiaozhuai&#39;s github blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="xiaozhuai">
+    
+
+    
+    <meta name="description" content="在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。
+步骤一添加一个类库目录我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库
+12cd AndroidSourcemkdir mylib
+在mylib目录添加Android.mk新建Android.mk
+12cd AndroidSource">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为android源码添加java类库">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/add_java_lib_for_android_source/index.html">
+<meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
+<meta property="og:description" content="在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。
+步骤一添加一个类库目录我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库
+12cd AndroidSourcemkdir mylib
+在mylib目录添加Android.mk新建Android.mk
+12cd AndroidSource">
+<meta property="og:updated_time" content="2016-03-18T21:42:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为android源码添加java类库">
+<meta name="twitter:description" content="在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。
+步骤一添加一个类库目录我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库
+12cd AndroidSourcemkdir mylib
+在mylib目录添加Android.mk新建Android.mk
+12cd AndroidSource">
+<meta name="twitter:creator" content="@xiaozhuai7">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Welcome to xiaozhuai&#39;s github blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Welcome to xiaozhuai&#39;s github blog" title="Welcome to xiaozhuai&#39;s github blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Welcome to xiaozhuai&#39;s github blog">Welcome to xiaozhuai&#39;s github blog</a></h1>
+				<h2 class="blog-motto">xiaozhuai&#39;s blog</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xiaozhuai.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/22/add_java_lib_for_android_source/" title="为android源码添加java类库" itemprop="url">为android源码添加java类库</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-22T12:08:53.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤一"><span class="toc-number">1.</span> <span class="toc-text">步骤一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加一个类库目录"><span class="toc-number">1.1.</span> <span class="toc-text">添加一个类库目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在mylib目录添加Android-mk"><span class="toc-number">1.2.</span> <span class="toc-text">在mylib目录添加Android.mk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤二"><span class="toc-number">2.</span> <span class="toc-text">步骤二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#情景一"><span class="toc-number">2.1.</span> <span class="toc-text">情景一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#情景二"><span class="toc-number">2.2.</span> <span class="toc-text">情景二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在APK中引用这类库"><span class="toc-number">3.</span> <span class="toc-text">在APK中引用这类库</span></a></li></ol>
+		
+		</div>
+		
+		<p>在安卓源码环境开发时，有些时候多个APK可能会依赖同一个类库，那么就需要为安卓源码添加一个java类库的目录，方便其它APK调用。</p>
+<h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><h3 id="添加一个类库目录"><a href="#添加一个类库目录" class="headerlink" title="添加一个类库目录"></a>添加一个类库目录</h3><p>我们往android源码根目录添加一个mylib目录用于存放自己常用的java类库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource</span><br><span class="line">mkdir mylib</span><br></pre></td></tr></table></figure>
+<h3 id="在mylib目录添加Android-mk"><a href="#在mylib目录添加Android-mk" class="headerlink" title="在mylib目录添加Android.mk"></a>在mylib目录添加Android.mk</h3><p>新建Android.mk</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">touch Android.mk</span><br></pre></td></tr></table></figure>
+<p>写入下面的内容</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS) </span><br><span class="line"><span class="comment">#调用此目录下所有的mk文件</span></span><br><span class="line">include $(call all-makefiles-under, $(LOCAL_PATH))</span><br></pre></td></tr></table></figure>
+<h2 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h2><h3 id="情景一"><a href="#情景一" class="headerlink" title="情景一"></a>情景一</h3><p>该类库为编译好的jar文件,例如okhttputils.jar</p>
+<p>创建类库目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">mkdir OkHttpUtils</span><br><span class="line"><span class="built_in">cd</span> OkHttpUtils</span><br><span class="line">mkdir lib</span><br><span class="line">cp [your_path_to_okhttputils.jar] ./lib/</span><br></pre></td></tr></table></figure>
+<p>创建Android.mk</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib/OkHttpUtils</span><br><span class="line">touch Android.mk</span><br></pre></td></tr></table></figure>
+<p>写入下面的内容</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS) </span><br><span class="line">LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := okhttputils:lib/OkHttpUtils.jar</span><br><span class="line">include $(BUILD_MULTI_PREBUILT)</span><br></pre></td></tr></table></figure>
+<h3 id="情景二"><a href="#情景二" class="headerlink" title="情景二"></a>情景二</h3><p>该类库为未编译的.java源码，例如FiuiOtaLib</p>
+<p>创建类库目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib</span><br><span class="line">mkdir FiuiOtaLib</span><br><span class="line"><span class="built_in">cd</span> OkHttpUtils</span><br><span class="line">mkdir src</span><br></pre></td></tr></table></figure>
+<p>拷贝源码至AndroidSource/mylib/FiuiOtaLib/src下</p>
+<p>创建Android.mk</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> AndroidSource/mylib/FiuiOtaLib</span><br><span class="line">touch Android.mk</span><br></pre></td></tr></table></figure>
+<p>写入下面的内容</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_MODULE := fiuiotalib</span><br><span class="line">LOCAL_JAVA_LIBRARIES := gson</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_JAVA_LIBRARIES += okio</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_STATIC_JAVA_LIBRARY)</span><br></pre></td></tr></table></figure>
+<p>如果源码引用了其它的第三方类库，那么使用<br>LOCAL_JAVA_LIBRARIES += <em>*</em><br>来引用该库，注意千万不能是LOCAL_STATIC_JAVA_LIBRARIES,<br>这会引发一些错误。<br>另外请务必使用LOCAL_PROGUARD_ENABLED := disabled，否则可能无法编译通过</p>
+<h2 id="在APK中引用这类库"><a href="#在APK中引用这类库" class="headerlink" title="在APK中引用这类库"></a>在APK中引用这类库</h2><p>Android.mk示例如下：<br><figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_MODULE_TAGS := optional</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_PACKAGE_NAME := FiuiOTA</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES := fiuiotalib</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += gson</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okio</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_PACKAGE)</span><br></pre></td></tr></table></figure></p>
+<p>apk中引用类库请务必使用LOCAL_STATIC_JAVA_LIBRARIES<br>如果要使用LOCAL_JAVA_LIBRARIES，那么请你明白你自己在做什么，这么写需要boot.img中的内核启动脚本中将该jar加入CLASSPATH</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/安卓源码/">安卓源码</a><a href="/tags/cm源码/">cm源码</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"3362066484## e.g. 2176287895 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2089180" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/03/17/hello-world/" title="Hello World">
+  <strong>&nbsp;上一篇</strong><br/>
+  <span>
+  Hello World</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/22/recovery_auto_command/"  title="重启至recovery自动执行recovery命令">
+ <strong>下一篇&nbsp;</strong><br/> 
+ <span>重启至recovery自动执行recovery命令
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/22/add_java_lib_for_android_source/" data-title="为android源码添加java类库" data-url="http://xiaozhuai.github.io/2015/12/22/add_java_lib_for_android_source/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤一"><span class="toc-number">1.</span> <span class="toc-text">步骤一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加一个类库目录"><span class="toc-number">1.1.</span> <span class="toc-text">添加一个类库目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在mylib目录添加Android-mk"><span class="toc-number">1.2.</span> <span class="toc-text">在mylib目录添加Android.mk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤二"><span class="toc-number">2.</span> <span class="toc-text">步骤二</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#情景一"><span class="toc-number">2.1.</span> <span class="toc-text">情景一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#情景二"><span class="toc-number">2.2.</span> <span class="toc-text">情景二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在APK中引用这类库"><span class="toc-number">3.</span> <span class="toc-text">在APK中引用这类库</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="xiaozhuai" data-width="100%" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recovery/" title="recovery">recovery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/隐藏API/" title="隐藏API">隐藏API<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xiaozhuai.github.io" target="_blank" title="My Blog">My Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.fiui.org" target="_blank" title="FIUI Project">FIUI Project</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=3362066484&verifier=45b5120d&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m XiaoZhuai <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/xiaozhuai7" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/xiaozhuai" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/xiaozhuai7" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/xiaozhuai7" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:xz@fiui.org" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://xiaozhuai.github.io" target="_blank" title="hexo">xiaozhuai</a>, all right reserved. © 2016 
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaozhuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
