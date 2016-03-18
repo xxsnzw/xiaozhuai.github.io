@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaozhuai.github.io/"/>
-  <updated>2016-03-18T22:06:56.000Z</updated>
+  <updated>2016-03-18T22:08:28.000Z</updated>
   <id>http://xiaozhuai.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://xiaozhuai.github.io/2015/12/26/jad_clipse/"/>
     <id>http://xiaozhuai.github.io/2015/12/26/jad_clipse/</id>
     <published>2015-12-26T07:05:03.000Z</published>
-    <updated>2016-03-18T22:06:56.000Z</updated>
+    <updated>2016-03-18T22:08:28.000Z</updated>
     
     <content type="html">&lt;p&gt;jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。&lt;/p&gt;
 &lt;h2 id=&quot;安装方法&quot;&gt;&lt;a href=&quot;#安装方法&quot; class=&quot;headerlink&quot; title=&quot;安装方法&quot;&gt;&lt;/a&gt;安装方法&lt;/h2&gt;&lt;h3 id=&quot;下载jadClipse-eclipse-plugin-jar&quot;&gt;&lt;a href=&quot;#下载jadClipse-eclipse-plugin-jar&quot; class=&quot;headerlink&quot; title=&quot;下载jadClipse(eclipse plugin jar)&quot;&gt;&lt;/a&gt;下载jadClipse(eclipse plugin jar)&lt;/h3&gt;&lt;p&gt;从下面的链接下面jadClipse插件&lt;br&gt;&lt;a href=&quot;http://jadclipse.sourceforge.net&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jadclipse.sourceforge.net&lt;/a&gt;&lt;br&gt;将插件的jar文件放置到eclipse安装目录下的plugins目录&lt;/p&gt;
@@ -32,8 +32,9 @@
 &lt;li&gt;点击File - Restart，来重新加载插件，使jadClipse生效&lt;/li&gt;
 &lt;li&gt;点击Window - Preferences - General - Editors - File Associations，找到并选择*.class without source，点击下面的Add…找到JadClipse Class File Viewer，选择并确定&lt;/li&gt;
 &lt;li&gt;选中JadClipse Class File Viewer 点 Default 确定&lt;/li&gt;
-&lt;li&gt;重启eclipse&lt;h3 id=&quot;使用jadClipse前后的对比&quot;&gt;&lt;a href=&quot;#使用jadClipse前后的对比&quot; class=&quot;headerlink&quot; title=&quot;使用jadClipse前后的对比&quot;&gt;&lt;/a&gt;使用jadClipse前后的对比&lt;/h3&gt;&lt;img src=&quot;/img/eclipse_without_jadclipse.png&quot; alt=&quot;没有使用jadClipse时，CTRL+鼠标右键跳转后的界面&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/eclipse_with_jadclipse.png&quot; alt=&quot;使用了jadClipse后，CTRL+鼠标右键跳转后的界面&quot;&gt;&lt;/li&gt;
+&lt;li&gt;重启eclipse&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h3 id=&quot;使用jadClipse前后的对比&quot;&gt;&lt;a href=&quot;#使用jadClipse前后的对比&quot; class=&quot;headerlink&quot; title=&quot;使用jadClipse前后的对比&quot;&gt;&lt;/a&gt;使用jadClipse前后的对比&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/img/eclipse_without_jadclipse.png&quot; alt=&quot;没有使用jadClipse时，CTRL+鼠标右键跳转后的界面&quot;&gt;&lt;br&gt;&lt;img src=&quot;/img/eclipse_with_jadclipse.png&quot; alt=&quot;使用了jadClipse后，CTRL+鼠标右键跳转后的界面&quot;&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
