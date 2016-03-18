@@ -122,7 +122,7 @@
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!@val)&#123;</span><br><span class="line">    <span class="regexp">//</span>*******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>即可，二者完全等价，报错与perl版本有关</p>
 <h3 id="stat命令错误"><a href="#stat命令错误" class="headerlink" title="stat命令错误"></a>stat命令错误</h3><p>编译过程中出现stat命令参数错误。<br>由于mac使用bstat，linux使用gstat。二者功能类似，但参数选项不同。<br>先使用homebrew安装coreutils</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install coreutils</span><br></pre></td></tr></table></figure>
 <p>这时候已经有gstat了，将其软链接为stat，借助port的目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/Cellar/coreutils/8.24/bin/gstat /opt/<span class="built_in">local</span>/bin/<span class="built_in">stat</span></span><br></pre></td></tr></table></figure>
 <p>这里的路径和coreutils版本有关，请自己查看版本确定正确的路径</p>
@@ -705,15 +705,15 @@
 			
 		
 			
-				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 			
 		
 			
@@ -741,7 +741,7 @@
 			
 		
 			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 		</ul>

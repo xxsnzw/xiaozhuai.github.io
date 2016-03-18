@@ -21,7 +21,7 @@
 <meta property="og:description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。
 建立一个分区来储存源码通常mac osx默认的是不区分大笑笑的文件系统，而编译安卓源码要求使用区分大小写为文件系统。这里先新建一个区分大小写的文件系统。可以分一个真实的无路分区，或者创建一个dmg镜像。具体方法可以google一下，就不重点说了。
 使用repo1234$ mkdir ~/bin$ curl https://stora">
-<meta property="og:updated_time" content="2016-03-18T23:39:44.000Z">
+<meta property="og:updated_time" content="2016-03-18T23:40:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac osx编译安卓源码（cm源码）">
 <meta name="twitter:description" content="在mac osx环境下编译安卓源码，这里以编译cm11源码为例。
@@ -134,7 +134,7 @@
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!@val)&#123;</span><br><span class="line">    <span class="regexp">//</span>*******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>即可，二者完全等价，报错与perl版本有关</p>
 <h3 id="stat命令错误"><a href="#stat命令错误" class="headerlink" title="stat命令错误"></a>stat命令错误</h3><p>编译过程中出现stat命令参数错误。<br>由于mac使用bstat，linux使用gstat。二者功能类似，但参数选项不同。<br>先使用homebrew安装coreutils</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install coreutils</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install coreutils</span><br></pre></td></tr></table></figure>
 <p>这时候已经有gstat了，将其软链接为stat，借助port的目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/Cellar/coreutils/8.24/bin/gstat /opt/<span class="built_in">local</span>/bin/<span class="built_in">stat</span></span><br></pre></td></tr></table></figure>
 <p>这里的路径和coreutils版本有关，请自己查看版本确定正确的路径</p>
@@ -276,15 +276,15 @@
 			
 		
 			
-				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/cm/" title="cm">cm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 			
 		
 			
@@ -312,7 +312,7 @@
 			
 		
 			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 		</ul>
