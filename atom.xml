@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaozhuai.github.io/"/>
-  <updated>2016-03-18T22:47:23.000Z</updated>
+  <updated>2016-03-18T23:05:32.000Z</updated>
   <id>http://xiaozhuai.github.io/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git常用配置</title>
+    <link href="http://xiaozhuai.github.io/2015/12/30/git_config/"/>
+    <id>http://xiaozhuai.github.io/2015/12/30/git_config/</id>
+    <published>2015-12-30T01:07:36.000Z</published>
+    <updated>2016-03-18T23:05:32.000Z</updated>
+    
+    <content type="html">&lt;p&gt;git的一些常用配置。&lt;/p&gt;
+&lt;h2 id=&quot;git设置邮箱和姓名&quot;&gt;&lt;a href=&quot;#git设置邮箱和姓名&quot; class=&quot;headerlink&quot; title=&quot;git设置邮箱和姓名&quot;&gt;&lt;/a&gt;git设置邮箱和姓名&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global user.name &lt;span class=&quot;string&quot;&gt;&quot;xiaozhuai&quot;&lt;/span&gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global user.email &lt;span class=&quot;string&quot;&gt;&quot;xz@fiui.org&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;默认使用用户名密码登陆&quot;&gt;&lt;a href=&quot;#默认使用用户名密码登陆&quot; class=&quot;headerlink&quot; title=&quot;默认使用用户名密码登陆&quot;&gt;&lt;/a&gt;默认使用用户名密码登陆&lt;/h2&gt;&lt;h3 id=&quot;unix-linux系统下的配置&quot;&gt;&lt;a href=&quot;#unix-linux系统下的配置&quot; class=&quot;headerlink&quot; title=&quot;unix-linux系统下的配置&quot;&gt;&lt;/a&gt;unix-linux系统下的配置&lt;/h3&gt;&lt;p&gt;创建～/.netrc文件，写入下面的内容&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;machine [domain]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;login [username]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;password [password]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;machine github.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;login xiaozhuai&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;password ******&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;支持添加多个git服务器用户名和密码，以后就不需要每次都填了&lt;/p&gt;
+&lt;h3 id=&quot;windows下的配置&quot;&gt;&lt;a href=&quot;#windows下的配置&quot; class=&quot;headerlink&quot; title=&quot;windows下的配置&quot;&gt;&lt;/a&gt;windows下的配置&lt;/h3&gt;&lt;p&gt;新建一个系统环境变量，名为HOME，指定一个目录&lt;br&gt;在%HOME%下新建文件_netrc&lt;br&gt;写入上面相同的内容即可&lt;/p&gt;
+&lt;h2 id=&quot;git默认使用http代理&quot;&gt;&lt;a href=&quot;#git默认使用http代理&quot; class=&quot;headerlink&quot; title=&quot;git默认使用http代理&quot;&gt;&lt;/a&gt;git默认使用http代理&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global http.proxy http://proxy.com:1234&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global https.proxy http://proxy.com:1234&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;git关闭ssl验证&quot;&gt;&lt;a href=&quot;#git关闭ssl验证&quot; class=&quot;headerlink&quot; title=&quot;git关闭ssl验证&quot;&gt;&lt;/a&gt;git关闭ssl验证&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global http.sslverify &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;git设置默认commit编辑器&quot;&gt;&lt;a href=&quot;#git设置默认commit编辑器&quot; class=&quot;headerlink&quot; title=&quot;git设置默认commit编辑器&quot;&gt;&lt;/a&gt;git设置默认commit编辑器&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global core.editor vim&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;git出现The-remote-end-hung-up-unexpectedly错误&quot;&gt;&lt;a href=&quot;#git出现The-remote-end-hung-up-unexpectedly错误&quot; class=&quot;headerlink&quot; title=&quot;git出现The remote end hung up unexpectedly错误&quot;&gt;&lt;/a&gt;git出现The remote end hung up unexpectedly错误&lt;/h2&gt;&lt;p&gt;设置postbuffer到最大值（1GB）&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global http.postBuffer 524288000&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;git换行符自动转换与安全换行符&quot;&gt;&lt;a href=&quot;#git换行符自动转换与安全换行符&quot; class=&quot;headerlink&quot; title=&quot;git换行符自动转换与安全换行符&quot;&gt;&lt;/a&gt;git换行符自动转换与安全换行符&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global core.autocrlf &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;/&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;#关闭/开启换行符自动转换&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ git config --global core.safecrlf &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;/&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;#关闭/开启安全换行符&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;git查看设置列表&quot;&gt;&lt;a href=&quot;#git查看设置列表&quot; class=&quot;headerlink&quot; title=&quot;git查看设置列表&quot;&gt;&lt;/a&gt;git查看设置列表&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ git config &lt;span class=&quot;_&quot;&gt;-l&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;git的一些常用配置。&lt;/p&gt;
+&lt;h2 id=&quot;git设置邮箱和姓名&quot;&gt;&lt;a href=&quot;#git设置邮箱和姓名&quot; class=&quot;headerlink&quot; title=&quot;git设置邮箱和姓名&quot;&gt;&lt;/a&gt;git设置邮箱和姓名&lt;/h2&gt;&lt;figure class=&quot;highlig
+    
+    </summary>
+    
+      <category term="git" scheme="http://xiaozhuai.github.io/categories/git/"/>
+    
+    
+      <category term="git" scheme="http://xiaozhuai.github.io/tags/git/"/>
+    
+      <category term="配置" scheme="http://xiaozhuai.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>eclipse导入安卓源码与eclipse中的报错消除</title>
