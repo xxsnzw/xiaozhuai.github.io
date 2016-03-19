@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/01/06/import_android_child_project_in_eclipse/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
-<meta property="og:updated_time" content="2016-03-19T06:08:37.000Z">
+<meta property="og:updated_time" content="2016-03-19T06:12:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在eclipse中单独导入安卓源码中的APK或jar库源码">
 <meta name="twitter:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
@@ -110,11 +110,9 @@
 <p>可以将上面的命令存为shell脚本，以后每次只需要cd到APK目录，执行该脚本即可。<br>这样就排除了所有我们不希望被git跟踪的文件和目录。</p>
 <p>然后会发现eclipse中会有很多的报错，这个问题都是由于类无法找到造成的。添加Java build path即可解决。<br>可以手动编辑APK项目目录下的.classpath文件。添加依赖的jar库。全部添加好之后，就不会报错了。<br>有些时候，一些系统APK可能引用了android.R.internal中的资源。这时候需要将out/target/common/R加入到Java build path<br>具体如何编辑.classpath文件参见下面的链接：<br><a href="http://xiaozhuai.github.io/2015/12/28/import_android_source_to_eclipse/#排除源码中的报错">eclipse导入安卓源码与eclipse中的报错消除 - 排除源码中的报错</a></p>
 <h3 id="导入jar类库源码到eclipse"><a href="#导入jar类库源码到eclipse" class="headerlink" title="导入jar类库源码到eclipse"></a>导入jar类库源码到eclipse</h3><ol>
-<li>首先在类库源码目录下建立.project文件，写入下面的内容<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">projectDescription</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>[your_project_name]<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">comment</span>&gt;</span><span class="tag">&lt;/<span class="name">comment</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">projects</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">projects</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">buildSpec</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">buildCommand</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>org.eclipse.jdt.core.javabuilder<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">arguments</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">buildCommand</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">buildSpec</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">natures</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">nature</span>&gt;</span>org.eclipse.jdt.core.javanature<span class="tag">&lt;/<span class="name">nature</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">natures</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">projectDescription</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li><p>首先在类库源码目录下建立.project文件，写入下面的内容，可以修改[your_project_name]来配置项目名称。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">projectDescription</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>[your_project_name]<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">comment</span>&gt;</span><span class="tag">&lt;/<span class="name">comment</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">projects</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">projects</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">buildSpec</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">buildCommand</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>org.eclipse.jdt.core.javabuilder<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">arguments</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">buildCommand</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">buildSpec</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">natures</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">nature</span>&gt;</span>org.eclipse.jdt.core.javanature<span class="tag">&lt;/<span class="name">nature</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">natures</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">projectDescription</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>可以修改上面的[your_project_name]来配置项目名称。</p>
-<ol>
 <li><p>在类库源码目录下建立.classpath文件，写入下面的内容</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">classpath</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"src"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"output"</span> <span class="attr">path</span>=<span class="string">"bin"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">classpath</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -328,7 +326,7 @@
 			
 		
 			
-				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
 			
 		
 			
@@ -344,15 +342,15 @@
 			
 		
 			
-				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
 			
 		
 			
@@ -360,7 +358,7 @@
 			
 		
 			
-				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
 			
 		
 			
