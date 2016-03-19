@@ -468,7 +468,53 @@
     
       <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
+      <category term="JAVA" scheme="http://xiaozhuai.github.io/tags/JAVA/"/>
+    
       <category term="wifi" scheme="http://xiaozhuai.github.io/tags/wifi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>安卓快速开发常用的类库</title>
+    <link href="http://xiaozhuai.github.io/2015/11/12/android_useful_class/"/>
+    <id>http://xiaozhuai.github.io/2015/11/12/android_useful_class/</id>
+    <published>2015-11-12T00:15:49.000Z</published>
+    <updated>2016-03-19T00:41:40.000Z</updated>
+    
+    <content type="html">&lt;p&gt;安卓快速开发常用的类库,提供附件下载&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;功能列表&quot;&gt;&lt;a href=&quot;#功能列表&quot; class=&quot;headerlink&quot; title=&quot;功能列表&quot;&gt;&lt;/a&gt;功能列表&lt;/h2&gt;&lt;h3 id=&quot;AppUtils&quot;&gt;&lt;a href=&quot;#AppUtils&quot; class=&quot;headerlink&quot; title=&quot;AppUtils&quot;&gt;&lt;/a&gt;AppUtils&lt;/h3&gt;&lt;p&gt;Application辅助类&lt;/p&gt;
+&lt;h3 id=&quot;DensityUtils&quot;&gt;&lt;a href=&quot;#DensityUtils&quot; class=&quot;headerlink&quot; title=&quot;DensityUtils&quot;&gt;&lt;/a&gt;DensityUtils&lt;/h3&gt;&lt;p&gt;常用长度单位转换的辅助类&lt;/p&gt;
+&lt;h3 id=&quot;DownloadManagerPro&quot;&gt;&lt;a href=&quot;#DownloadManagerPro&quot; class=&quot;headerlink&quot; title=&quot;DownloadManagerPro&quot;&gt;&lt;/a&gt;DownloadManagerPro&lt;/h3&gt;&lt;p&gt;下载辅助类&lt;/p&gt;
+&lt;h3 id=&quot;FileUtils&quot;&gt;&lt;a href=&quot;#FileUtils&quot; class=&quot;headerlink&quot; title=&quot;FileUtils&quot;&gt;&lt;/a&gt;FileUtils&lt;/h3&gt;&lt;p&gt;文件操作辅助类&lt;/p&gt;
+&lt;h3 id=&quot;HttpUtils&quot;&gt;&lt;a href=&quot;#HttpUtils&quot; class=&quot;headerlink&quot; title=&quot;HttpUtils&quot;&gt;&lt;/a&gt;HttpUtils&lt;/h3&gt;&lt;p&gt;http访问辅助类&lt;/p&gt;
+&lt;h3 id=&quot;ImageUtils&quot;&gt;&lt;a href=&quot;#ImageUtils&quot; class=&quot;headerlink&quot; title=&quot;ImageUtils&quot;&gt;&lt;/a&gt;ImageUtils&lt;/h3&gt;&lt;p&gt;图片转换与在线获取辅助类&lt;/p&gt;
+&lt;h3 id=&quot;IMEI&quot;&gt;&lt;a href=&quot;#IMEI&quot; class=&quot;headerlink&quot; title=&quot;IMEI&quot;&gt;&lt;/a&gt;IMEI&lt;/h3&gt;&lt;p&gt;设备IMEI号获取&lt;/p&gt;
+&lt;h3 id=&quot;KeyBoardUtils&quot;&gt;&lt;a href=&quot;#KeyBoardUtils&quot; class=&quot;headerlink&quot; title=&quot;KeyBoardUtils&quot;&gt;&lt;/a&gt;KeyBoardUtils&lt;/h3&gt;&lt;p&gt;软键盘辅助类&lt;/p&gt;
+&lt;h3 id=&quot;L&quot;&gt;&lt;a href=&quot;#L&quot; class=&quot;headerlink&quot; title=&quot;L&quot;&gt;&lt;/a&gt;L&lt;/h3&gt;&lt;p&gt;log辅助类&lt;/p&gt;
+&lt;h3 id=&quot;NetUtils&quot;&gt;&lt;a href=&quot;#NetUtils&quot; class=&quot;headerlink&quot; title=&quot;NetUtils&quot;&gt;&lt;/a&gt;NetUtils&lt;/h3&gt;&lt;p&gt;网络状态辅助类&lt;/p&gt;
+&lt;h3 id=&quot;PackageUtils&quot;&gt;&lt;a href=&quot;#PackageUtils&quot; class=&quot;headerlink&quot; title=&quot;PackageUtils&quot;&gt;&lt;/a&gt;PackageUtils&lt;/h3&gt;&lt;p&gt;APK安装卸载&lt;/p&gt;
+&lt;h3 id=&quot;ResourceUtils&quot;&gt;&lt;a href=&quot;#ResourceUtils&quot; class=&quot;headerlink&quot; title=&quot;ResourceUtils&quot;&gt;&lt;/a&gt;ResourceUtils&lt;/h3&gt;&lt;p&gt;资源辅助类&lt;/p&gt;
+&lt;h3 id=&quot;ScreenUtils&quot;&gt;&lt;a href=&quot;#ScreenUtils&quot; class=&quot;headerlink&quot; title=&quot;ScreenUtils&quot;&gt;&lt;/a&gt;ScreenUtils&lt;/h3&gt;&lt;p&gt;屏幕辅助类&lt;/p&gt;
+&lt;h3 id=&quot;SDCardUtils&quot;&gt;&lt;a href=&quot;#SDCardUtils&quot; class=&quot;headerlink&quot; title=&quot;SDCardUtils&quot;&gt;&lt;/a&gt;SDCardUtils&lt;/h3&gt;&lt;p&gt;sd卡辅助类&lt;/p&gt;
+&lt;h3 id=&quot;SerializeUtils&quot;&gt;&lt;a href=&quot;#SerializeUtils&quot; class=&quot;headerlink&quot; title=&quot;SerializeUtils&quot;&gt;&lt;/a&gt;SerializeUtils&lt;/h3&gt;&lt;p&gt;serialize辅助类&lt;/p&gt;
+&lt;h3 id=&quot;ShellUtils&quot;&gt;&lt;a href=&quot;#ShellUtils&quot; class=&quot;headerlink&quot; title=&quot;ShellUtils&quot;&gt;&lt;/a&gt;ShellUtils&lt;/h3&gt;&lt;p&gt;shell命令辅助类&lt;/p&gt;
+&lt;h3 id=&quot;SIMCardInfo&quot;&gt;&lt;a href=&quot;#SIMCardInfo&quot; class=&quot;headerlink&quot; title=&quot;SIMCardInfo&quot;&gt;&lt;/a&gt;SIMCardInfo&lt;/h3&gt;&lt;p&gt;sim卡辅助类&lt;/p&gt;
+&lt;h3 id=&quot;SPUtils&quot;&gt;&lt;a href=&quot;#SPUtils&quot; class=&quot;headerlink&quot; title=&quot;SPUtils&quot;&gt;&lt;/a&gt;SPUtils&lt;/h3&gt;&lt;p&gt;SharedPreference辅助类&lt;/p&gt;
+&lt;h3 id=&quot;T&quot;&gt;&lt;a href=&quot;#T&quot; class=&quot;headerlink&quot; title=&quot;T&quot;&gt;&lt;/a&gt;T&lt;/h3&gt;&lt;p&gt;toast辅助类&lt;/p&gt;
+&lt;h3 id=&quot;ToolFor9Ge&quot;&gt;&lt;a href=&quot;#ToolFor9Ge&quot; class=&quot;headerlink&quot; title=&quot;ToolFor9Ge&quot;&gt;&lt;/a&gt;ToolFor9Ge&lt;/h3&gt;&lt;p&gt;.9图片辅助类&lt;/p&gt;
+&lt;h2 id=&quot;附件&quot;&gt;&lt;a href=&quot;#附件&quot; class=&quot;headerlink&quot; title=&quot;附件&quot;&gt;&lt;/a&gt;附件&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;/file/android_useful_class.zip&quot;&gt;android_useful_class&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;安卓快速开发常用的类库,提供附件下载&lt;br&gt;
+    
+    </summary>
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/categories/%E5%AE%89%E5%8D%93/"/>
+    
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
       <category term="JAVA" scheme="http://xiaozhuai.github.io/tags/JAVA/"/>
     

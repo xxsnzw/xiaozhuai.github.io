@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>重启至recovery自动执行recovery命令 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>安卓快速开发常用的类库 | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+    <meta name="description" content="安卓快速开发常用的类库,提供附件下载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重启至recovery自动执行recovery命令">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/index.html">
+<meta property="og:title" content="安卓快速开发常用的类库">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/11/12/android_useful_class/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
-<meta property="og:updated_time" content="2016-03-18T23:44:03.000Z">
+<meta property="og:description" content="安卓快速开发常用的类库,提供附件下载">
+<meta property="og:updated_time" content="2016-03-19T00:41:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重启至recovery自动执行recovery命令">
-<meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+<meta name="twitter:title" content="安卓快速开发常用的类库">
+<meta name="twitter:description" content="安卓快速开发常用的类库,提供附件下载">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -79,14 +79,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/22/recovery_auto_command/" title="重启至recovery自动执行recovery命令" itemprop="url">重启至recovery自动执行recovery命令</a>
+      <a href="/2015/11/12/android_useful_class/" title="安卓快速开发常用的类库" itemprop="url">安卓快速开发常用的类库</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-22T12:08:53.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    <time datetime="2015-11-12T00:15:49.000Z" itemprop="datePublished"> 发表于 2015-11-12</time>
     
   </p>
 </header>
@@ -95,17 +95,32 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#功能列表"><span class="toc-number">1.</span> <span class="toc-text">功能列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AppUtils"><span class="toc-number">1.1.</span> <span class="toc-text">AppUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DensityUtils"><span class="toc-number">1.2.</span> <span class="toc-text">DensityUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DownloadManagerPro"><span class="toc-number">1.3.</span> <span class="toc-text">DownloadManagerPro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FileUtils"><span class="toc-number">1.4.</span> <span class="toc-text">FileUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HttpUtils"><span class="toc-number">1.5.</span> <span class="toc-text">HttpUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ImageUtils"><span class="toc-number">1.6.</span> <span class="toc-text">ImageUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMEI"><span class="toc-number">1.7.</span> <span class="toc-text">IMEI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KeyBoardUtils"><span class="toc-number">1.8.</span> <span class="toc-text">KeyBoardUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L"><span class="toc-number">1.9.</span> <span class="toc-text">L</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NetUtils"><span class="toc-number">1.10.</span> <span class="toc-text">NetUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PackageUtils"><span class="toc-number">1.11.</span> <span class="toc-text">PackageUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResourceUtils"><span class="toc-number">1.12.</span> <span class="toc-text">ResourceUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ScreenUtils"><span class="toc-number">1.13.</span> <span class="toc-text">ScreenUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDCardUtils"><span class="toc-number">1.14.</span> <span class="toc-text">SDCardUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SerializeUtils"><span class="toc-number">1.15.</span> <span class="toc-text">SerializeUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ShellUtils"><span class="toc-number">1.16.</span> <span class="toc-text">ShellUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SIMCardInfo"><span class="toc-number">1.17.</span> <span class="toc-text">SIMCardInfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPUtils"><span class="toc-number">1.18.</span> <span class="toc-text">SPUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T"><span class="toc-number">1.19.</span> <span class="toc-text">T</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ToolFor9Ge"><span class="toc-number">1.20.</span> <span class="toc-text">ToolFor9Ge</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附件"><span class="toc-number">2.</span> <span class="toc-text">附件</span></a></li></ol>
 		
 		</div>
 		
-		<p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。<br><a id="more"></a></p>
-<h2 id="自动执行recovery命令"><a href="#自动执行recovery命令" class="headerlink" title="自动执行recovery命令"></a>自动执行recovery命令</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>向/cache/recovery/command写入配置文本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   --send_intent=anystring                            #在屏幕上打印文本 </span></span><br><span class="line"><span class="comment"># *   --update_package=path                              #刷入zip卡刷包的路径 </span></span><br><span class="line"><span class="comment"># *   --wipe_data                                        #清除data分区，然后重启 </span></span><br><span class="line"><span class="comment"># *   --wipe_media                                       #清除内置媒体内容（很少用），然后重启 </span></span><br><span class="line"><span class="comment"># *   --locale=zh_CN                                     #指定屏幕上的文字为中文</span></span><br><span class="line"><span class="comment"># *   --wipe_cache                                       #清除cache分区，然后重启</span></span><br><span class="line"><span class="comment"># *   --set_encrypted_filesystem=on|off                  #打开/关闭加密文件系统</span></span><br></pre></td></tr></table></figure>
-<p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>向/cache/recovery/openrecoveryscript写入脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   install /sdcard/rom.zip                            #刷写/sdcard/rom.zip</span></span><br><span class="line"><span class="comment"># *   wipe data                                          #清除/data分区</span></span><br><span class="line"><span class="comment"># *   wipe cache                                         #清除/cache分区</span></span><br><span class="line"><span class="comment"># *   wipe dalvik                                        #清除dalvik缓存</span></span><br><span class="line"><span class="comment"># *   backup SDBOM                                       #压缩备份/system,/data,/boot分区数据,不使用md5校验</span></span><br><span class="line"><span class="comment"># *   backup SDBOM myrom                                 #功能同上,备份到myrom文件夹</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom      #恢复myrom文件夹中的所有分区数据到手机</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom DM   #仅恢复/data分区</span></span><br><span class="line"><span class="comment"># *   mount system                                       #挂载/system分区</span></span><br><span class="line"><span class="comment"># *   unmount system                                     #卸载载/system分区</span></span><br><span class="line"><span class="comment"># *   set tw_signed_zip_verify 0                         #关闭签名校验</span></span><br><span class="line"><span class="comment"># *   set tw_time_zone CST6;CDT                          #设置时区</span></span><br><span class="line"><span class="comment"># *   mkdir /sdcard/folder1/folder2                      #创建文件夹</span></span><br><span class="line"><span class="comment"># *   cmd chmod 755 /system/bin/htcdumlock               #使用shell命令,修改权限,注意要先mount</span></span><br></pre></td></tr></table></figure>
-<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自信验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
+		<p>安卓快速开发常用的类库,提供附件下载<br><a id="more"></a></p>
+<h2 id="功能列表"><a href="#功能列表" class="headerlink" title="功能列表"></a>功能列表</h2><h3 id="AppUtils"><a href="#AppUtils" class="headerlink" title="AppUtils"></a>AppUtils</h3><p>Application辅助类</p>
+<h3 id="DensityUtils"><a href="#DensityUtils" class="headerlink" title="DensityUtils"></a>DensityUtils</h3><p>常用长度单位转换的辅助类</p>
+<h3 id="DownloadManagerPro"><a href="#DownloadManagerPro" class="headerlink" title="DownloadManagerPro"></a>DownloadManagerPro</h3><p>下载辅助类</p>
+<h3 id="FileUtils"><a href="#FileUtils" class="headerlink" title="FileUtils"></a>FileUtils</h3><p>文件操作辅助类</p>
+<h3 id="HttpUtils"><a href="#HttpUtils" class="headerlink" title="HttpUtils"></a>HttpUtils</h3><p>http访问辅助类</p>
+<h3 id="ImageUtils"><a href="#ImageUtils" class="headerlink" title="ImageUtils"></a>ImageUtils</h3><p>图片转换与在线获取辅助类</p>
+<h3 id="IMEI"><a href="#IMEI" class="headerlink" title="IMEI"></a>IMEI</h3><p>设备IMEI号获取</p>
+<h3 id="KeyBoardUtils"><a href="#KeyBoardUtils" class="headerlink" title="KeyBoardUtils"></a>KeyBoardUtils</h3><p>软键盘辅助类</p>
+<h3 id="L"><a href="#L" class="headerlink" title="L"></a>L</h3><p>log辅助类</p>
+<h3 id="NetUtils"><a href="#NetUtils" class="headerlink" title="NetUtils"></a>NetUtils</h3><p>网络状态辅助类</p>
+<h3 id="PackageUtils"><a href="#PackageUtils" class="headerlink" title="PackageUtils"></a>PackageUtils</h3><p>APK安装卸载</p>
+<h3 id="ResourceUtils"><a href="#ResourceUtils" class="headerlink" title="ResourceUtils"></a>ResourceUtils</h3><p>资源辅助类</p>
+<h3 id="ScreenUtils"><a href="#ScreenUtils" class="headerlink" title="ScreenUtils"></a>ScreenUtils</h3><p>屏幕辅助类</p>
+<h3 id="SDCardUtils"><a href="#SDCardUtils" class="headerlink" title="SDCardUtils"></a>SDCardUtils</h3><p>sd卡辅助类</p>
+<h3 id="SerializeUtils"><a href="#SerializeUtils" class="headerlink" title="SerializeUtils"></a>SerializeUtils</h3><p>serialize辅助类</p>
+<h3 id="ShellUtils"><a href="#ShellUtils" class="headerlink" title="ShellUtils"></a>ShellUtils</h3><p>shell命令辅助类</p>
+<h3 id="SIMCardInfo"><a href="#SIMCardInfo" class="headerlink" title="SIMCardInfo"></a>SIMCardInfo</h3><p>sim卡辅助类</p>
+<h3 id="SPUtils"><a href="#SPUtils" class="headerlink" title="SPUtils"></a>SPUtils</h3><p>SharedPreference辅助类</p>
+<h3 id="T"><a href="#T" class="headerlink" title="T"></a>T</h3><p>toast辅助类</p>
+<h3 id="ToolFor9Ge"><a href="#ToolFor9Ge" class="headerlink" title="ToolFor9Ge"></a>ToolFor9Ge</h3><p>.9图片辅助类</p>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><a href="/file/android_useful_class.zip">android_useful_class</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +134,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/recovery/">recovery</a>
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/JAVA/">JAVA</a>
   </div>
 
 </div>
@@ -165,27 +180,19 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/12/25/add_java_lib_for_android_source/" title="为android源码添加java类库">
+ <a href="/2015/11/22/get_history_wifi_password/" title="安卓获取历史连接的wifi密码">
   <strong>&nbsp;上一篇</strong><br/>
   <span>
-  为android源码添加java类库</span>
+  安卓获取历史连接的wifi密码</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2015/12/20/sysprop/"  title="利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能">
- <strong>下一篇&nbsp;</strong><br/> 
- <span>利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能
-</span>
-</a>
-</div>
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/22/recovery_auto_command/" data-title="重启至recovery自动执行recovery命令" data-url="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/"></div>
+	<div class="ds-thread" data-thread-key="2015/11/12/android_useful_class/" data-title="安卓快速开发常用的类库" data-url="http://xiaozhuai.github.io/2015/11/12/android_useful_class/"></div>
 </section>
 
 
@@ -195,7 +202,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#功能列表"><span class="toc-number">1.</span> <span class="toc-text">功能列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AppUtils"><span class="toc-number">1.1.</span> <span class="toc-text">AppUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DensityUtils"><span class="toc-number">1.2.</span> <span class="toc-text">DensityUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DownloadManagerPro"><span class="toc-number">1.3.</span> <span class="toc-text">DownloadManagerPro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FileUtils"><span class="toc-number">1.4.</span> <span class="toc-text">FileUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HttpUtils"><span class="toc-number">1.5.</span> <span class="toc-text">HttpUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ImageUtils"><span class="toc-number">1.6.</span> <span class="toc-text">ImageUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMEI"><span class="toc-number">1.7.</span> <span class="toc-text">IMEI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KeyBoardUtils"><span class="toc-number">1.8.</span> <span class="toc-text">KeyBoardUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L"><span class="toc-number">1.9.</span> <span class="toc-text">L</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NetUtils"><span class="toc-number">1.10.</span> <span class="toc-text">NetUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PackageUtils"><span class="toc-number">1.11.</span> <span class="toc-text">PackageUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResourceUtils"><span class="toc-number">1.12.</span> <span class="toc-text">ResourceUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ScreenUtils"><span class="toc-number">1.13.</span> <span class="toc-text">ScreenUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDCardUtils"><span class="toc-number">1.14.</span> <span class="toc-text">SDCardUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SerializeUtils"><span class="toc-number">1.15.</span> <span class="toc-text">SerializeUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ShellUtils"><span class="toc-number">1.16.</span> <span class="toc-text">ShellUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SIMCardInfo"><span class="toc-number">1.17.</span> <span class="toc-text">SIMCardInfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPUtils"><span class="toc-number">1.18.</span> <span class="toc-text">SPUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T"><span class="toc-number">1.19.</span> <span class="toc-text">T</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ToolFor9Ge"><span class="toc-number">1.20.</span> <span class="toc-text">ToolFor9Ge</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附件"><span class="toc-number">2.</span> <span class="toc-text">附件</span></a></li></ol>
  
   </div>
 
