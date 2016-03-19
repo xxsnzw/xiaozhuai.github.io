@@ -1,0 +1,547 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>利用python脚本导出安卓源码所有的module | Welcome to xiaozhuai&#39;s github blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="xiaozhuai">
+    
+
+    
+    <meta name="description" content="安卓源码中有大量的小项目，这些小项目的源码位置有时很难定位到，这里提供一个python脚本，导出所有的module到文本中。然后在文本中搜索module就可以找到源码位置了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用python脚本导出安卓源码所有的module">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/11/04/export_all_module_in_android_source/index.html">
+<meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
+<meta property="og:description" content="安卓源码中有大量的小项目，这些小项目的源码位置有时很难定位到，这里提供一个python脚本，导出所有的module到文本中。然后在文本中搜索module就可以找到源码位置了">
+<meta property="og:updated_time" content="2016-03-19T00:58:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用python脚本导出安卓源码所有的module">
+<meta name="twitter:description" content="安卓源码中有大量的小项目，这些小项目的源码位置有时很难定位到，这里提供一个python脚本，导出所有的module到文本中。然后在文本中搜索module就可以找到源码位置了">
+<meta name="twitter:creator" content="@xiaozhuai7">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Welcome to xiaozhuai&#39;s github blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Welcome to xiaozhuai&#39;s github blog" title="Welcome to xiaozhuai&#39;s github blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Welcome to xiaozhuai&#39;s github blog">Welcome to xiaozhuai&#39;s github blog</a></h1>
+				<h2 class="blog-motto">xiaozhuai&#39;s blog</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xiaozhuai.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/04/export_all_module_in_android_source/" title="利用python脚本导出安卓源码所有的module" itemprop="url">利用python脚本导出安卓源码所有的module</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-04T11:05:27.000Z" itemprop="datePublished"> 发表于 2015-11-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例python源码"><span class="toc-number">1.</span> <span class="toc-text">示例python源码</span></a></li></ol>
+		
+		</div>
+		
+		<p>安卓源码中有大量的小项目，这些小项目的源码位置有时很难定位到，这里提供一个python脚本，导出所有的module到文本中。然后在文本中搜索module就可以找到源码位置了<br><a id="more"></a></p>
+<h2 id="示例python源码"><a href="#示例python源码" class="headerlink" title="示例python源码"></a>示例python源码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#        Team                :        fengya(风雅)</span></span><br><span class="line"><span class="comment">#        Author                :        xiaozhuai(小拽)</span></span><br><span class="line"><span class="comment">#        Date                :        2014.08.09 21:35</span></span><br><span class="line"><span class="comment">#        Copyright        :        By xiaozhuai 2014-2015. All right reserved.</span></span><br><span class="line"><span class="comment">#        Attention        :        Without permission, do not modify this file</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="comment">#默认源码目录</span></span><br><span class="line">sourceDir = <span class="string">"."</span></span><br><span class="line">listConfigPath=os.path.realpath(<span class="string">"./moduleList.aml"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">welcome</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"--------------------------------------------"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"欢迎使用 Android Module List"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"你可以使用此脚本列举安卓源码目录下所有可用的模块\n"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"By   : 小拽"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"copyright (c) 2014-2015. All right reserved."</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"--------------------------------------------\n"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inputSourceDir</span><span class="params">()</span>:</span></span><br><span class="line">        sourceDir = raw_input(<span class="string">"(不建议直接输入源码根目录，生成的列表文件会很大)\n请输入源码所在目录:  "</span>)</span><br><span class="line">        <span class="keyword">if</span> sourceDir==<span class="string">""</span>:</span><br><span class="line">                sourceDir = <span class="string">"."</span></span><br><span class="line">        sourceDir=os.path.realpath(sourceDir)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"\n\n"</span></span><br><span class="line">        <span class="keyword">return</span> sourceDir</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">listDir</span><span class="params">(listConfigPath,rootdir=<span class="string">"."</span>)</span>:</span></span><br><span class="line">        androidMk=<span class="string">"Android.mk"</span></span><br><span class="line">        listFileHandle=open(listConfigPath,<span class="string">"w"</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">                listFileHandle.write(<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">                listFileHandle.close()</span><br><span class="line">        listFileHandle=open(listConfigPath,<span class="string">"a"</span>)</span><br><span class="line">        <span class="keyword">for</span> parent,dirnames,filenames <span class="keyword">in</span> os.walk(rootdir):</span><br><span class="line">                <span class="comment"># for dirname in  dirnames:</span></span><br><span class="line">                <span class="comment">#         print "parent is: " + parent</span></span><br><span class="line">                <span class="comment">#         print "dirname is: " + dirname</span></span><br><span class="line">                <span class="comment">#         print "the full name of the dir is: " + os.path.join(parent,dirname) </span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">for</span> filename <span class="keyword">in</span> filenames:</span><br><span class="line">                        <span class="comment"># print "the full name of the file is: " + os.path.join(parent,filename) </span></span><br><span class="line">                        <span class="keyword">if</span> filename==androidMk:</span><br><span class="line">                                tmpFileHandle=open(os.path.join(parent,filename))</span><br><span class="line">                                <span class="keyword">try</span>:</span><br><span class="line">                                        tmpMkContent = tmpFileHandle.read().replace(<span class="string">"\n"</span>,<span class="string">"[\\n]"</span>)                <span class="comment">#换行符替换为[\n]便于使用正则</span></span><br><span class="line">                                        tmpMkContent = <span class="string">''</span>.join(tmpMkContent.split())                                        <span class="comment">#去除所有空白符</span></span><br><span class="line">                                <span class="keyword">finally</span>:</span><br><span class="line">                                        tmpFileHandle.close()</span><br><span class="line">                                </span><br><span class="line">                                p = re.compile(<span class="string">r"include\$\(CLEAR_VARS\).+?include\$\(BUILD_\w*\)"</span>)</span><br><span class="line">                                matchArr = p.findall(tmpMkContent)</span><br><span class="line">                                <span class="comment"># print matchArr</span></span><br><span class="line">                                matchCount = len(matchArr)</span><br><span class="line">                                <span class="keyword">if</span> matchCount&gt;<span class="number">0</span>:</span><br><span class="line">                                        infochunk=<span class="string">""</span></span><br><span class="line">                                        infochunk+=parent</span><br><span class="line">                                        infochunk+=<span class="string">" &#123;\n"</span></span><br><span class="line">                                        infochunk+=<span class="string">"Items been found: "</span>+str(matchCount)+<span class="string">"\n"</span></span><br><span class="line">                                        <span class="keyword">for</span> tmpMatch <span class="keyword">in</span> matchArr:</span><br><span class="line">                                                <span class="comment"># tmpMatch=matchArr[i]</span></span><br><span class="line">                                                <span class="comment"># print tmpMatch+"\n\n\n"</span></span><br><span class="line">                                                pt=re.compile(<span class="string">r"include\$\(BUILD_\w*\)"</span>)</span><br><span class="line">                                                type=(pt.findall(tmpMatch))[<span class="number">0</span>].replace(<span class="string">r"include$(BUILD_"</span>,<span class="string">""</span>).replace(<span class="string">r")"</span>,<span class="string">""</span>)</span><br><span class="line">                                                <span class="keyword">if</span> type!=<span class="string">"PACKAGE"</span>:</span><br><span class="line">                                                        pm=re.compile(<span class="string">r"LOCAL_MODULE:=.*?\[\\n\]"</span>)</span><br><span class="line">                                                        tmpPmMatch=pm.findall(tmpMatch)</span><br><span class="line">                                                        <span class="keyword">if</span> len(tmpPmMatch)&gt;<span class="number">0</span>:</span><br><span class="line">                                                                mName=tmpPmMatch[<span class="number">0</span>].replace(<span class="string">r"LOCAL_MODULE:="</span>,<span class="string">""</span>).replace(<span class="string">"[\\n]"</span>,<span class="string">""</span>)</span><br><span class="line">                                                <span class="keyword">else</span>:</span><br><span class="line">                                                        pm=re.compile(<span class="string">r"LOCAL_PACKAGE_NAME:=.*?\[\\n\]"</span>)</span><br><span class="line">                                                        tmpPmMatch=pm.findall(tmpMatch)</span><br><span class="line">                                                        <span class="keyword">if</span> len(tmpPmMatch)&gt;<span class="number">0</span>:</span><br><span class="line">                                                                mName=tmpPmMatch[<span class="number">0</span>].replace(<span class="string">r"LOCAL_PACKAGE_NAME:="</span>,<span class="string">""</span>).replace(<span class="string">"[\\n]"</span>,<span class="string">""</span>)                </span><br><span class="line">                                                infochunk+=<span class="string">"["</span>+type+<span class="string">"]  "</span>+mName+<span class="string">"\n"</span></span><br><span class="line">                                        infochunk+=<span class="string">"&#125;\n\n"</span></span><br><span class="line">                                        <span class="keyword">print</span> infochunk</span><br><span class="line">                                        listFileHandle.write(infochunk)        </span><br><span class="line">        listFileHandle.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="comment">#        print "parent is: " + parent</span></span><br><span class="line">                <span class="comment">#        print "filename is: " + filename</span></span><br><span class="line">                <span class="comment">#        print "the full name of the file is: " + os.path.join(parent,filename) </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getList</span><span class="params">(listConfigPath,sourceDir)</span>:</span></span><br><span class="line">        listDir(listConfigPath,sourceDir)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">end</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"源码目录所有模块已导出到: "</span>+listConfigPath</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"以下格式存储: \n"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"&lt;模块目录路径&gt; &#123;"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Items been found: &lt;该目录下找到的模块数&gt;"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"[模块类型] 模块名&lt;即编译生成文件名&gt;"</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"..."</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"&#125;"</span></span><br><span class="line"></span><br><span class="line">welcome()</span><br><span class="line">sourceDir = inputSourceDir()</span><br><span class="line">getList(listConfigPath,sourceDir)</span><br><span class="line">end()</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/安卓源码/">安卓源码</a><a href="/tags/cm/">cm</a><a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"3362066484## e.g. 2176287895 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2089180" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/11/07/any_key_to_continue_for_linux/" title="linux下控制台实现按任意键继续，无回显字符">
+  <strong>&nbsp;上一篇</strong><br/>
+  <span>
+  linux下控制台实现按任意键继续，无回显字符</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/04/export_all_module_in_android_source/" data-title="利用python脚本导出安卓源码所有的module" data-url="http://xiaozhuai.github.io/2015/11/04/export_all_module_in_android_source/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例python源码"><span class="toc-number">1.</span> <span class="toc-text">示例python源码</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="xiaozhuai" data-width="100%" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c">c<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm/" title="cm">cm<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recovery/" title="recovery">recovery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/隐藏API/" title="隐藏API">隐藏API<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xiaozhuai.github.io" target="_blank" title="My Blog">My Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.fiui.org" target="_blank" title="FIUI Project">FIUI Project</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=3362066484&verifier=45b5120d&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m XiaoZhuai <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/xiaozhuai7" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/xiaozhuai" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/xiaozhuai7" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/xiaozhuai7" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:xz@fiui.org" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://xiaozhuai.github.io" target="_blank" title="hexo">xiaozhuai</a>, all right reserved. © 2016 
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaozhuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
