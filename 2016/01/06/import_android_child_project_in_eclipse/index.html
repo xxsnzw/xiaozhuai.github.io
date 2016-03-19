@@ -1,0 +1,577 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>在eclipse中单独导入安卓源码中的APK或jar库源码 | Welcome to xiaozhuai&#39;s github blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="xiaozhuai">
+    
+
+    
+    <meta name="description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在eclipse中单独导入安卓源码中的APK或jar库源码">
+<meta property="og:url" content="http://xiaozhuai.github.io/2016/01/06/import_android_child_project_in_eclipse/index.html">
+<meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
+<meta property="og:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
+<meta property="og:updated_time" content="2016-03-19T01:51:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在eclipse中单独导入安卓源码中的APK或jar库源码">
+<meta name="twitter:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
+<meta name="twitter:creator" content="@xiaozhuai7">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Welcome to xiaozhuai&#39;s github blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Welcome to xiaozhuai&#39;s github blog" title="Welcome to xiaozhuai&#39;s github blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Welcome to xiaozhuai&#39;s github blog">Welcome to xiaozhuai&#39;s github blog</a></h1>
+				<h2 class="blog-motto">xiaozhuai&#39;s blog</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xiaozhuai.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/06/import_android_child_project_in_eclipse/" title="在eclipse中单独导入安卓源码中的APK或jar库源码" itemprop="url">在eclipse中单独导入安卓源码中的APK或jar库源码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-06T07:05:49.000Z" itemprop="datePublished"> 发表于 2016-01-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入APK源码"><span class="toc-number">1.1.</span> <span class="toc-text">导入APK源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入jar类库源码到eclipse"><span class="toc-number">1.2.</span> <span class="toc-text">导入jar类库源码到eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.3.</span> <span class="toc-text">说明</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。<br><a id="more"></a></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="导入APK源码"><a href="#导入APK源码" class="headerlink" title="导入APK源码"></a>导入APK源码</h3><p>点击File - Import - Android - Existing Android Code in Workspace，<br>点击Next，<br>Select root directory选择APK源码所在目录，在下面的列表中修改项目名称。<br>取消Copy prjects into workspace的√<br>点Finish。<br>这样就导入源码了。<br>但这样还远远不够，因为eclipse会默认生成一些IDE需要的文件，而这些文件不希望被git跟踪。</p>
+<p>首先进入项目目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> [apk_project_path]</span><br></pre></td></tr></table></figure>
+<p>执行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">".gitignore"</span> &gt; .gitignore <span class="comment">#排除.gitignore本身</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">".project"</span> &gt;&gt; .gitignore <span class="comment">#排除ec自动生成的.project</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">".classpath"</span> &gt;&gt; .gitignore <span class="comment">#排除ec自动生成的.classpath</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"gen/"</span> &gt;&gt; .gitignore <span class="comment">#排除gen软连接</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"bin/"</span> &gt;&gt; .gitignore <span class="comment">#排除bin软连接</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"project.properties"</span> &gt;&gt; .gitignore <span class="comment">#排除ec自动生成的project.properties</span></span><br><span class="line">$ <span class="built_in">echo</span> `<span class="built_in">pwd</span>`</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"项目配置完成！"</span></span><br></pre></td></tr></table></figure>
+<p>可以将上面的命令存为shell脚本，以后每次只需要cd到APK目录，执行该脚本即可。<br>这样就排除了所有我们不希望被git跟踪的文件和目录。</p>
+<p>然后会发现eclipse中会有很多的报错，这个问题都是由于类无法找到造成的。添加Java build path即可解决。<br>可以手动编辑APK项目目录下的.classpath文件。添加依赖的jar库。全部添加好之后，就不会报错了。<br>有些时候，一些系统APK可能引用了android.R.internal中的资源。这时候需要将out/target/common/R加入到Java build path<br>具体如何编辑.classpath文件参见下面的链接：<br><a href="http://xiaozhuai.github.io/2015/12/28/import_android_source_to_eclipse/#排除源码中的报错">eclipse导入安卓源码与eclipse中的报错消除 - 排除源码中的报错</a></p>
+<h3 id="导入jar类库源码到eclipse"><a href="#导入jar类库源码到eclipse" class="headerlink" title="导入jar类库源码到eclipse"></a>导入jar类库源码到eclipse</h3><ol>
+<li>首先在类库源码目录下建立.project文件，写入下面的内容</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">projectDescription</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>[your_project_name]<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">comment</span>&gt;</span><span class="tag">&lt;/<span class="name">comment</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">projects</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">projects</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">buildSpec</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">buildCommand</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>org.eclipse.jdt.core.javabuilder<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">arguments</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">buildCommand</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">buildSpec</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">natures</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">nature</span>&gt;</span>org.eclipse.jdt.core.javanature<span class="tag">&lt;/<span class="name">nature</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">natures</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">projectDescription</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以修改上面的[your_project_name]来配置项目名称。</p>
+<ol>
+<li>在类库源码目录下建立.classpath文件，写入下面的内容</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">classpath</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"src"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"output"</span> <span class="attr">path</span>=<span class="string">"bin"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">classpath</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>导入eclipse<br>点击File - Import - General - Existing Projects in Workspace，<br>点击Next，<br>Select root directory选择APK源码所在目录，在下面的列表中修改项目名称。<br>取消Copy prjects into workspace的√<br>点Finish。</li>
+</ol>
+<p>同样，eclipse会默认生成一些IDE需要的文件，这些文件不希望被git跟踪。<br>使用上面同样的方法生成.gitignore即可</p>
+<p>然后也是和上面一样导入各种类库，即可完美。</p>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>导入jar源码项目时必须手动建立.project和.classpath文件，否则无法导入。</p>
+<p>通常在添加依赖的时候，都需要导入sdk，需要先完整编译过安卓源码。<br>在.classpath中加入类似下面的内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"lib"</span> <span class="attr">path</span>=<span class="string">"[your_path_to_android_source]/out/target/common/obj/JAVA_LIBRARIES/sdk_v[sdk_version]_intermediates/classes.jar"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>[your_path_to_android_source]改为你的源码所在目录。<br>[sdk_version]改为对应源码版本的sdk版本号，如19。</p>
+<p>如果需要添加系统的所有R.java<br>需要在.classpath添加如下内容：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">excluding</span>=<span class="string">"Android.mk"</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"[your_path_to_android_source]/out/target/common/R"</span>/&gt;</span></span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/安卓源码/">安卓源码</a><a href="/tags/cm/">cm</a><a href="/tags/eclipse/">eclipse</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"3362066484## e.g. 2176287895 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2089180" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/01/03/android_auto_boot_when_changing/"  title="安卓手机通电自动开机源码修改">
+ <strong>下一篇&nbsp;</strong><br/> 
+ <span>安卓手机通电自动开机源码修改
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/01/06/import_android_child_project_in_eclipse/" data-title="在eclipse中单独导入安卓源码中的APK或jar库源码" data-url="http://xiaozhuai.github.io/2016/01/06/import_android_child_project_in_eclipse/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入APK源码"><span class="toc-number">1.1.</span> <span class="toc-text">导入APK源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入jar类库源码到eclipse"><span class="toc-number">1.2.</span> <span class="toc-text">导入jar类库源码到eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.3.</span> <span class="toc-text">说明</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="xiaozhuai" data-width="100%" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c">c<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>11</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>13</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm/" title="cm">cm<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xiaozhuai.github.io" target="_blank" title="My Blog">My Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.fiui.org" target="_blank" title="FIUI Project">FIUI Project</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=3362066484&verifier=45b5120d&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m XiaoZhuai <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/xiaozhuai7" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/xiaozhuai" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/xiaozhuai7" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/xiaozhuai7" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:xz@fiui.org" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://xiaozhuai.github.io" target="_blank" title="hexo">xiaozhuai</a>, all right reserved. © 2016 
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaozhuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
