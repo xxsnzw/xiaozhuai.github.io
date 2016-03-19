@@ -42,11 +42,11 @@
     
       <category term="安卓源码" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93%E6%BA%90%E7%A0%81/"/>
     
-      <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
-    
       <category term="c" scheme="http://xiaozhuai.github.io/tags/c/"/>
     
       <category term="c++" scheme="http://xiaozhuai.github.io/tags/c/"/>
+    
+      <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
     
       <category term="kernel" scheme="http://xiaozhuai.github.io/tags/kernel/"/>
     
@@ -601,6 +601,40 @@
       <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
     
       <category term="python" scheme="http://xiaozhuai.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于shell脚本的自解压可执行文件</title>
+    <link href="http://xiaozhuai.github.io/2015/11/02/linux_shell_auto_unzip/"/>
+    <id>http://xiaozhuai.github.io/2015/11/02/linux_shell_auto_unzip/</id>
+    <published>2015-11-02T05:05:38.000Z</published>
+    <updated>2016-03-19T01:17:31.000Z</updated>
+    
+    <content type="html">&lt;p&gt;利用shell脚本创建一个自解压文件。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;方法&quot;&gt;&lt;a href=&quot;#方法&quot; class=&quot;headerlink&quot; title=&quot;方法&quot;&gt;&lt;/a&gt;方法&lt;/h2&gt;&lt;h3 id=&quot;创建一个shell&quot;&gt;&lt;a href=&quot;#创建一个shell&quot; class=&quot;headerlink&quot; title=&quot;创建一个shell&quot;&gt;&lt;/a&gt;创建一个shell&lt;/h3&gt;&lt;p&gt;创建一个shell脚本，名为auto_unzip.sh，内容如下&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#! /bin/bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ARCHIVE=`awk &lt;span class=&quot;string&quot;&gt;&#39;/^__ARCHIVE_FOLLOWS__/ &amp;#123;print NR + 1; exit 0; &amp;#125;&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$0&lt;/span&gt;&quot;&lt;/span&gt;`&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tail -n+&lt;span class=&quot;variable&quot;&gt;$ARCHIVE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$0&lt;/span&gt;&quot;&lt;/span&gt; | tar -xf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;exit&lt;/span&gt; 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__ARCHIVE_FOLLOWS__&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;注意&lt;strong&gt;ARCHIVE_FOLLOWS&lt;/strong&gt;这一行后面不能有空格&lt;/p&gt;
+&lt;h3 id=&quot;创建一个压缩文档&quot;&gt;&lt;a href=&quot;#创建一个压缩文档&quot; class=&quot;headerlink&quot; title=&quot;创建一个压缩文档&quot;&gt;&lt;/a&gt;创建一个压缩文档&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar -cf auto_unzip.tar [one_of_you_dir_path]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;创建自解压文件&quot;&gt;&lt;a href=&quot;#创建自解压文件&quot; class=&quot;headerlink&quot; title=&quot;创建自解压文件&quot;&gt;&lt;/a&gt;创建自解压文件&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ cat auto_unzip.sh auto_unzip.tar &amp;gt; auto_upzip.bin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;测试&quot;&gt;&lt;a href=&quot;#测试&quot; class=&quot;headerlink&quot; title=&quot;测试&quot;&gt;&lt;/a&gt;测试&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ chmod a+x auto_upzip.bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ./auto_upzip.bin&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看看auto_unzip.tar是不是自动解压了？&lt;/p&gt;
+&lt;h3 id=&quot;扩展&quot;&gt;&lt;a href=&quot;#扩展&quot; class=&quot;headerlink&quot; title=&quot;扩展&quot;&gt;&lt;/a&gt;扩展&lt;/h3&gt;&lt;p&gt;你可以在脚本中加入其它的逻辑来控制流程&lt;/p&gt;
+&lt;h3 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h3&gt;&lt;p&gt;其实是一个很取巧的方法，在linux下的支付宝浏览器插件就用了这种类似的方法来安装插件。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#! /bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#确定一个标志字符串，作为tar压缩文件开始的标志，可以设置的复杂一点，防止可能出现的重复&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ARCHIVE=`awk &lt;span class=&quot;string&quot;&gt;&#39;/^__ARCHIVE_FOLLOWS__/ &amp;#123;print NR + 1; exit 0; &amp;#125;&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$0&lt;/span&gt;&quot;&lt;/span&gt;`&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#读出ARCHIVE标志以后的内容，利用管道传递给tar来解压。$0为脚本本身&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tail -n+&lt;span class=&quot;variable&quot;&gt;$ARCHIVE&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$0&lt;/span&gt;&quot;&lt;/span&gt; | tar -xf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#退出脚本一定要有明确的exit命令来退出脚本，否则脚本会解析错误&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;exit&lt;/span&gt; 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#这里即为设定的tar开始标志字符串，应该位于shell的最后一行，后面不能有空格或任何字符&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;__ARCHIVE_FOLLOWS__&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;利用shell脚本创建一个自解压文件。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="shell" scheme="http://xiaozhuai.github.io/categories/shell/"/>
+    
+    
+      <category term="linux" scheme="http://xiaozhuai.github.io/tags/linux/"/>
+    
+      <category term="shell" scheme="http://xiaozhuai.github.io/tags/shell/"/>
     
   </entry>
   

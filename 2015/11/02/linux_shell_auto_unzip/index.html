@@ -4,25 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>控制台显示加载进度的c实现 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>基于shell脚本的自解压可执行文件 | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样">
+    <meta name="description" content="利用shell脚本创建一个自解压文件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="控制台显示加载进度的c实现">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/08/progress_in_console/index.html">
+<meta property="og:title" content="基于shell脚本的自解压可执行文件">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/11/02/linux_shell_auto_unzip/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样">
-<meta property="og:image" content="http://xiaozhuai.github.io/img/show_progress_in_console.gif">
-<meta property="og:updated_time" content="2016-03-19T00:48:09.000Z">
+<meta property="og:description" content="利用shell脚本创建一个自解压文件。">
+<meta property="og:updated_time" content="2016-03-19T01:17:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="控制台显示加载进度的c实现">
-<meta name="twitter:description" content="经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样">
-<meta name="twitter:image" content="http://xiaozhuai.github.io/img/show_progress_in_console.gif">
+<meta name="twitter:title" content="基于shell脚本的自解压可执行文件">
+<meta name="twitter:description" content="利用shell脚本创建一个自解压文件。">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -81,14 +79,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/08/progress_in_console/" title="控制台显示加载进度的c实现" itemprop="url">控制台显示加载进度的c实现</a>
+      <a href="/2015/11/02/linux_shell_auto_unzip/" title="基于shell脚本的自解压可执行文件" itemprop="url">基于shell脚本的自解压可执行文件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-08T06:24:26.000Z" itemprop="datePublished"> 发表于 2015-12-08</time>
+    <time datetime="2015-11-02T05:05:38.000Z" itemprop="datePublished"> 发表于 2015-11-02</time>
     
   </p>
 </header>
@@ -97,28 +95,34 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考代码"><span class="toc-number">1.</span> <span class="toc-text">参考代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果"><span class="toc-number">2.</span> <span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个shell"><span class="toc-number">1.1.</span> <span class="toc-text">创建一个shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个压缩文档"><span class="toc-number">1.2.</span> <span class="toc-text">创建一个压缩文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建自解压文件"><span class="toc-number">1.3.</span> <span class="toc-text">创建自解压文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-number">1.4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展"><span class="toc-number">1.5.</span> <span class="toc-text">扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.6.</span> <span class="toc-text">原理</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样<br><a id="more"></a></p>
-<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Running...\n"</span>);</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i!=<span class="number">0</span>)&#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"\r"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d %%   "</span>,i);</span><br><span class="line">                        <span class="keyword">if</span>(i!=<span class="number">100</span>)&#123;</span><br><span class="line">                        <span class="keyword">switch</span>(i%<span class="number">3</span>)&#123;</span><br><span class="line">                                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                                        <span class="built_in">printf</span>(<span class="string">"/"</span>);</span><br><span class="line">                                        <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                                        <span class="built_in">printf</span>(<span class="string">"-"</span>);</span><br><span class="line">                                        <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                                        <span class="built_in">printf</span>(<span class="string">"\\"</span>);</span><br><span class="line">                                        <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"done!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                fflush(<span class="built_in">stdout</span>);</span><br><span class="line">                usleep(<span class="number">100000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>最终的效果见下面的gif图片<br><img src="/img/show_progress_in_console.gif" alt="控制台显示加载进度"></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>其实很简单，使用\r来将写指针移到行首，那么后面输出的内容就会覆盖当前行。</p>
-  
+		<p>利用shell脚本创建一个自解压文件。<br><a id="more"></a></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="创建一个shell"><a href="#创建一个shell" class="headerlink" title="创建一个shell"></a>创建一个shell</h3><p>创建一个shell脚本，名为auto_unzip.sh，内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">ARCHIVE=`awk <span class="string">'/^__ARCHIVE_FOLLOWS__/ &#123;print NR + 1; exit 0; &#125;'</span> <span class="string">"<span class="variable">$0</span>"</span>`</span><br><span class="line">tail -n+<span class="variable">$ARCHIVE</span> <span class="string">"<span class="variable">$0</span>"</span> | tar -xf</span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line">__ARCHIVE_FOLLOWS__</span><br></pre></td></tr></table></figure>
+<p>注意<strong>ARCHIVE_FOLLOWS</strong>这一行后面不能有空格</p>
+<h3 id="创建一个压缩文档"><a href="#创建一个压缩文档" class="headerlink" title="创建一个压缩文档"></a>创建一个压缩文档</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -cf auto_unzip.tar [one_of_you_dir_path]</span><br></pre></td></tr></table></figure>
+<h3 id="创建自解压文件"><a href="#创建自解压文件" class="headerlink" title="创建自解压文件"></a>创建自解压文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat auto_unzip.sh auto_unzip.tar &gt; auto_upzip.bin</span><br></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ chmod a+x auto_upzip.bin</span><br><span class="line">$ ./auto_upzip.bin</span><br></pre></td></tr></table></figure>
+<p>看看auto_unzip.tar是不是自动解压了？</p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><p>你可以在脚本中加入其它的逻辑来控制流程</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>其实是一个很取巧的方法，在linux下的支付宝浏览器插件就用了这种类似的方法来安装插件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment">#确定一个标志字符串，作为tar压缩文件开始的标志，可以设置的复杂一点，防止可能出现的重复</span></span><br><span class="line">ARCHIVE=`awk <span class="string">'/^__ARCHIVE_FOLLOWS__/ &#123;print NR + 1; exit 0; &#125;'</span> <span class="string">"<span class="variable">$0</span>"</span>`</span><br><span class="line"></span><br><span class="line"><span class="comment">#读出ARCHIVE标志以后的内容，利用管道传递给tar来解压。$0为脚本本身</span></span><br><span class="line">tail -n+<span class="variable">$ARCHIVE</span> <span class="string">"<span class="variable">$0</span>"</span> | tar -xf</span><br><span class="line"></span><br><span class="line"><span class="comment">#退出脚本一定要有明确的exit命令来退出脚本，否则脚本会解析错误</span></span><br><span class="line"><span class="built_in">exit</span> 0</span><br><span class="line"></span><br><span class="line"><span class="comment">#这里即为设定的tar开始标志字符串，应该位于shell的最后一行，后面不能有空格或任何字符</span></span><br><span class="line">__ARCHIVE_FOLLOWS__</span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/c/">c</a>
+  <a class="article-category-link" href="/categories/shell/">shell</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/c/">c</a><a href="/tags/c/">c++</a>
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/shell/">shell</a>
   </div>
 
 </div>
@@ -164,27 +168,19 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/12/13/adbd_root_deamon/" title="使没有内核root权限的已root安卓设备工作在adb root环境下">
+ <a href="/2015/11/04/export_all_module_in_android_source/" title="利用python脚本导出安卓源码所有的module">
   <strong>&nbsp;上一篇</strong><br/>
   <span>
-  使没有内核root权限的已root安卓设备工作在adb root环境下</span>
+  利用python脚本导出安卓源码所有的module</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2015/11/22/get_history_wifi_password/"  title="安卓获取历史连接的wifi密码">
- <strong>下一篇&nbsp;</strong><br/> 
- <span>安卓获取历史连接的wifi密码
-</span>
-</a>
-</div>
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/08/progress_in_console/" data-title="控制台显示加载进度的c实现" data-url="http://xiaozhuai.github.io/2015/12/08/progress_in_console/"></div>
+	<div class="ds-thread" data-thread-key="2015/11/02/linux_shell_auto_unzip/" data-title="基于shell脚本的自解压可执行文件" data-url="http://xiaozhuai.github.io/2015/11/02/linux_shell_auto_unzip/"></div>
 </section>
 
 
@@ -194,7 +190,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考代码"><span class="toc-number">1.</span> <span class="toc-text">参考代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果"><span class="toc-number">2.</span> <span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个shell"><span class="toc-number">1.1.</span> <span class="toc-text">创建一个shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个压缩文档"><span class="toc-number">1.2.</span> <span class="toc-text">创建一个压缩文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建自解压文件"><span class="toc-number">1.3.</span> <span class="toc-text">创建自解压文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-number">1.4.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展"><span class="toc-number">1.5.</span> <span class="toc-text">扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">1.6.</span> <span class="toc-text">原理</span></a></li></ol></li></ol>
  
   </div>
 
