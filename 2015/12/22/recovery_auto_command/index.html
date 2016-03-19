@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
-<meta property="og:updated_time" content="2016-03-18T23:44:03.000Z">
+<meta property="og:updated_time" content="2016-03-19T02:11:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重启至recovery自动执行recovery命令">
 <meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
@@ -105,7 +105,7 @@
 <p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
 <h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>向/cache/recovery/openrecoveryscript写入脚本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   install /sdcard/rom.zip                            #刷写/sdcard/rom.zip</span></span><br><span class="line"><span class="comment"># *   wipe data                                          #清除/data分区</span></span><br><span class="line"><span class="comment"># *   wipe cache                                         #清除/cache分区</span></span><br><span class="line"><span class="comment"># *   wipe dalvik                                        #清除dalvik缓存</span></span><br><span class="line"><span class="comment"># *   backup SDBOM                                       #压缩备份/system,/data,/boot分区数据,不使用md5校验</span></span><br><span class="line"><span class="comment"># *   backup SDBOM myrom                                 #功能同上,备份到myrom文件夹</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom      #恢复myrom文件夹中的所有分区数据到手机</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom DM   #仅恢复/data分区</span></span><br><span class="line"><span class="comment"># *   mount system                                       #挂载/system分区</span></span><br><span class="line"><span class="comment"># *   unmount system                                     #卸载载/system分区</span></span><br><span class="line"><span class="comment"># *   set tw_signed_zip_verify 0                         #关闭签名校验</span></span><br><span class="line"><span class="comment"># *   set tw_time_zone CST6;CDT                          #设置时区</span></span><br><span class="line"><span class="comment"># *   mkdir /sdcard/folder1/folder2                      #创建文件夹</span></span><br><span class="line"><span class="comment"># *   cmd chmod 755 /system/bin/htcdumlock               #使用shell命令,修改权限,注意要先mount</span></span><br></pre></td></tr></table></figure>
-<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自信验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
+<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自行验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -284,10 +284,6 @@
 			
 		
 			
-				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
 			
 		
@@ -296,7 +292,15 @@
 			
 		
 			
+				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
 			
 		
 			
@@ -305,10 +309,6 @@
 		
 			
 				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
 			
 		
 			
