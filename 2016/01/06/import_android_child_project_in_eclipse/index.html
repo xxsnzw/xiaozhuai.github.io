@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/01/06/import_android_child_project_in_eclipse/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
-<meta property="og:updated_time" content="2016-03-19T02:01:21.000Z">
+<meta property="og:updated_time" content="2016-03-19T02:02:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在eclipse中单独导入安卓源码中的APK或jar库源码">
 <meta name="twitter:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
@@ -135,6 +135,7 @@
 <p>如果是这样的，声明了src来源于src目录下的所有.java，那么你可以放心的使用上面的方法，但如果是</p>
 <figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under)</span></span><br></pre></td></tr></table></figure>
 <p>那说明src来源于项目目录下所有的.java文件，此时gen目录下的R.java也会被包含进去。那么在安卓源码环境下编译的时候会生成重复的R.java，导致R类重复的冲突。<br>这个时候需要根据情况修改Android.mk中的LOCAL_SRC_FILES。<br>具体怎么修改其实很简单，看项目结构就一目了然了。</p>
+<p>通常上面的情形只会在导入APK项目时有很小的几率会出现，jar项目由于没有资源文件，一般没有问题，可以放心导入。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -321,15 +322,15 @@
 			
 		
 			
-				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
 			
 		
 			
