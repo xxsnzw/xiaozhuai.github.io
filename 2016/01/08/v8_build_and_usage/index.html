@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/01/08/v8_build_and_usage/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="编译和使用google v8引擎的实战记录。">
-<meta property="og:updated_time" content="2016-03-19T03:38:17.000Z">
+<meta property="og:updated_time" content="2016-03-19T03:39:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="google v8引擎编译实战">
 <meta name="twitter:description" content="编译和使用google v8引擎的实战记录。">
@@ -105,17 +105,16 @@
 <h2 id="尝试一"><a href="#尝试一" class="headerlink" title="尝试一"></a>尝试一</h2><p>参考v8官方wiki，始终卡在gclient sync这一步，各种翻墙各种代理都不行，放弃之。具体过程就不多说了，参见v8官方wiki。<br>灵机一动，想到在android源码下是有v8的源码的。进入尝试2。</p>
 <h2 id="尝试二"><a href="#尝试二" class="headerlink" title="尝试二"></a>尝试二</h2><ol>
 <li>复制android源码目录下的external/v8目录，删除目录下的.mk文件（用于在安卓源码环境下编译的配置文件）</li>
-<li>修改makefile，找到dependencies，修改如下：</li>
-</ol>
+<li><p>修改makefile，找到dependencies，修改如下：</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">dependencies:</span></span><br><span class="line">	git clone https://chromium.googlesource.com/external/gyp build/gyp</span><br></pre></td></tr></table></figure>
-<ol>
-<li>执行下面的命令</li>
-</ol>
+</li>
+<li><p>执行下面的命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> [your_v8_<span class="built_in">source</span>_dir]</span><br><span class="line">$ ./build/gyp_v8</span><br><span class="line">$ make dependencies</span><br></pre></td></tr></table></figure>
-<ol>
-<li>开始编译</li>
-</ol>
+</li>
+<li><p>开始编译</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make native mode=realse</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <p>成功编译出来了，关于v8引擎的介绍和强大之处，还是请各位自己google或者百度吧。这里记录这样一个另类的方法，意在提醒自己，遇到问题还是要多思考的，总有替代的方法或者其它的路子。</p>
   
 	</div>
@@ -287,15 +286,15 @@
 			
 		
 			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/recovery/" title="recovery">recovery<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
 			
 		
 			
@@ -311,15 +310,15 @@
 			
 		
 			
-				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
