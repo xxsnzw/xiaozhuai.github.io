@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/01/06/import_android_child_project_in_eclipse/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
-<meta property="og:updated_time" content="2016-03-19T01:51:31.000Z">
+<meta property="og:updated_time" content="2016-03-19T02:01:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在eclipse中单独导入安卓源码中的APK或jar库源码">
 <meta name="twitter:description" content="在eclipse中单独导入安卓源码中的APK或jar库源码，由于安卓源码工程很大，整个导入安卓源码到eclispe必然会导致ide的卡顿，并且全部导入有一个致命的缺陷，就是APK源码的java部分和资源部分是分开的，不是显示在一块，这样非常不符合习惯，并且频繁的在java和res之间切换很浪费时间。因此这里给出在eclipse单独导入安卓源码的APK或jar类库的方法。">
@@ -95,7 +95,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入APK源码"><span class="toc-number">1.1.</span> <span class="toc-text">导入APK源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入jar类库源码到eclipse"><span class="toc-number">1.2.</span> <span class="toc-text">导入jar类库源码到eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.3.</span> <span class="toc-text">说明</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入APK源码"><span class="toc-number">1.1.</span> <span class="toc-text">导入APK源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入jar类库源码到eclipse"><span class="toc-number">1.2.</span> <span class="toc-text">导入jar类库源码到eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.3.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">1.4.</span> <span class="toc-text">注意事项</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -126,7 +126,16 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">kind</span>=<span class="string">"lib"</span> <span class="attr">path</span>=<span class="string">"[your_path_to_android_source]/out/target/common/obj/JAVA_LIBRARIES/sdk_v[sdk_version]_intermediates/classes.jar"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>[your_path_to_android_source]改为你的源码所在目录。<br>[sdk_version]改为对应源码版本的sdk版本号，如19。</p>
 <p>如果需要添加系统的所有R.java<br>需要在.classpath添加如下内容：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">excluding</span>=<span class="string">"Android.mk"</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"[your_path_to_android_source]/out/target/common/R"</span>/&gt;</span></span><br></pre></td></tr></table></figure>  
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">classpathentry</span> <span class="attr">excluding</span>=<span class="string">"Android.mk"</span> <span class="attr">kind</span>=<span class="string">"src"</span> <span class="attr">path</span>=<span class="string">"[your_path_to_android_source]/out/target/common/R"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>有一个问题要非常注意。<br>由于eclipse导入APK项目之后，会在APK项目目录下生成一个gen目录，这里会有R.java的生成，这个时候需要注意看一下项目的Android.mk。</p>
+<p>例如下面的情形。</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH:= <span class="variable">$(call my-dir)</span></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line">LOCAL_MODULE_TAGS := optional</span><br><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br><span class="line">LOCAL_PACKAGE_NAME := you_project</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES := gson</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttp</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okhttputils</span><br><span class="line">LOCAL_STATIC_JAVA_LIBRARIES += okio</span><br><span class="line"></span><br><span class="line">LOCAL_PRIVILEGED_MODULE := true</span><br><span class="line">LOCAL_CERTIFICATE := platform</span><br><span class="line">LOCAL_PROGUARD_ENABLED := disabled</span><br><span class="line">include $(BUILD_PACKAGE)</span><br></pre></td></tr></table></figure>
+<p>注意LOCAL_SRC_FILES。</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under, src)</span></span><br></pre></td></tr></table></figure>
+<p>如果是这样的，声明了src来源于src目录下的所有.java，那么你可以放心的使用上面的方法，但如果是</p>
+<figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_SRC_FILES := <span class="variable">$(call all-java-files-under)</span></span><br></pre></td></tr></table></figure>
+<p>那说明src来源于项目目录下所有的.java文件，此时gen目录下的R.java也会被包含进去。那么在安卓源码环境下编译的时候会生成重复的R.java，导致R类重复的冲突。<br>这个时候需要根据情况修改Android.mk中的LOCAL_SRC_FILES。<br>具体怎么修改其实很简单，看项目结构就一目了然了。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -207,7 +216,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入APK源码"><span class="toc-number">1.1.</span> <span class="toc-text">导入APK源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入jar类库源码到eclipse"><span class="toc-number">1.2.</span> <span class="toc-text">导入jar类库源码到eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.3.</span> <span class="toc-text">说明</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入APK源码"><span class="toc-number">1.1.</span> <span class="toc-text">导入APK源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入jar类库源码到eclipse"><span class="toc-number">1.2.</span> <span class="toc-text">导入jar类库源码到eclipse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-number">1.3.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">1.4.</span> <span class="toc-text">注意事项</span></a></li></ol></li></ol>
  
   </div>
 
@@ -276,10 +285,6 @@
 			
 		
 			
-				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>3</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/c/" title="c">c<sup>3</sup></a></li>
 			
 		
@@ -288,11 +293,11 @@
 			
 		
 			
-				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>3</sup></a></li>
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>3</sup></a></li>
 			
 		
 			
@@ -304,11 +309,19 @@
 			
 		
 			
+				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
 			
 		
 			
@@ -324,7 +337,11 @@
 			
 		
 			
-				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 			
@@ -333,14 +350,6 @@
 		
 			
 				<li><a href="/tags/shell/" title="shell">shell<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 		</ul>
