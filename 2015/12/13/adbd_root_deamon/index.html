@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>重启至recovery自动执行recovery命令 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>使没有内核root权限的已root安卓设备工作在adb root环境下 | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+    <meta name="description" content="当安卓设备不具有内核root权限时，adb root命令不被允许。即使设备已经root，仍然无法使用adb root命令。这里给出方法，使具有root权限但不具有内核root权限的设备工作在adb root环境下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重启至recovery自动执行recovery命令">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/index.html">
+<meta property="og:title" content="使没有内核root权限的已root安卓设备工作在adb root环境下">
+<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/13/adbd_root_deamon/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
-<meta property="og:updated_time" content="2016-03-18T23:44:03.000Z">
+<meta property="og:description" content="当安卓设备不具有内核root权限时，adb root命令不被允许。即使设备已经root，仍然无法使用adb root命令。这里给出方法，使具有root权限但不具有内核root权限的设备工作在adb root环境下。">
+<meta property="og:updated_time" content="2016-03-19T00:15:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重启至recovery自动执行recovery命令">
-<meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+<meta name="twitter:title" content="使没有内核root权限的已root安卓设备工作在adb root环境下">
+<meta name="twitter:description" content="当安卓设备不具有内核root权限时，adb root命令不被允许。即使设备已经root，仍然无法使用adb root命令。这里给出方法，使具有root权限但不具有内核root权限的设备工作在adb root环境下。">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -79,14 +79,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/22/recovery_auto_command/" title="重启至recovery自动执行recovery命令" itemprop="url">重启至recovery自动执行recovery命令</a>
+      <a href="/2015/12/13/adbd_root_deamon/" title="使没有内核root权限的已root安卓设备工作在adb root环境下" itemprop="url">使没有内核root权限的已root安卓设备工作在adb root环境下</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-22T12:08:53.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    <time datetime="2015-12-13T03:03:29.000Z" itemprop="datePublished"> 发表于 2015-12-13</time>
     
   </p>
 </header>
@@ -95,17 +95,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附件"><span class="toc-number">2.</span> <span class="toc-text">附件</span></a></li></ol>
 		
 		</div>
 		
-		<p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。<br><a id="more"></a></p>
-<h2 id="自动执行recovery命令"><a href="#自动执行recovery命令" class="headerlink" title="自动执行recovery命令"></a>自动执行recovery命令</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>向/cache/recovery/command写入配置文本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   --send_intent=anystring                            #在屏幕上打印文本 </span></span><br><span class="line"><span class="comment"># *   --update_package=path                              #刷入zip卡刷包的路径 </span></span><br><span class="line"><span class="comment"># *   --wipe_data                                        #清除data分区，然后重启 </span></span><br><span class="line"><span class="comment"># *   --wipe_media                                       #清除内置媒体内容（很少用），然后重启 </span></span><br><span class="line"><span class="comment"># *   --locale=zh_CN                                     #指定屏幕上的文字为中文</span></span><br><span class="line"><span class="comment"># *   --wipe_cache                                       #清除cache分区，然后重启</span></span><br><span class="line"><span class="comment"># *   --set_encrypted_filesystem=on|off                  #打开/关闭加密文件系统</span></span><br></pre></td></tr></table></figure>
-<p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>向/cache/recovery/openrecoveryscript写入脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   install /sdcard/rom.zip                            #刷写/sdcard/rom.zip</span></span><br><span class="line"><span class="comment"># *   wipe data                                          #清除/data分区</span></span><br><span class="line"><span class="comment"># *   wipe cache                                         #清除/cache分区</span></span><br><span class="line"><span class="comment"># *   wipe dalvik                                        #清除dalvik缓存</span></span><br><span class="line"><span class="comment"># *   backup SDBOM                                       #压缩备份/system,/data,/boot分区数据,不使用md5校验</span></span><br><span class="line"><span class="comment"># *   backup SDBOM myrom                                 #功能同上,备份到myrom文件夹</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom      #恢复myrom文件夹中的所有分区数据到手机</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom DM   #仅恢复/data分区</span></span><br><span class="line"><span class="comment"># *   mount system                                       #挂载/system分区</span></span><br><span class="line"><span class="comment"># *   unmount system                                     #卸载载/system分区</span></span><br><span class="line"><span class="comment"># *   set tw_signed_zip_verify 0                         #关闭签名校验</span></span><br><span class="line"><span class="comment"># *   set tw_time_zone CST6;CDT                          #设置时区</span></span><br><span class="line"><span class="comment"># *   mkdir /sdcard/folder1/folder2                      #创建文件夹</span></span><br><span class="line"><span class="comment"># *   cmd chmod 755 /system/bin/htcdumlock               #使用shell命令,修改权限,注意要先mount</span></span><br></pre></td></tr></table></figure>
-<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自信验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
+		<p>当安卓设备不具有内核root权限时，adb root命令不被允许。即使设备已经root，仍然无法使用adb root命令。这里给出方法，使具有root权限但不具有内核root权限的设备工作在adb root环境下。<br><a id="more"></a></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>这里直接给出方法，本文提供的adbd附件仅支持arm架构的安卓设备，其它设备请自己修改源码编译adbd。</p>
+<ol>
+<li>在安卓设备的/etc/init.d目录下创建一个可执行文件，即shell脚本，名为10rootadbd,内容如下：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/system/bin/sh</span></span><br><span class="line"><span class="comment">#挂载/system和/为可读可写</span></span><br><span class="line">mount -o remount,rw /system</span><br><span class="line">mount -o remount,rw /</span><br><span class="line"><span class="comment">#覆盖/sbin目录下的adbd并设置权限</span></span><br><span class="line">cp <span class="_">-f</span> /etc/init.d/adbd /sbin</span><br><span class="line">chmod 750 /sbin/adbd</span><br><span class="line"><span class="comment">#杀死adbd进程，它会自己重启，重启后adbd服务即工作在root模式下</span></span><br><span class="line">pkill -9 adbd</span><br><span class="line"><span class="comment">#挂载/system和/为只读</span></span><br><span class="line">mount -o remount,ro /system</span><br><span class="line">mount -o remount,ro /system</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将附件中的rooted_adbd_for_arm命名为adbd放到/etc/init.d目录下。并设置权限</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ su -c chmod 444 /etc/init.d/adbd <span class="comment">#这里一定不能给执行权限</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>验证一下。执行adb root，提示成功即可</li>
+</ol>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><a href="/file/10rootadbd">10rootadbd</a><br><a href="/file/rooted_adbd_for_arm">rooted_adbd_for_arm</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +126,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/recovery/">recovery</a>
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/安卓移植/">安卓移植</a><a href="/tags/ROM/">ROM</a>
   </div>
 
 </div>
@@ -165,27 +172,19 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/12/25/add_java_lib_for_android_source/" title="为android源码添加java类库">
+ <a href="/2015/12/15/cm13_storage_bug_fix/" title="修复cm13总是提示存储空间不足的bug">
   <strong>&nbsp;上一篇</strong><br/>
   <span>
-  为android源码添加java类库</span>
+  修复cm13总是提示存储空间不足的bug</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2015/12/20/sysprop/"  title="利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能">
- <strong>下一篇&nbsp;</strong><br/> 
- <span>利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能
-</span>
-</a>
-</div>
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/22/recovery_auto_command/" data-title="重启至recovery自动执行recovery命令" data-url="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/13/adbd_root_deamon/" data-title="使没有内核root权限的已root安卓设备工作在adb root环境下" data-url="http://xiaozhuai.github.io/2015/12/13/adbd_root_deamon/"></div>
 </section>
 
 
@@ -195,7 +194,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附件"><span class="toc-number">2.</span> <span class="toc-text">附件</span></a></li></ol>
  
   </div>
 

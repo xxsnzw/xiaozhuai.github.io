@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xiaozhuai.github.io/2015/12/13/adbd_root_deamon/</loc>
+    
+    <lastmod>2016-03-19T00:15:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xiaozhuai.github.io/2015/12/15/cm13_storage_bug_fix/</loc>
     
     <lastmod>2016-03-19T00:02:34.000Z</lastmod>

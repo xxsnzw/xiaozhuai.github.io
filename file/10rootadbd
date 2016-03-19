@@ -1,0 +1,12 @@
+#!/system/bin/sh
+#挂载/system和/为可读可写
+mount -o remount,rw /system
+mount -o remount,rw /
+#覆盖/sbin目录下的adbd并设置权限
+cp -f /etc/init.d/adbd /sbin
+chmod 750 /sbin/adbd
+#杀死adbd进程，它会自己重启，重启后adbd服务即工作在root模式下
+pkill -9 adbd
+#挂载/system和/为只读
+mount -o remount,ro /system
+mount -o remount,ro /system

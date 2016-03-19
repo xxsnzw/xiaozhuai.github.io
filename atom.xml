@@ -40,9 +40,9 @@
     
       <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
-      <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
-    
       <category term="安卓源码" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93%E6%BA%90%E7%A0%81/"/>
+    
+      <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
     
       <category term="c" scheme="http://xiaozhuai.github.io/tags/c/"/>
     
@@ -392,9 +392,49 @@
     
       <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
+      <category term="安卓源码" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93%E6%BA%90%E7%A0%81/"/>
+    
       <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
     
-      <category term="安卓源码" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93%E6%BA%90%E7%A0%81/"/>
+  </entry>
+  
+  <entry>
+    <title>使没有内核root权限的已root安卓设备工作在adb root环境下</title>
+    <link href="http://xiaozhuai.github.io/2015/12/13/adbd_root_deamon/"/>
+    <id>http://xiaozhuai.github.io/2015/12/13/adbd_root_deamon/</id>
+    <published>2015-12-13T03:03:29.000Z</published>
+    <updated>2016-03-19T00:15:40.000Z</updated>
+    
+    <content type="html">&lt;p&gt;当安卓设备不具有内核root权限时，adb root命令不被允许。即使设备已经root，仍然无法使用adb root命令。这里给出方法，使具有root权限但不具有内核root权限的设备工作在adb root环境下。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;方法&quot;&gt;&lt;a href=&quot;#方法&quot; class=&quot;headerlink&quot; title=&quot;方法&quot;&gt;&lt;/a&gt;方法&lt;/h2&gt;&lt;p&gt;这里直接给出方法，本文提供的adbd附件仅支持arm架构的安卓设备，其它设备请自己修改源码编译adbd。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在安卓设备的/etc/init.d目录下创建一个可执行文件，即shell脚本，名为10rootadbd,内容如下：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#!/system/bin/sh&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#挂载/system和/为可读可写&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount -o remount,rw /system&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount -o remount,rw /&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#覆盖/sbin目录下的adbd并设置权限&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cp &lt;span class=&quot;_&quot;&gt;-f&lt;/span&gt; /etc/init.d/adbd /sbin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chmod 750 /sbin/adbd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#杀死adbd进程，它会自己重启，重启后adbd服务即工作在root模式下&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pkill -9 adbd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#挂载/system和/为只读&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount -o remount,ro /system&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount -o remount,ro /system&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;将附件中的rooted_adbd_for_arm命名为adbd放到/etc/init.d目录下。并设置权限&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ su -c chmod 444 /etc/init.d/adbd &lt;span class=&quot;comment&quot;&gt;#这里一定不能给执行权限&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;验证一下。执行adb root，提示成功即可&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;附件&quot;&gt;&lt;a href=&quot;#附件&quot; class=&quot;headerlink&quot; title=&quot;附件&quot;&gt;&lt;/a&gt;附件&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;/file/10rootadbd&quot;&gt;10rootadbd&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;/file/rooted_adbd_for_arm&quot;&gt;rooted_adbd_for_arm&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当安卓设备不具有内核root权限时，adb root命令不被允许。即使设备已经root，仍然无法使用adb root命令。这里给出方法，使具有root权限但不具有内核root权限的设备工作在adb root环境下。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/categories/%E5%AE%89%E5%8D%93/"/>
+    
+    
+      <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
+    
+      <category term="安卓移植" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93%E7%A7%BB%E6%A4%8D/"/>
+    
+      <category term="ROM" scheme="http://xiaozhuai.github.io/tags/ROM/"/>
     
   </entry>
   
