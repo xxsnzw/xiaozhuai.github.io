@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>linux下控制台实现按任意键继续，无回显字符 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>google v8引擎编译实战 | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。">
+    <meta name="description" content="编译和使用google v8引擎的实战记录。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux下控制台实现按任意键继续，无回显字符">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/11/07/any_key_to_continue_for_linux/index.html">
+<meta property="og:title" content="google v8引擎编译实战">
+<meta property="og:url" content="http://xiaozhuai.github.io/2016/01/08/v8_build_and_usage/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。">
-<meta property="og:updated_time" content="2016-03-19T00:53:35.000Z">
+<meta property="og:description" content="编译和使用google v8引擎的实战记录。">
+<meta property="og:updated_time" content="2016-03-19T03:38:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux下控制台实现按任意键继续，无回显字符">
-<meta name="twitter:description" content="大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。">
+<meta name="twitter:title" content="google v8引擎编译实战">
+<meta name="twitter:description" content="编译和使用google v8引擎的实战记录。">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/11/07/any_key_to_continue_for_linux/" title="linux下控制台实现按任意键继续，无回显字符" itemprop="url">linux下控制台实现按任意键继续，无回显字符</a>
+      <a href="/2016/01/08/v8_build_and_usage/" title="google v8引擎编译实战" itemprop="url">google v8引擎编译实战</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-11-06T17:50:46.000Z" itemprop="datePublished"> 发表于 2015-11-07</time>
+    <time datetime="2016-01-08T08:05:17.000Z" itemprop="datePublished"> 发表于 2016-01-08</time>
     
   </p>
 </header>
@@ -97,13 +97,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例c代码"><span class="toc-number">1.</span> <span class="toc-text">示例c代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash实现"><span class="toc-number">1.1.</span> <span class="toc-text">bash实现</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#尝试一"><span class="toc-number">1.</span> <span class="toc-text">尝试一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尝试二"><span class="toc-number">2.</span> <span class="toc-text">尝试二</span></a></li></ol>
 		
 		</div>
 		
-		<p>大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。<br><a id="more"></a></p>
-<h2 id="示例c代码"><a href="#示例c代码" class="headerlink" title="示例c代码"></a>示例c代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;termios.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pause_</span><span class="params">( <span class="keyword">char</span>* str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> termios oldt,newt;</span><br><span class="line">    <span class="keyword">int</span> ch;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,str);</span><br><span class="line">    tcgetattr( STDIN_FILENO, &amp;oldt );</span><br><span class="line">    newt = oldt;</span><br><span class="line">    newt.c_lflag &amp;= ~( ICANON | ECHO );</span><br><span class="line">    tcsetattr( STDIN_FILENO, TCSANOW, &amp;newt );</span><br><span class="line">    ch = getchar();</span><br><span class="line">    tcsetattr( STDIN_FILENO, TCSANOW, &amp;oldt );</span><br><span class="line">    <span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world!\n"</span>);</span><br><span class="line">    pause_(<span class="string">"press any key to continue......"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="bash实现"><a href="#bash实现" class="headerlink" title="bash实现"></a>bash实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stty -echo &amp;&amp; <span class="built_in">echo</span> <span class="string">"press any key to continue......"</span> &amp;&amp; <span class="built_in">read</span> -n1 &amp;&amp; stty <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+		<p>编译和使用google v8引擎的实战记录。<br><a id="more"></a></p>
+<h2 id="尝试一"><a href="#尝试一" class="headerlink" title="尝试一"></a>尝试一</h2><p>参考v8官方wiki，始终卡在gclient sync这一步，各种翻墙各种代理都不行，放弃之。具体过程就不多说了，参见v8官方wiki。<br>灵机一动，想到在android源码下是有v8的源码的。进入尝试2。</p>
+<h2 id="尝试二"><a href="#尝试二" class="headerlink" title="尝试二"></a>尝试二</h2><ol>
+<li>复制android源码目录下的external/v8目录，删除目录下的.mk文件（用于在安卓源码环境下编译的配置文件）</li>
+<li>修改makefile，找到dependencies，修改如下：</li>
+</ol>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">dependencies:</span></span><br><span class="line">	git clone https://chromium.googlesource.com/external/gyp build/gyp</span><br></pre></td></tr></table></figure>
+<ol>
+<li>执行下面的命令</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> [your_v8_<span class="built_in">source</span>_dir]</span><br><span class="line">$ ./build/gyp_v8</span><br><span class="line">$ make dependencies</span><br></pre></td></tr></table></figure>
+<ol>
+<li>开始编译</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make native mode=realse</span><br></pre></td></tr></table></figure>
+<p>成功编译出来了，关于v8引擎的介绍和强大之处，还是请各位自己google或者百度吧。这里记录这样一个另类的方法，意在提醒自己，遇到问题还是要多思考的，总有替代的方法或者其它的路子。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -111,7 +124,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/c/">c</a>
+  <a class="article-category-link" href="/categories/v8/">v8</a>
 </div>
 
 
@@ -162,19 +175,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/11/12/android_useful_class/" title="安卓快速开发常用的类库">
-  <strong>&nbsp;上一篇</strong><br/>
-  <span>
-  安卓快速开发常用的类库</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/11/04/export_all_module_in_android_source/"  title="利用python脚本导出安卓源码所有的module">
+<a href="/2016/01/06/import_android_child_project_in_eclipse/"  title="在eclipse中单独导入安卓源码中的APK或jar库源码">
  <strong>下一篇&nbsp;</strong><br/> 
- <span>利用python脚本导出安卓源码所有的module
+ <span>在eclipse中单独导入安卓源码中的APK或jar库源码
 </span>
 </a>
 </div>
@@ -183,7 +188,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/11/07/any_key_to_continue_for_linux/" data-title="linux下控制台实现按任意键继续，无回显字符" data-url="http://xiaozhuai.github.io/2015/11/07/any_key_to_continue_for_linux/"></div>
+	<div class="ds-thread" data-thread-key="2016/01/08/v8_build_and_usage/" data-title="google v8引擎编译实战" data-url="http://xiaozhuai.github.io/2016/01/08/v8_build_and_usage/"></div>
 </section>
 
 
@@ -193,7 +198,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例c代码"><span class="toc-number">1.</span> <span class="toc-text">示例c代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash实现"><span class="toc-number">1.1.</span> <span class="toc-text">bash实现</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#尝试一"><span class="toc-number">1.</span> <span class="toc-text">尝试一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尝试二"><span class="toc-number">2.</span> <span class="toc-text">尝试二</span></a></li></ol>
  
   </div>
 

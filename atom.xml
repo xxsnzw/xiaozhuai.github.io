@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://xiaozhuai.github.io/"/>
-  <updated>2016-03-19T02:02:57.000Z</updated>
+  <updated>2016-03-19T03:38:17.000Z</updated>
   <id>http://xiaozhuai.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>google v8引擎编译实战</title>
+    <link href="http://xiaozhuai.github.io/2016/01/08/v8_build_and_usage/"/>
+    <id>http://xiaozhuai.github.io/2016/01/08/v8_build_and_usage/</id>
+    <published>2016-01-08T08:05:17.000Z</published>
+    <updated>2016-03-19T03:38:17.000Z</updated>
+    
+    <content type="html">&lt;p&gt;编译和使用google v8引擎的实战记录。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;尝试一&quot;&gt;&lt;a href=&quot;#尝试一&quot; class=&quot;headerlink&quot; title=&quot;尝试一&quot;&gt;&lt;/a&gt;尝试一&lt;/h2&gt;&lt;p&gt;参考v8官方wiki，始终卡在gclient sync这一步，各种翻墙各种代理都不行，放弃之。具体过程就不多说了，参见v8官方wiki。&lt;br&gt;灵机一动，想到在android源码下是有v8的源码的。进入尝试2。&lt;/p&gt;
+&lt;h2 id=&quot;尝试二&quot;&gt;&lt;a href=&quot;#尝试二&quot; class=&quot;headerlink&quot; title=&quot;尝试二&quot;&gt;&lt;/a&gt;尝试二&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;复制android源码目录下的external/v8目录，删除目录下的.mk文件（用于在安卓源码环境下编译的配置文件）&lt;/li&gt;
+&lt;li&gt;修改makefile，找到dependencies，修改如下：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight makefile&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;section&quot;&gt;dependencies:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	git clone https://chromium.googlesource.com/external/gyp build/gyp&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;执行下面的命令&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; [your_v8_&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;_dir]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ./build/gyp_v8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ make dependencies&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;开始编译&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ make native mode=realse&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;成功编译出来了，关于v8引擎的介绍和强大之处，还是请各位自己google或者百度吧。这里记录这样一个另类的方法，意在提醒自己，遇到问题还是要多思考的，总有替代的方法或者其它的路子。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;编译和使用google v8引擎的实战记录。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="v8" scheme="http://xiaozhuai.github.io/categories/v8/"/>
+    
+    
+      <category term="c" scheme="http://xiaozhuai.github.io/tags/c/"/>
+    
+      <category term="c++" scheme="http://xiaozhuai.github.io/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>在eclipse中单独导入安卓源码中的APK或jar库源码</title>
