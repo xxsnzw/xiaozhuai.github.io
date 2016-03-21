@@ -1,0 +1,566 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>MyToast控件，支持自定义时间和永不关闭 | Welcome to xiaozhuai&#39;s github blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="xiaozhuai">
+    
+
+    
+    <meta name="description" content="MyToast控件，支持自定义时间和永不关闭。安卓系统自带的Toast类不支持自定义时间，只能是LENGTH_LONG，LENGTH_SHORT之一，这里重写系统的Toast类实现自定义时间和永不关闭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyToast控件，支持自定义时间和永不关闭">
+<meta property="og:url" content="http://xiaozhuai.github.io/2016/01/10/mytoast/index.html">
+<meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
+<meta property="og:description" content="MyToast控件，支持自定义时间和永不关闭。安卓系统自带的Toast类不支持自定义时间，只能是LENGTH_LONG，LENGTH_SHORT之一，这里重写系统的Toast类实现自定义时间和永不关闭">
+<meta property="og:updated_time" content="2016-03-21T21:01:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyToast控件，支持自定义时间和永不关闭">
+<meta name="twitter:description" content="MyToast控件，支持自定义时间和永不关闭。安卓系统自带的Toast类不支持自定义时间，只能是LENGTH_LONG，LENGTH_SHORT之一，这里重写系统的Toast类实现自定义时间和永不关闭">
+<meta name="twitter:creator" content="@xiaozhuai7">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Welcome to xiaozhuai&#39;s github blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Welcome to xiaozhuai&#39;s github blog" title="Welcome to xiaozhuai&#39;s github blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Welcome to xiaozhuai&#39;s github blog">Welcome to xiaozhuai&#39;s github blog</a></h1>
+				<h2 class="blog-motto">xiaozhuai&#39;s blog</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xiaozhuai.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/10/mytoast/" title="MyToast控件，支持自定义时间和永不关闭" itemprop="url">MyToast控件，支持自定义时间和永不关闭</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-09T17:25:38.000Z" itemprop="datePublished"> 发表于 2016-01-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MyToast类"><span class="toc-number">1.</span> <span class="toc-text">MyToast类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#功能"><span class="toc-number">1.1.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">1.2.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用法"><span class="toc-number">1.3.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译"><span class="toc-number">1.4.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附件"><span class="toc-number">1.5.</span> <span class="toc-text">附件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码"><span class="toc-number">1.6.</span> <span class="toc-text">源码</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>MyToast控件，支持自定义时间和永不关闭。安卓系统自带的Toast类不支持自定义时间，只能是LENGTH_LONG，LENGTH_SHORT之一，这里重写系统的Toast类实现自定义时间和永不关闭<br><a id="more"></a></p>
+<h2 id="MyToast类"><a href="#MyToast类" class="headerlink" title="MyToast类"></a>MyToast类</h2><h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>与系统的Toast类功能类似，用法基本相似。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>系统的Toast只能使用两种时间长度，即short和long。<br>这里改写系统的Toast类为MyToast，实现时间自定义长度，单位毫秒。<br>并且可以永不关闭。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//下面的写法Toast永远不会关闭</span></span><br><span class="line">MyToat mToast = Toast.makeText(mContext, <span class="string">"toast1"</span>);</span><br><span class="line">mToast.show();</span><br><span class="line"><span class="comment">//直到cancle方法被调用后关闭</span></span><br><span class="line">mToast.cancle();</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面的写法Toast将在10秒后自动关闭</span></span><br><span class="line">MyToat mToast = Toast.makeText(mContext, <span class="string">"toast2"</span>, <span class="number">10000</span>);</span><br><span class="line">mToast.show();</span><br><span class="line"><span class="comment">//如果想在10s内即关闭可以提前调用cancle方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//系统原本的LENGTH_SHORT，LENGTH_LONG已从这个类里移除，请不要在这个类里使用</span></span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>你必须将源码放到android源码中编译，否则某些@hide类无法import。<br>编译将生成jar，可以在你的项目中导入这个jar来使用它。<br>你也可以在下面下载编译好的jar。<br>具体修改过程就不详述了，很简单，对比系统的源码就知道了。<br>这里是使用CM11的源码修改而来的。<br>你可以从这里clone完整的MyToast项目，然后在源码中编译它。<br><a href="https://github.com/xiaozhuai/mytoast" target="_blank" rel="external">https://github.com/xiaozhuai/mytoast</a></p>
+<h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><p><a href="/file/MyToastLib.jar">MyToastLib.jar</a></p>
+<h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * Copyright (C) 2007 The Android Open Source Project</span><br><span class="line"> *</span><br><span class="line"> * Licensed under the Apache License, Version 2.0 (the "License");</span><br><span class="line"> * you may not use this file except in compliance with the License.</span><br><span class="line"> * You may obtain a copy of the License at</span><br><span class="line"> *</span><br><span class="line"> *      http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"> *</span><br><span class="line"> * Unless required by applicable law or agreed to in writing, software</span><br><span class="line"> * distributed under the License is distributed on an "AS IS" BASIS,</span><br><span class="line"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line"> * See the License for the specific language governing permissions and</span><br><span class="line"> * limitations under the License.</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> org.fiui.widget;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.datatype.Duration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.INotificationManager;</span><br><span class="line"><span class="keyword">import</span> android.app.ITransientNotification;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.content.res.Configuration;</span><br><span class="line"><span class="keyword">import</span> android.content.res.Resources;</span><br><span class="line"><span class="keyword">import</span> android.graphics.PixelFormat;</span><br><span class="line"><span class="keyword">import</span> android.os.Handler;</span><br><span class="line"><span class="keyword">import</span> android.os.RemoteException;</span><br><span class="line"><span class="keyword">import</span> android.os.ServiceManager;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.Gravity;</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.view.View.OnClickListener;</span><br><span class="line"><span class="keyword">import</span> android.view.WindowManager;</span><br><span class="line"><span class="keyword">import</span> android.view.accessibility.AccessibilityEvent;</span><br><span class="line"><span class="keyword">import</span> android.view.accessibility.AccessibilityManager;</span><br><span class="line"><span class="keyword">import</span> android.widget.TextView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyToast</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MyToast"</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> localLOGV = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> Handler mHandler = <span class="keyword">new</span> Handler();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Context mContext;</span><br><span class="line">    <span class="keyword">final</span> TN mTN;</span><br><span class="line">    <span class="keyword">long</span> mDuration = <span class="number">0</span>;</span><br><span class="line">    View mNextView;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct an empty Toast object.  You must call &#123;<span class="doctag">@link</span> #setView&#125; before you</span><br><span class="line">     * can call &#123;<span class="doctag">@link</span> #show&#125;.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> context  The context to use.  Usually your &#123;<span class="doctag">@link</span> android.app.Application&#125;</span><br><span class="line">     *                 or &#123;<span class="doctag">@link</span> android.app.Activity&#125; object.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyToast</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        mContext = context;</span><br><span class="line">        mTN = <span class="keyword">new</span> TN();</span><br><span class="line">        mTN.mY = context.getResources().getDimensionPixelSize(</span><br><span class="line">                com.android.internal.R.dimen.toast_y_offset);</span><br><span class="line">        mTN.mGravity = context.getResources().getInteger(</span><br><span class="line">                com.android.internal.R.integer.config_toastDefaultGravity);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Show the view for the specified duration.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mNextView == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"setView must have been called"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        mTN.mNextView = mNextView;</span><br><span class="line">        mTN.show();</span><br><span class="line">        <span class="keyword">if</span>(mDuration&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">        	<span class="comment">//do nothing</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        	mHandler.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">				<span class="meta">@Override</span></span><br><span class="line">				<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">					mTN.hide();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;, mDuration);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Close the view if it's showing, or don't show it if it isn't showing yet.</span><br><span class="line">     * You do not normally have to call this.  Normally view will disappear on its own</span><br><span class="line">     * after the appropriate duration.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mTN.hide();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Set the view to show.</span><br><span class="line">     * <span class="doctag">@see</span> #getView</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        mNextView = view;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Return the view.</span><br><span class="line">     * <span class="doctag">@see</span> #setView</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mNextView;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Set how long to show the view for.</span><br><span class="line">     * <span class="doctag">@see</span> #LENGTH_SHORT</span><br><span class="line">     * <span class="doctag">@see</span> #LENGTH_LONG</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDuration</span><span class="params">(<span class="keyword">long</span> duration)</span> </span>&#123;</span><br><span class="line">        mDuration = duration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Return the duration.</span><br><span class="line">     * <span class="doctag">@see</span> #setDuration</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getDuration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mDuration;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Set the margins of the view.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> horizontalMargin The horizontal margin, in percentage of the</span><br><span class="line">     *        container width, between the container's edges and the</span><br><span class="line">     *        notification</span><br><span class="line">     * <span class="doctag">@param</span> verticalMargin The vertical margin, in percentage of the</span><br><span class="line">     *        container height, between the container's edges and the</span><br><span class="line">     *        notification</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMargin</span><span class="params">(<span class="keyword">float</span> horizontalMargin, <span class="keyword">float</span> verticalMargin)</span> </span>&#123;</span><br><span class="line">        mTN.mHorizontalMargin = horizontalMargin;</span><br><span class="line">        mTN.mVerticalMargin = verticalMargin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Return the horizontal margin.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getHorizontalMargin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mTN.mHorizontalMargin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Return the vertical margin.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getVerticalMargin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mTN.mVerticalMargin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Set the location at which the notification should appear on the screen.</span><br><span class="line">     * <span class="doctag">@see</span> android.view.Gravity</span><br><span class="line">     * <span class="doctag">@see</span> #getGravity</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGravity</span><span class="params">(<span class="keyword">int</span> gravity, <span class="keyword">int</span> xOffset, <span class="keyword">int</span> yOffset)</span> </span>&#123;</span><br><span class="line">        mTN.mGravity = gravity;</span><br><span class="line">        mTN.mX = xOffset;</span><br><span class="line">        mTN.mY = yOffset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span><br><span class="line">     * Get the location at which the notification should appear on the screen.</span><br><span class="line">     * <span class="doctag">@see</span> android.view.Gravity</span><br><span class="line">     * <span class="doctag">@see</span> #getGravity</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getGravity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mTN.mGravity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Return the X offset in pixels to apply to the gravity's location.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getXOffset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mTN.mX;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Return the Y offset in pixels to apply to the gravity's location.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getYOffset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mTN.mY;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Make a standard toast that just contains a text view.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> context  The context to use.  Usually your &#123;<span class="doctag">@link</span> android.app.Application&#125;</span><br><span class="line">     *                 or &#123;<span class="doctag">@link</span> android.app.Activity&#125; object.</span><br><span class="line">     * <span class="doctag">@param</span> text     The text to show.  Can be formatted text.</span><br><span class="line">     * <span class="doctag">@param</span> duration How long to display the message.  Either &#123;<span class="doctag">@link</span> #LENGTH_SHORT&#125; or</span><br><span class="line">     *                 &#123;<span class="doctag">@link</span> #LENGTH_LONG&#125;</span><br><span class="line">     *</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyToast <span class="title">makeText</span><span class="params">(Context context, CharSequence text, <span class="keyword">long</span> duration)</span> </span>&#123;</span><br><span class="line">        MyToast result = <span class="keyword">new</span> MyToast(context);</span><br><span class="line"></span><br><span class="line">        LayoutInflater inflate = (LayoutInflater)</span><br><span class="line">                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);</span><br><span class="line">        View v = inflate.inflate(com.android.internal.R.layout.transient_notification, <span class="keyword">null</span>);</span><br><span class="line">        TextView tv = (TextView)v.findViewById(com.android.internal.R.id.message);</span><br><span class="line">        tv.setText(text);</span><br><span class="line">        </span><br><span class="line">        result.mNextView = v;</span><br><span class="line">        result.mDuration = duration;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Make a standard toast that just contains a text view.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> context  The context to use.  Usually your &#123;<span class="doctag">@link</span> android.app.Application&#125;</span><br><span class="line">     *                 or &#123;<span class="doctag">@link</span> android.app.Activity&#125; object.</span><br><span class="line">     * <span class="doctag">@param</span> text     The text to show.  Can be formatted text.</span><br><span class="line">     *</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyToast <span class="title">makeText</span><span class="params">(Context context, CharSequence text)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> makeText(context, text, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Make a standard toast that just contains a text view with the text from a resource.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> context  The context to use.  Usually your &#123;<span class="doctag">@link</span> android.app.Application&#125;</span><br><span class="line">     *                 or &#123;<span class="doctag">@link</span> android.app.Activity&#125; object.</span><br><span class="line">     * <span class="doctag">@param</span> resId    The resource id of the string resource to use.  Can be formatted text.</span><br><span class="line">     * <span class="doctag">@param</span> duration How long to display the message.  Either &#123;<span class="doctag">@link</span> #LENGTH_SHORT&#125; or</span><br><span class="line">     *                 &#123;<span class="doctag">@link</span> #LENGTH_LONG&#125;</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@throws</span> Resources.NotFoundException if the resource can't be found.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyToast <span class="title">makeText</span><span class="params">(Context context, <span class="keyword">int</span> resId, <span class="keyword">int</span> duration)</span></span><br><span class="line">                                <span class="keyword">throws</span> Resources.NotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> makeText(context, context.getResources().getText(resId), duration);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Make a standard toast that just contains a text view with the text from a resource.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> context  The context to use.  Usually your &#123;<span class="doctag">@link</span> android.app.Application&#125;</span><br><span class="line">     *                 or &#123;<span class="doctag">@link</span> android.app.Activity&#125; object.</span><br><span class="line">     * <span class="doctag">@param</span> resId    The resource id of the string resource to use.  Can be formatted text.</span><br><span class="line">     *</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyToast <span class="title">makeText</span><span class="params">(Context context, <span class="keyword">int</span> resId)</span></span><br><span class="line">                                <span class="keyword">throws</span> Resources.NotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> makeText(context, context.getResources().getText(resId), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Update the text in a Toast that was previously created using one of the makeText() methods.</span><br><span class="line">     * <span class="doctag">@param</span> resId The new text for the Toast.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setText</span><span class="params">(<span class="keyword">int</span> resId)</span> </span>&#123;</span><br><span class="line">        setText(mContext.getText(resId));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Update the text in a Toast that was previously created using one of the makeText() methods.</span><br><span class="line">     * <span class="doctag">@param</span> s The new text for the Toast.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setText</span><span class="params">(CharSequence s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mNextView == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"This Toast was not created with Toast.makeText()"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        TextView tv = (TextView) mNextView.findViewById(com.android.internal.R.id.message);</span><br><span class="line">        <span class="keyword">if</span> (tv == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"This Toast was not created with Toast.makeText()"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        tv.setText(s);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// =======================================================================================</span></span><br><span class="line">    <span class="comment">// All the gunk below is the interaction with the Notification Service, which handles</span></span><br><span class="line">    <span class="comment">// the proper ordering of these system-wide.</span></span><br><span class="line">    <span class="comment">// =======================================================================================</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> INotificationManager sService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">private</span> INotificationManager <span class="title">getService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sService != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> sService;</span><br><span class="line">        &#125;</span><br><span class="line">        sService = INotificationManager.Stub.asInterface(ServiceManager.getService(<span class="string">"notification"</span>));</span><br><span class="line">        <span class="keyword">return</span> sService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TN</span> <span class="keyword">extends</span> <span class="title">ITransientNotification</span>.<span class="title">Stub</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Runnable mShow = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                handleShow();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> Runnable mHide = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                handleHide();</span><br><span class="line">                <span class="comment">// Don't do this in handleHide() because it is also invoked by handleShow()</span></span><br><span class="line">                mNextView = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> WindowManager.LayoutParams mParams = <span class="keyword">new</span> WindowManager.LayoutParams();</span><br><span class="line">        <span class="keyword">final</span> Handler mHandler = <span class="keyword">new</span> Handler();    </span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> mGravity;</span><br><span class="line">        <span class="keyword">int</span> mX, mY;</span><br><span class="line">        <span class="keyword">float</span> mHorizontalMargin;</span><br><span class="line">        <span class="keyword">float</span> mVerticalMargin;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        View mView;</span><br><span class="line">        View mNextView;</span><br><span class="line"></span><br><span class="line">        WindowManager mWM;</span><br><span class="line"></span><br><span class="line">        TN() &#123;</span><br><span class="line">            <span class="comment">// XXX This should be changed to use a Dialog, with a Theme.Toast</span></span><br><span class="line">            <span class="comment">// defined that sets up the layout params appropriately.</span></span><br><span class="line">            <span class="keyword">final</span> WindowManager.LayoutParams params = mParams;</span><br><span class="line">            params.height = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">            params.width = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">            params.format = PixelFormat.TRANSLUCENT;</span><br><span class="line">            params.windowAnimations = com.android.internal.R.style.Animation_Toast;</span><br><span class="line">            params.type = WindowManager.LayoutParams.TYPE_TOAST;</span><br><span class="line">            params.setTitle(<span class="string">"Toast"</span>);</span><br><span class="line">            params.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON</span><br><span class="line">                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE</span><br><span class="line">                    | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * schedule handleShow into the right thread</span><br><span class="line">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"SHOW: "</span> + <span class="keyword">this</span>);</span><br><span class="line">            mHandler.post(mShow);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * schedule handleHide into the right thread</span><br><span class="line">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hide</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"HIDE: "</span> + <span class="keyword">this</span>);</span><br><span class="line">            mHandler.post(mHide);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleShow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"HANDLE SHOW: "</span> + <span class="keyword">this</span> + <span class="string">" mView="</span> + mView</span><br><span class="line">                    + <span class="string">" mNextView="</span> + mNextView);</span><br><span class="line">            <span class="keyword">if</span> (mView != mNextView) &#123;</span><br><span class="line">                <span class="comment">// remove the old view if necessary</span></span><br><span class="line">                handleHide();</span><br><span class="line">                mView = mNextView;</span><br><span class="line">                Context context = mView.getContext().getApplicationContext();</span><br><span class="line">                <span class="keyword">if</span> (context == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    context = mView.getContext();</span><br><span class="line">                &#125;</span><br><span class="line">                mWM = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">                <span class="comment">// We can resolve the Gravity here by using the Locale for getting</span></span><br><span class="line">                <span class="comment">// the layout direction</span></span><br><span class="line">                <span class="keyword">final</span> Configuration config = mView.getContext().getResources().getConfiguration();</span><br><span class="line">                <span class="keyword">final</span> <span class="keyword">int</span> gravity = Gravity.getAbsoluteGravity(mGravity, config.getLayoutDirection());</span><br><span class="line">                mParams.gravity = gravity;</span><br><span class="line">                <span class="keyword">if</span> ((gravity &amp; Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.FILL_HORIZONTAL) &#123;</span><br><span class="line">                    mParams.horizontalWeight = <span class="number">1.0f</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ((gravity &amp; Gravity.VERTICAL_GRAVITY_MASK) == Gravity.FILL_VERTICAL) &#123;</span><br><span class="line">                    mParams.verticalWeight = <span class="number">1.0f</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mParams.x = mX;</span><br><span class="line">                mParams.y = mY;</span><br><span class="line">                mParams.verticalMargin = mVerticalMargin;</span><br><span class="line">                mParams.horizontalMargin = mHorizontalMargin;</span><br><span class="line">                <span class="keyword">if</span> (mView.getParent() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"REMOVE! "</span> + mView + <span class="string">" in "</span> + <span class="keyword">this</span>);</span><br><span class="line">                    mWM.removeView(mView);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"ADD! "</span> + mView + <span class="string">" in "</span> + <span class="keyword">this</span>);</span><br><span class="line">                mWM.addView(mView, mParams);</span><br><span class="line">                trySendAccessibilityEvent();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">trySendAccessibilityEvent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            AccessibilityManager accessibilityManager =</span><br><span class="line">                    AccessibilityManager.getInstance(mView.getContext());</span><br><span class="line">            <span class="keyword">if</span> (!accessibilityManager.isEnabled()) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// treat toasts as notifications since they are used to</span></span><br><span class="line">            <span class="comment">// announce a transient piece of information to the user</span></span><br><span class="line">            AccessibilityEvent event = AccessibilityEvent.obtain(</span><br><span class="line">                    AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED);</span><br><span class="line">            event.setClassName(getClass().getName());</span><br><span class="line">            event.setPackageName(mView.getContext().getPackageName());</span><br><span class="line">            mView.dispatchPopulateAccessibilityEvent(event);</span><br><span class="line">            accessibilityManager.sendAccessibilityEvent(event);</span><br><span class="line">        &#125;        </span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleHide</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"HANDLE HIDE: "</span> + <span class="keyword">this</span> + <span class="string">" mView="</span> + mView);</span><br><span class="line">            <span class="keyword">if</span> (mView != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// note: checking parent() just to make sure the view has</span></span><br><span class="line">                <span class="comment">// been added...  i have seen cases where we get here when</span></span><br><span class="line">                <span class="comment">// the view isn't yet added, so let's try not to crash.</span></span><br><span class="line">                <span class="keyword">if</span> (mView.getParent() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (localLOGV) Log.v(TAG, <span class="string">"REMOVE! "</span> + mView + <span class="string">" in "</span> + <span class="keyword">this</span>);</span><br><span class="line">                    mWM.removeView(mView);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                mView = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/隐藏API/">隐藏API</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"3362066484## e.g. 2176287895 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2089180" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/01/09/ssh_reverse tunnel/"  title="利用ssh建立反向隧道实现内网穿透">
+ <strong>下一篇&nbsp;</strong><br/> 
+ <span>利用ssh建立反向隧道实现内网穿透
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/01/10/mytoast/" data-title="MyToast控件，支持自定义时间和永不关闭" data-url="http://xiaozhuai.github.io/2016/01/10/mytoast/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MyToast类"><span class="toc-number">1.</span> <span class="toc-text">MyToast类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#功能"><span class="toc-number">1.1.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-number">1.2.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用法"><span class="toc-number">1.3.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译"><span class="toc-number">1.4.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附件"><span class="toc-number">1.5.</span> <span class="toc-text">附件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码"><span class="toc-number">1.6.</span> <span class="toc-text">源码</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="xiaozhuai" data-width="100%" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c">c<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/v8/" title="v8">v8<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>12</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>14</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm/" title="cm">cm<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/隐藏API/" title="隐藏API">隐藏API<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xiaozhuai.github.io" target="_blank" title="My Blog">My Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.fiui.org" target="_blank" title="FIUI Project">FIUI Project</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=3362066484&verifier=45b5120d&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m XiaoZhuai <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/xiaozhuai7" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/xiaozhuai" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/xiaozhuai7" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/xiaozhuai7" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:xz@fiui.org" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://xiaozhuai.github.io" target="_blank" title="hexo">xiaozhuai</a>, all right reserved. © 2016 
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaozhuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
