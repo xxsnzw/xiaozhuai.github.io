@@ -4,25 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>控制台显示加载进度的c实现 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>检测wifi是否需要网页登陆 | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样">
+    <meta name="description" content="某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆">
 <meta property="og:type" content="article">
-<meta property="og:title" content="控制台显示加载进度的c实现">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/08/progress_in_console/index.html">
+<meta property="og:title" content="检测wifi是否需要网页登陆">
+<meta property="og:url" content="http://xiaozhuai.github.io/2016/04/09/wifi_check_portal/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样">
-<meta property="og:image" content="http://xiaozhuai.github.io/img/show_progress_in_console.gif">
-<meta property="og:updated_time" content="2016-03-19T00:48:09.000Z">
+<meta property="og:description" content="某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆">
+<meta property="og:updated_time" content="2016-04-11T12:22:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="控制台显示加载进度的c实现">
-<meta name="twitter:description" content="经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样">
-<meta name="twitter:image" content="http://xiaozhuai.github.io/img/show_progress_in_console.gif">
+<meta name="twitter:title" content="检测wifi是否需要网页登陆">
+<meta name="twitter:description" content="某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -83,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/08/progress_in_console/" title="控制台显示加载进度的c实现" itemprop="url">控制台显示加载进度的c实现</a>
+      <a href="/2016/04/09/wifi_check_portal/" title="检测wifi是否需要网页登陆" itemprop="url">检测wifi是否需要网页登陆</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-08T06:24:26.000Z" itemprop="datePublished"> 发表于 2015-12-08</time>
+    <time datetime="2016-04-09T04:05:56.000Z" itemprop="datePublished"> 发表于 2016-04-09</time>
     
   </p>
 </header>
@@ -99,28 +97,31 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考代码"><span class="toc-number">1.</span> <span class="toc-text">参考代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果"><span class="toc-number">2.</span> <span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例代码"><span class="toc-number">2.</span> <span class="toc-text">示例代码</span></a></li></ol>
 		
 		</div>
 		
-		<p>经常会在一些控制台应用看到带进度的加载动画，这里用c实现一个类似的效果，其它语言也是一样<br><a id="more"></a></p>
-<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Running...\n"</span>);</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=<span class="number">100</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i!=<span class="number">0</span>)&#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"\r"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%d %%   "</span>,i);</span><br><span class="line">                        <span class="keyword">if</span>(i!=<span class="number">100</span>)&#123;</span><br><span class="line">                        <span class="keyword">switch</span>(i%<span class="number">3</span>)&#123;</span><br><span class="line">                                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                                        <span class="built_in">printf</span>(<span class="string">"/"</span>);</span><br><span class="line">                                        <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                                        <span class="built_in">printf</span>(<span class="string">"-"</span>);</span><br><span class="line">                                        <span class="keyword">break</span>;</span><br><span class="line">                                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                                        <span class="built_in">printf</span>(<span class="string">"\\"</span>);</span><br><span class="line">                                        <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"done!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                fflush(<span class="built_in">stdout</span>);</span><br><span class="line">                usleep(<span class="number">100000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>最终的效果见下面的gif图片<br><img src="/img/show_progress_in_console.gif" alt="控制台显示加载进度"></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>其实很简单，使用\r来将写指针移到行首，那么后面输出的内容就会覆盖当前行。</p>
-  
+		<p>某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆<br><a id="more"></a></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>关于路由器的网页验证，原理是如果用户没有登陆的话，就会拦截所有的tcp封包，如果是http封包，则会将该http请求重定向到路由器的登陆页面。<br>那么要检测是不是需要登陆，只需要在外网提供一个页面。如果能访问到这个页面，证明不需要登陆，如果访问不到，那么就被路由器重定向了，证明需要登陆。<br>由于这个验证页面不需要返回任何内容，所以一般该页面固定返回空内容，且respond code为204</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>这里以安卓为例，在安卓环境下，只需要监听wifi连接变化，当连接某个wifi时调用下面的方法来判断需不需要网页登陆。<br>这里只给出判断用的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isWifiSetPortal</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">final</span> String mWalledGardenUrl = <span class="string">"http://test.fiui.org/checkPortal.php"</span>;  </span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> WALLED_GARDEN_SOCKET_TIMEOUT_MS = <span class="number">10000</span>;  </span><br><span class="line">  </span><br><span class="line">        HttpURLConnection urlConnection = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            URL url = <span class="keyword">new</span> URL(mWalledGardenUrl);  </span><br><span class="line">            urlConnection = (HttpURLConnection) url.openConnection();  </span><br><span class="line">            urlConnection.setInstanceFollowRedirects(<span class="keyword">false</span>);  </span><br><span class="line">            urlConnection.setConnectTimeout(WALLED_GARDEN_SOCKET_TIMEOUT_MS);  </span><br><span class="line">            urlConnection.setReadTimeout(WALLED_GARDEN_SOCKET_TIMEOUT_MS);  </span><br><span class="line">            urlConnection.setUseCaches(<span class="keyword">false</span>);  </span><br><span class="line">            urlConnection.getInputStream();  </span><br><span class="line">            <span class="keyword">return</span> urlConnection.getResponseCode() != <span class="number">204</span>;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;  </span><br><span class="line">            <span class="keyword">if</span> (urlConnection != <span class="keyword">null</span>) &#123;  </span><br><span class="line">                urlConnection.disconnect();  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里的<a href="http://test.fiui.org/checkPortal.php即为检测用的链接，如果使用curl来查看该链接返回的header" target="_blank" rel="external">http://test.fiui.org/checkPortal.php即为检测用的链接，如果使用curl来查看该链接返回的header</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -I http://test.fiui.org/checkPortal.php</span><br></pre></td></tr></table></figure>
+<p>那么应该看到如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 204 No Content</span><br><span class="line">Date: Mon, 11 Apr 2016 12:21:54 GMT</span><br><span class="line">Server: Apache/2.4.10 (Win32) OpenSSL/1.0.1h PHP/5.4.34</span><br><span class="line">Content-Type: text/html</span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/c/">c</a>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/c/">c</a><a href="/tags/c/">c++</a>
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/JAVA/">JAVA</a>
   </div>
 
 </div>
@@ -165,19 +166,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/13/adbd_root_deamon/" title="使没有内核root权限的已root安卓设备工作在adb root环境下">
-  <strong>&nbsp;上一篇</strong><br/>
-  <span>
-  使没有内核root权限的已root安卓设备工作在adb root环境下</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/11/22/get_history_wifi_password/"  title="安卓获取历史连接的wifi密码">
+<a href="/2016/04/08/build_cpp_with_android_source/"  title="在安卓源码环境下编译C++">
  <strong>下一篇&nbsp;</strong><br/> 
- <span>安卓获取历史连接的wifi密码
+ <span>在安卓源码环境下编译C++
 </span>
 </a>
 </div>
@@ -186,7 +179,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/08/progress_in_console/" data-title="控制台显示加载进度的c实现" data-url="http://xiaozhuai.github.io/2015/12/08/progress_in_console/"></div>
+	<div class="ds-thread" data-thread-key="2016/04/09/wifi_check_portal/" data-title="检测wifi是否需要网页登陆" data-url="http://xiaozhuai.github.io/2016/04/09/wifi_check_portal/"></div>
 </section>
 
 
@@ -196,7 +189,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考代码"><span class="toc-number">1.</span> <span class="toc-text">参考代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果"><span class="toc-number">2.</span> <span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">3.</span> <span class="toc-text">原理</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例代码"><span class="toc-number">2.</span> <span class="toc-text">示例代码</span></a></li></ol>
  
   </div>
 
