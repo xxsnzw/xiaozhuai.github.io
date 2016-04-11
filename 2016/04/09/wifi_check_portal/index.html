@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/04/09/wifi_check_portal/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆">
-<meta property="og:updated_time" content="2016-04-11T12:22:56.000Z">
+<meta property="og:updated_time" content="2016-04-11T12:41:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="检测wifi是否需要网页登陆">
 <meta name="twitter:description" content="某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆">
@@ -105,7 +105,7 @@
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>关于路由器的网页验证，原理是如果用户没有登陆的话，就会拦截所有的tcp封包，如果是http封包，则会将该http请求重定向到路由器的登陆页面。<br>那么要检测是不是需要登陆，只需要在外网提供一个页面。如果能访问到这个页面，证明不需要登陆，如果访问不到，那么就被路由器重定向了，证明需要登陆。<br>由于这个验证页面不需要返回任何内容，所以一般该页面固定返回空内容，且respond code为204</p>
 <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>这里以安卓为例，在安卓环境下，只需要监听wifi连接变化，当连接某个wifi时调用下面的方法来判断需不需要网页登陆。<br>这里只给出判断用的方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isWifiSetPortal</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">final</span> String mWalledGardenUrl = <span class="string">"http://test.fiui.org/checkPortal.php"</span>;  </span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> WALLED_GARDEN_SOCKET_TIMEOUT_MS = <span class="number">10000</span>;  </span><br><span class="line">  </span><br><span class="line">        HttpURLConnection urlConnection = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            URL url = <span class="keyword">new</span> URL(mWalledGardenUrl);  </span><br><span class="line">            urlConnection = (HttpURLConnection) url.openConnection();  </span><br><span class="line">            urlConnection.setInstanceFollowRedirects(<span class="keyword">false</span>);  </span><br><span class="line">            urlConnection.setConnectTimeout(WALLED_GARDEN_SOCKET_TIMEOUT_MS);  </span><br><span class="line">            urlConnection.setReadTimeout(WALLED_GARDEN_SOCKET_TIMEOUT_MS);  </span><br><span class="line">            urlConnection.setUseCaches(<span class="keyword">false</span>);  </span><br><span class="line">            urlConnection.getInputStream();  </span><br><span class="line">            <span class="keyword">return</span> urlConnection.getResponseCode() != <span class="number">204</span>;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;  </span><br><span class="line">            <span class="keyword">if</span> (urlConnection != <span class="keyword">null</span>) &#123;  </span><br><span class="line">                urlConnection.disconnect();  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>这里的<a href="http://test.fiui.org/checkPortal.php即为检测用的链接，如果使用curl来查看该链接返回的header" target="_blank" rel="external">http://test.fiui.org/checkPortal.php即为检测用的链接，如果使用curl来查看该链接返回的header</a></p>
+<p>这里的<a href="http://test.fiui.org/checkPortal.php" target="_blank" rel="external">http://test.fiui.org/checkPortal.php</a>即为检测用的链接，如果使用curl来查看该链接返回的header</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -I http://test.fiui.org/checkPortal.php</span><br></pre></td></tr></table></figure>
 <p>那么应该看到如下内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 204 No Content</span><br><span class="line">Date: Mon, 11 Apr 2016 12:21:54 GMT</span><br><span class="line">Server: Apache/2.4.10 (Win32) OpenSSL/1.0.1h PHP/5.4.34</span><br><span class="line">Content-Type: text/html</span><br></pre></td></tr></table></figure>  
@@ -270,11 +270,11 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c">c<sup>4</sup></a></li>
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>4</sup></a></li>
+				<li><a href="/tags/c/" title="c">c<sup>4</sup></a></li>
 			
 		
 			
@@ -298,19 +298,11 @@
 			
 		
 			
-				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
 			
 		
 			
@@ -319,6 +311,14 @@
 		
 			
 				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
 			
 		
 			
