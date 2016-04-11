@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>重启至recovery自动执行recovery命令 | Welcome to xiaozhuai&#39;s github blog</title>
+    <title>在安卓源码环境下编译C++ | Welcome to xiaozhuai&#39;s github blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="xiaozhuai">
     
 
     
-    <meta name="description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+    <meta name="description" content="在安卓源码环境下编译c++的代码，生成native层的可执行文件。关键点在于Android.mk的编写，要指定c++的头文件目录和库。这里还以curl库为例，写了一个简单的网页抓取示例">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重启至recovery自动执行recovery命令">
-<meta property="og:url" content="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/index.html">
+<meta property="og:title" content="在安卓源码环境下编译C++">
+<meta property="og:url" content="http://xiaozhuai.github.io/2016/04/08/build_cpp_with_android_source/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
-<meta property="og:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
-<meta property="og:updated_time" content="2016-03-19T02:11:26.000Z">
+<meta property="og:description" content="在安卓源码环境下编译c++的代码，生成native层的可执行文件。关键点在于Android.mk的编写，要指定c++的头文件目录和库。这里还以curl库为例，写了一个简单的网页抓取示例">
+<meta property="og:updated_time" content="2016-04-11T06:47:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重启至recovery自动执行recovery命令">
-<meta name="twitter:description" content="在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。">
+<meta name="twitter:title" content="在安卓源码环境下编译C++">
+<meta name="twitter:description" content="在安卓源码环境下编译c++的代码，生成native层的可执行文件。关键点在于Android.mk的编写，要指定c++的头文件目录和库。这里还以curl库为例，写了一个简单的网页抓取示例">
 <meta name="twitter:creator" content="@xiaozhuai7">
 
     
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/22/recovery_auto_command/" title="重启至recovery自动执行recovery命令" itemprop="url">重启至recovery自动执行recovery命令</a>
+      <a href="/2016/04/08/build_cpp_with_android_source/" title="在安卓源码环境下编译C++" itemprop="url">在安卓源码环境下编译C++</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-22T12:08:53.000Z" itemprop="datePublished"> 发表于 2015-12-22</time>
+    <time datetime="2016-04-08T01:05:38.000Z" itemprop="datePublished"> 发表于 2016-04-08</time>
     
   </p>
 </header>
@@ -97,17 +97,14 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-mk"><span class="toc-number">1.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例项目"><span class="toc-number">2.</span> <span class="toc-text">示例项目</span></a></li></ol>
 		
 		</div>
 		
-		<p>在安卓系统开发的时候，有些时候需要机器重启到recovery后自动执行刷机或者是wipe数据等，这里给出方法。<br><a id="more"></a></p>
-<h2 id="自动执行recovery命令"><a href="#自动执行recovery命令" class="headerlink" title="自动执行recovery命令"></a>自动执行recovery命令</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>向/cache/recovery/command写入配置文本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   --send_intent=anystring                            #在屏幕上打印文本 </span></span><br><span class="line"><span class="comment"># *   --update_package=path                              #刷入zip卡刷包的路径 </span></span><br><span class="line"><span class="comment"># *   --wipe_data                                        #清除data分区，然后重启 </span></span><br><span class="line"><span class="comment"># *   --wipe_media                                       #清除内置媒体内容（很少用），然后重启 </span></span><br><span class="line"><span class="comment"># *   --locale=zh_CN                                     #指定屏幕上的文字为中文</span></span><br><span class="line"><span class="comment"># *   --wipe_cache                                       #清除cache分区，然后重启</span></span><br><span class="line"><span class="comment"># *   --set_encrypted_filesystem=on|off                  #打开/关闭加密文件系统</span></span><br></pre></td></tr></table></figure>
-<p>这种方法通常都是被支持的，但要注意的是，某些命令是不能连在一起用的，上面的说明中，有“然后重启”的在配置文本中只能出现一个，如果写了多个，那么只有最后一个有效</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>向/cache/recovery/openrecoveryscript写入脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># * 以下命令可能被支持 </span></span><br><span class="line"><span class="comment"># *   install /sdcard/rom.zip                            #刷写/sdcard/rom.zip</span></span><br><span class="line"><span class="comment"># *   wipe data                                          #清除/data分区</span></span><br><span class="line"><span class="comment"># *   wipe cache                                         #清除/cache分区</span></span><br><span class="line"><span class="comment"># *   wipe dalvik                                        #清除dalvik缓存</span></span><br><span class="line"><span class="comment"># *   backup SDBOM                                       #压缩备份/system,/data,/boot分区数据,不使用md5校验</span></span><br><span class="line"><span class="comment"># *   backup SDBOM myrom                                 #功能同上,备份到myrom文件夹</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom      #恢复myrom文件夹中的所有分区数据到手机</span></span><br><span class="line"><span class="comment"># *   restore /sdcard/TWRP/BACKUPS/*serialno*/myrom DM   #仅恢复/data分区</span></span><br><span class="line"><span class="comment"># *   mount system                                       #挂载/system分区</span></span><br><span class="line"><span class="comment"># *   unmount system                                     #卸载载/system分区</span></span><br><span class="line"><span class="comment"># *   set tw_signed_zip_verify 0                         #关闭签名校验</span></span><br><span class="line"><span class="comment"># *   set tw_time_zone CST6;CDT                          #设置时区</span></span><br><span class="line"><span class="comment"># *   mkdir /sdcard/folder1/folder2                      #创建文件夹</span></span><br><span class="line"><span class="comment"># *   cmd chmod 755 /system/bin/htcdumlock               #使用shell命令,修改权限,注意要先mount</span></span><br></pre></td></tr></table></figure>
-<p>这种方法并不适用于所有的recovery,但基本上都被TWRP支持,可以自行验证某些其他的recovery是否支持,优点是既可以wipe也可以同时刷写ROM,没有方法一的两条命令不能连用的限制</p>
+		<p>在安卓源码环境下编译c++的代码，生成native层的可执行文件。<br>关键点在于Android.mk的编写，要指定c++的头文件目录和库。<br>这里还以curl库为例，写了一个简单的网页抓取示例<br><a id="more"></a></p>
+<h2 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line"></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line"></span><br><span class="line">LOCAL_MODULE := acpp</span><br><span class="line">LOCAL_MODULE_TAGS := optional</span><br><span class="line"></span><br><span class="line"><span class="comment">#c++相关的头文件和lib</span></span><br><span class="line">INCLUDE_CXX := 	external/stlport/stlport \</span><br><span class="line">				bionic \</span><br><span class="line">    			bionic/libstdc++/include</span><br><span class="line">LIB_CXX := libstlport libstdc++</span><br><span class="line"></span><br><span class="line"><span class="comment">#curl相关的头文件和lib</span></span><br><span class="line">INCLUDE_CURL := external/curl/include</span><br><span class="line">LIB_CURL := libcurl</span><br><span class="line"></span><br><span class="line"><span class="comment">#引入各个头文件和lib</span></span><br><span class="line">LOCAL_C_INCLUDES := <span class="variable">$(INCLUDE_CXX)</span> <span class="variable">$(INCLUDE_CURL)</span></span><br><span class="line">LOCAL_SHARED_LIBRARIES := <span class="variable">$(LIB_CXX)</span> <span class="variable">$(LIB_CURL)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义源码文件</span></span><br><span class="line">LOCAL_SRC_FILES := src/main.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment">#编译native层的可执行文件</span></span><br><span class="line">include $(BUILD_EXECUTABLE)</span><br></pre></td></tr></table></figure>
+<h2 id="示例项目"><a href="#示例项目" class="headerlink" title="示例项目"></a>示例项目</h2><p>你可以在下面的地址找到示例项目的完整内容</p>
+<p><a href="https://github.com/xiaozhuai/android-cpp" target="_blank" rel="external">https://github.com/xiaozhuai/android-cpp</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -121,7 +118,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/recovery/">recovery</a>
+  <span></span> <a href="/tags/安卓源码/">安卓源码</a><a href="/tags/c/">c++</a>
   </div>
 
 </div>
@@ -166,19 +163,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/12/25/add_java_lib_for_android_source/" title="为android源码添加java类库">
-  <strong>&nbsp;上一篇</strong><br/>
-  <span>
-  为android源码添加java类库</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/12/20/sysprop/"  title="利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能">
+<a href="/2016/01/10/mytoast/"  title="MyToast控件，支持自定义时间和永不关闭">
  <strong>下一篇&nbsp;</strong><br/> 
- <span>利用java反射机制完整的拷贝安卓android.os.SystemProperties类的功能
+ <span>MyToast控件，支持自定义时间和永不关闭
 </span>
 </a>
 </div>
@@ -187,7 +176,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/12/22/recovery_auto_command/" data-title="重启至recovery自动执行recovery命令" data-url="http://xiaozhuai.github.io/2015/12/22/recovery_auto_command/"></div>
+	<div class="ds-thread" data-thread-key="2016/04/08/build_cpp_with_android_source/" data-title="在安卓源码环境下编译C++" data-url="http://xiaozhuai.github.io/2016/04/08/build_cpp_with_android_source/"></div>
 </section>
 
 
@@ -197,7 +186,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自动执行recovery命令"><span class="toc-number">1.</span> <span class="toc-text">自动执行recovery命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-number">1.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-number">1.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-mk"><span class="toc-number">1.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例项目"><span class="toc-number">2.</span> <span class="toc-text">示例项目</span></a></li></ol>
  
   </div>
 
