@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2016/04/08/build_cpp_with_android_source/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="在安卓源码环境下编译c++的代码，生成native层的可执行文件。关键点在于Android.mk的编写，要指定c++的头文件目录和库。这里还以curl库为例，写了一个简单的网页抓取示例">
-<meta property="og:updated_time" content="2016-04-11T06:47:09.000Z">
+<meta property="og:updated_time" content="2016-04-11T06:51:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在安卓源码环境下编译C++">
 <meta name="twitter:description" content="在安卓源码环境下编译c++的代码，生成native层的可执行文件。关键点在于Android.mk的编写，要指定c++的头文件目录和库。这里还以curl库为例，写了一个简单的网页抓取示例">
@@ -97,7 +97,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-mk"><span class="toc-number">1.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例项目"><span class="toc-number">2.</span> <span class="toc-text">示例项目</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-mk"><span class="toc-number">1.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例项目"><span class="toc-number">2.</span> <span class="toc-text">示例项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译"><span class="toc-number">3.</span> <span class="toc-text">编译</span></a></li></ol>
 		
 		</div>
 		
@@ -105,7 +105,8 @@
 <h2 id="Android-mk"><a href="#Android-mk" class="headerlink" title="Android.mk"></a>Android.mk</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">LOCAL_PATH := <span class="variable">$(call my-dir)</span></span><br><span class="line"></span><br><span class="line">include $(CLEAR_VARS)</span><br><span class="line"></span><br><span class="line">LOCAL_MODULE := acpp</span><br><span class="line">LOCAL_MODULE_TAGS := optional</span><br><span class="line"></span><br><span class="line"><span class="comment">#c++相关的头文件和lib</span></span><br><span class="line">INCLUDE_CXX := 	external/stlport/stlport \</span><br><span class="line">				bionic \</span><br><span class="line">    			bionic/libstdc++/include</span><br><span class="line">LIB_CXX := libstlport libstdc++</span><br><span class="line"></span><br><span class="line"><span class="comment">#curl相关的头文件和lib</span></span><br><span class="line">INCLUDE_CURL := external/curl/include</span><br><span class="line">LIB_CURL := libcurl</span><br><span class="line"></span><br><span class="line"><span class="comment">#引入各个头文件和lib</span></span><br><span class="line">LOCAL_C_INCLUDES := <span class="variable">$(INCLUDE_CXX)</span> <span class="variable">$(INCLUDE_CURL)</span></span><br><span class="line">LOCAL_SHARED_LIBRARIES := <span class="variable">$(LIB_CXX)</span> <span class="variable">$(LIB_CURL)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义源码文件</span></span><br><span class="line">LOCAL_SRC_FILES := src/main.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment">#编译native层的可执行文件</span></span><br><span class="line">include $(BUILD_EXECUTABLE)</span><br></pre></td></tr></table></figure>
 <h2 id="示例项目"><a href="#示例项目" class="headerlink" title="示例项目"></a>示例项目</h2><p>你可以在下面的地址找到示例项目的完整内容</p>
 <p><a href="https://github.com/xiaozhuai/android-cpp" target="_blank" rel="external">https://github.com/xiaozhuai/android-cpp</a></p>
-  
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>你应该将项目目录放到android源码目录下的external目录下来编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> [your_android_<span class="built_in">source</span>_path]</span><br><span class="line">$ <span class="built_in">source</span> build/envsetup.sh</span><br><span class="line">$ lunch [your_device]</span><br><span class="line">$ <span class="built_in">cd</span> external/android-cpp</span><br><span class="line">$ mmp</span><br><span class="line">$ adb shell acpp</span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -186,7 +187,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-mk"><span class="toc-number">1.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例项目"><span class="toc-number">2.</span> <span class="toc-text">示例项目</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-mk"><span class="toc-number">1.</span> <span class="toc-text">Android.mk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例项目"><span class="toc-number">2.</span> <span class="toc-text">示例项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译"><span class="toc-number">3.</span> <span class="toc-text">编译</span></a></li></ol>
  
   </div>
 
@@ -291,7 +292,7 @@
 			
 		
 			
-				<li><a href="/tags/recovery/" title="recovery">recovery<sup>1</sup></a></li>
+				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
 			
 		
 			
@@ -307,11 +308,7 @@
 			
 		
 			
-				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/ROM/" title="ROM">ROM<sup>1</sup></a></li>
+				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
@@ -319,7 +316,7 @@
 			
 		
 			
-				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
 			
 		
 			
@@ -328,6 +325,10 @@
 		
 			
 				<li><a href="/tags/adt/" title="adt">adt<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
 			
 		
 		</ul>
