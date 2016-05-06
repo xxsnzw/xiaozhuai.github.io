@@ -2219,6 +2219,14 @@ footer {
 .article-content .highlight .gutter pre {
   text-align: right;
   padding-right: 1.5em;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .article-content .highlight .line {
   height: 20px;
