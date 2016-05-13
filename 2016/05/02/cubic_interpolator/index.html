@@ -1,0 +1,583 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>安卓动画插值器之三次贝塞尔曲线 | Welcome to xiaozhuai&#39;s github blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="xiaozhuai">
+    
+
+    
+    <meta name="description" content="安卓平台实现动画效果的时候，往往为了需要实现一个平滑的，酷的效果去自定义一个动画插值器，即Interpolator。下面介绍一种可视化的方法创建一个基于三次贝塞尔曲线的插值器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓动画插值器之三次贝塞尔曲线">
+<meta property="og:url" content="http://xiaozhuai.github.io/2016/05/02/cubic_interpolator/index.html">
+<meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
+<meta property="og:description" content="安卓平台实现动画效果的时候，往往为了需要实现一个平滑的，酷的效果去自定义一个动画插值器，即Interpolator。下面介绍一种可视化的方法创建一个基于三次贝塞尔曲线的插值器。">
+<meta property="og:image" content="http://xiaozhuai.github.io/img/bessel_curve.png">
+<meta property="og:updated_time" content="2016-05-13T16:11:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安卓动画插值器之三次贝塞尔曲线">
+<meta name="twitter:description" content="安卓平台实现动画效果的时候，往往为了需要实现一个平滑的，酷的效果去自定义一个动画插值器，即Interpolator。下面介绍一种可视化的方法创建一个基于三次贝塞尔曲线的插值器。">
+<meta name="twitter:image" content="http://xiaozhuai.github.io/img/bessel_curve.png">
+<meta name="twitter:creator" content="@xiaozhuai7">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Welcome to xiaozhuai&#39;s github blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Welcome to xiaozhuai&#39;s github blog" title="Welcome to xiaozhuai&#39;s github blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Welcome to xiaozhuai&#39;s github blog">Welcome to xiaozhuai&#39;s github blog</a></h1>
+				<h2 class="blog-motto">xiaozhuai&#39;s blog</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:xiaozhuai.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/02/cubic_interpolator/" title="安卓动画插值器之三次贝塞尔曲线" itemprop="url">安卓动画插值器之三次贝塞尔曲线</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="xiaozhuai" target="_blank" itemprop="author">xiaozhuai</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-02T01:05:38.000Z" itemprop="datePublished"> 发表于 2016-05-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>安卓平台实现动画效果的时候，往往为了需要实现一个平滑的，酷的效果去自定义一个动画插值器，即Interpolator。下面介绍一种可视化的方法创建一个基于三次贝塞尔曲线的插值器。<br><a id="more"></a></p>
+<p>##关于动画插值器<br>关于安卓动画插值器，即Interpolator。实际上即是一个横轴为时间，纵轴为变化量的函数曲线。</p>
+<p>动画的快慢按照曲线的斜率去改变。</p>
+<p>但由于一个动画过程，动画的总时间往往是不定的，变化量也不定，单位也不同，可能是缩放动画，变化量就是缩放的倍数，可能是平移的动画，变化量就是位移大小。</p>
+<p>那么安卓的动画插值器，实际上横轴则是动画总时间的比例，设定总时长为1个单位，纵轴实际上则是动画的结束点相对于开始点的变化量设定为1个单位（注意这里并不是变化过程中的最大变化量作为1个单位，因为变化过程中是可以越过1个单位的变化量的，常见的有回弹的效果就是这样）</p>
+<p>那么插值器的函数曲线的范围就确定下来了，总是在</p>
+<p>0 &lt;= x &lt;= 1, -∞ &lt;= y &lt;= +∞</p>
+<p>的范围内变化。</p>
+<p>##原理 - 三次贝塞尔曲线公式<br>p0、p1、p2、p3四个点在平面或三维控件中定义了三次方贝塞尔曲线。曲线起始于p0走向p1，并从p2的方向来到p3。一般不会经过p1或p2；这两个点只是在那里提供方向资讯。p0和p1之间的间距，决定了曲线在转而趋进p3之前，走向p2方向的“长度有多长”。</p>
+<p>曲线的参数形式为：</p>
+<p><img src="/img/bessel_curve.png" alt="三次贝塞尔曲线公式"></p>
+<p>现代的成像系统，很多运用了贝塞尔样条组成的三次贝塞尔曲线，用来描绘曲线轮廓。</p>
+<p>##可视化工具<br><a href="http://cubic-bezier.com/" target="_blank" rel="external">http://cubic-bezier.com/</a></p>
+<p>这里提供一个网站，可以通过可视化的操作来生成一个贝塞尔曲线。</p>
+<p>可以简单的通过拖动鼠标来生成一个曲线</p>
+<p>##实现安卓平台的三次贝塞尔曲线插值器<br>那么剩下的工作就是使用上面的网站给出的贝塞尔曲线的参数来生成插值器。</p>
+<p>需要实现一个安卓平台上可以使用的三次贝塞尔插值器。这里直接给出已经写好的插值器源码。</p>
+<p>EaseCubicInterpolator.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EaseCubicInterpolator</span> <span class="keyword">implements</span> <span class="title">Interpolator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ACCURACY = <span class="number">4096</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> mLastI = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> PointF mControlPoint1 = <span class="keyword">new</span> PointF();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> PointF mControlPoint2 = <span class="keyword">new</span> PointF();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span><br><span class="line">   * 设置中间两个控制点.&lt;br&gt;</span><br><span class="line">   * </span><br><span class="line">   * <span class="doctag">@param</span> x1</span><br><span class="line">   * <span class="doctag">@param</span> y1</span><br><span class="line">   * <span class="doctag">@param</span> x2</span><br><span class="line">   * <span class="doctag">@param</span> y2</span><br><span class="line">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">EaseCubicInterpolator</span><span class="params">(<span class="keyword">float</span> x1, <span class="keyword">float</span> y1, <span class="keyword">float</span> x2, <span class="keyword">float</span> y2)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    mControlPoint1.x = x1;</span><br><span class="line"></span><br><span class="line">    mControlPoint1.y = y1;</span><br><span class="line"></span><br><span class="line">    mControlPoint2.x = x2;</span><br><span class="line"></span><br><span class="line">    mControlPoint2.y = y2;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> t = input;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 近似求解t的值[0,1]</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = mLastI; i &lt; ACCURACY; i++) &#123;</span><br><span class="line"></span><br><span class="line">      t = <span class="number">1.0f</span> * i / ACCURACY;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">double</span> x = cubicCurves(t, <span class="number">0</span>, mControlPoint1.x, mControlPoint2.x, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (x &gt;= input) &#123;</span><br><span class="line"></span><br><span class="line">        mLastI = i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> value = cubicCurves(t, <span class="number">0</span>, mControlPoint1.y, mControlPoint2.y, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (value &gt; <span class="number">0.999</span>d) &#123;</span><br><span class="line"></span><br><span class="line">      value = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">      mLastI = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">float</span>) value;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span><br><span class="line">   * 求三次贝塞尔曲线(四个控制点)一个点某个维度的值.&lt;br&gt;</span><br><span class="line">   * </span><br><span class="line">   * <span class="doctag">@param</span> t</span><br><span class="line">   *            取值[0, 1]</span><br><span class="line">   * <span class="doctag">@param</span> value0</span><br><span class="line">   * <span class="doctag">@param</span> value1</span><br><span class="line">   * <span class="doctag">@param</span> value2</span><br><span class="line">   * <span class="doctag">@param</span> value3</span><br><span class="line">   * <span class="doctag">@return</span></span><br><span class="line">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">cubicCurves</span><span class="params">(<span class="keyword">double</span> t, <span class="keyword">double</span> value0, <span class="keyword">double</span> value1,</span><br><span class="line"></span><br><span class="line">      <span class="keyword">double</span> value2, <span class="keyword">double</span> value3)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> u = <span class="number">1</span> - t;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> tt = t * t;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> uu = u * u;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> uuu = uu * u;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> ttt = tt * t;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    value = uuu * value0;</span><br><span class="line"></span><br><span class="line">    value += <span class="number">3</span> * uu * t * value1;</span><br><span class="line"></span><br><span class="line">    value += <span class="number">3</span> * u * tt * value2;</span><br><span class="line"></span><br><span class="line">    value += ttt * value3;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##使用方法<br>很简单，这里给出一个代码示例。animation对象为目标动画。a，b，c，d为网站上给出的四个参数。注意类型为float型。</p>
+<p>例如给出的是.17,.67,.83,.67<br>那么a，b，c，d应写为0.17f，0.67f，0.83f，0.67f</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">animation.setInterpolator(<span class="keyword">new</span> EaseCubicInterpolator(a, b, c, d));</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/安卓/">安卓</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/安卓/">安卓</a><a href="/tags/java/">java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"3362066484## e.g. 2176287895 Your weibo id,It will be used in share button."},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2089180" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/09/wifi_check_portal/"  title="检测wifi是否需要网页登陆">
+ <strong>下一篇&nbsp;</strong><br/> 
+ <span>检测wifi是否需要网页登陆
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/02/cubic_interpolator/" data-title="安卓动画插值器之三次贝塞尔曲线" data-url="http://xiaozhuai.github.io/2016/05/02/cubic_interpolator/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="xiaozhuai" data-width="100%" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c">c<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/shell/" title="shell">shell<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/v8/" title="v8">v8<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/安卓/" title="安卓">安卓<sup>15</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/安卓/" title="安卓">安卓<sup>16</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓源码/" title="安卓源码">安卓源码<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm/" title="cm">cm<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c">c<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/eclipse/" title="eclipse">eclipse<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shell/" title="shell">shell<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/隐藏API/" title="隐藏API">隐藏API<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/wifi/" title="wifi">wifi<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/cm源码/" title="cm源码">cm源码<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://xiaozhuai.github.io" target="_blank" title="My Blog">My Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.fiui.org" target="_blank" title="FIUI Project">FIUI Project</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=3362066484&verifier=45b5120d&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m XiaoZhuai <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/xiaozhuai7" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/xiaozhuai" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/xiaozhuai7" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		<a href="https://www.facebook.com/xiaozhuai7" target="_blank" class="icon-facebook" title="facebook"></a>
+		
+		
+		
+		
+		
+		
+		<a href="mailto:xz@fiui.org" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://xiaozhuai.github.io" target="_blank" title="hexo">xiaozhuai</a>, all right reserved. © 2016 
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaozhuai"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
