@@ -65,7 +65,7 @@
     <link href="http://xiaozhuai.github.io/2016/04/09/wifi_check_portal/"/>
     <id>http://xiaozhuai.github.io/2016/04/09/wifi_check_portal/</id>
     <published>2016-04-09T04:05:56.000Z</published>
-    <updated>2016-04-11T12:41:46.000Z</updated>
+    <updated>2016-05-14T06:10:59.000Z</updated>
     
     <content type="html">&lt;p&gt;某些公共场所连接wifi后需要在浏览器进行网页验证或登陆才能上网，这里给出方法，判断当前连接的wifi是否需要进行网页登陆&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h2&gt;&lt;p&gt;关于路由器的网页验证，原理是如果用户没有登陆的话，就会拦截所有的tcp封包，如果是http封包，则会将该http请求重定向到路由器的登陆页面。&lt;br&gt;那么要检测是不是需要登陆，只需要在外网提供一个页面。如果能访问到这个页面，证明不需要登陆，如果访问不到，那么就被路由器重定向了，证明需要登陆。&lt;br&gt;由于这个验证页面不需要返回任何内容，所以一般该页面固定返回空内容，且respond code为204&lt;/p&gt;
@@ -87,7 +87,7 @@
     
       <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
-      <category term="JAVA" scheme="http://xiaozhuai.github.io/tags/JAVA/"/>
+      <category term="java" scheme="http://xiaozhuai.github.io/tags/java/"/>
     
   </entry>
   
@@ -350,11 +350,11 @@
     
       <category term="安卓源码" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93%E6%BA%90%E7%A0%81/"/>
     
-      <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
-    
       <category term="c" scheme="http://xiaozhuai.github.io/tags/c/"/>
     
       <category term="c++" scheme="http://xiaozhuai.github.io/tags/c/"/>
+    
+      <category term="cm" scheme="http://xiaozhuai.github.io/tags/cm/"/>
     
       <category term="kernel" scheme="http://xiaozhuai.github.io/tags/kernel/"/>
     
@@ -531,7 +531,7 @@
     <link href="http://xiaozhuai.github.io/2015/12/26/jad_clipse/"/>
     <id>http://xiaozhuai.github.io/2015/12/26/jad_clipse/</id>
     <published>2015-12-26T07:05:03.000Z</published>
-    <updated>2016-03-19T00:27:34.000Z</updated>
+    <updated>2016-05-14T06:10:18.000Z</updated>
     
     <content type="html">&lt;p&gt;jadClipse插件用于在eclipse中反编译java字节码，当你在项目中引用了一个jar库，使用某些方法的时候，如果你不清楚它的实现原理或用法，此时该插件就起到作用了，使用Ctrl+鼠标左键点击既能跳转到方法的声明处，并自动反编译。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;安装方法&quot;&gt;&lt;a href=&quot;#安装方法&quot; class=&quot;headerlink&quot; title=&quot;安装方法&quot;&gt;&lt;/a&gt;安装方法&lt;/h2&gt;&lt;h3 id=&quot;下载jadClipse-eclipse-plugin-jar&quot;&gt;&lt;a href=&quot;#下载jadClipse-eclipse-plugin-jar&quot; class=&quot;headerlink&quot; title=&quot;下载jadClipse(eclipse plugin jar)&quot;&gt;&lt;/a&gt;下载jadClipse(eclipse plugin jar)&lt;/h3&gt;&lt;p&gt;从下面的链接下面jadClipse插件&lt;br&gt;&lt;a href=&quot;http://jadclipse.sourceforge.net&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jadclipse.sourceforge.net&lt;/a&gt;&lt;br&gt;将插件的jar文件放置到eclipse安装目录下的plugins目录&lt;/p&gt;
@@ -554,12 +554,12 @@
     
     </summary>
     
-      <category term="JAVA" scheme="http://xiaozhuai.github.io/categories/JAVA/"/>
+      <category term="java" scheme="http://xiaozhuai.github.io/categories/java/"/>
     
     
       <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
-      <category term="JAVA" scheme="http://xiaozhuai.github.io/tags/JAVA/"/>
+      <category term="java" scheme="http://xiaozhuai.github.io/tags/java/"/>
     
       <category term="eclipse" scheme="http://xiaozhuai.github.io/tags/eclipse/"/>
     
@@ -781,7 +781,7 @@
     <link href="http://xiaozhuai.github.io/2015/11/22/get_history_wifi_password/"/>
     <id>http://xiaozhuai.github.io/2015/11/22/get_history_wifi_password/</id>
     <published>2015-11-22T08:15:39.000Z</published>
-    <updated>2016-03-19T00:28:28.000Z</updated>
+    <updated>2016-05-14T06:10:33.000Z</updated>
     
     <content type="html">&lt;p&gt;获取安卓设备历史连接过的wifi热点的密码&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h2&gt;&lt;p&gt;安卓设备会讲历史连接过的wifi保存到配置文件/data/misc/wifi/wpa_supplicant.conf中。可以利用该文件来获取密码。这也就是各种wifi共享软件的原理&lt;/p&gt;
@@ -804,7 +804,7 @@
     
       <category term="安卓" scheme="http://xiaozhuai.github.io/tags/%E5%AE%89%E5%8D%93/"/>
     
-      <category term="JAVA" scheme="http://xiaozhuai.github.io/tags/JAVA/"/>
+      <category term="java" scheme="http://xiaozhuai.github.io/tags/java/"/>
     
       <category term="wifi" scheme="http://xiaozhuai.github.io/tags/wifi/"/>
     
