@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://xiaozhuai.github.io/2015/11/07/any_key_to_continue_for_linux/index.html">
 <meta property="og:site_name" content="Welcome to xiaozhuai's github blog">
 <meta property="og:description" content="大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。">
-<meta property="og:updated_time" content="2016-03-19T00:53:35.000Z">
+<meta property="og:updated_time" content="2016-05-24T14:33:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下控制台实现按任意键继续，无回显字符">
 <meta name="twitter:description" content="大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。">
@@ -97,13 +97,13 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例c代码"><span class="toc-number">1.</span> <span class="toc-text">示例c代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash实现"><span class="toc-number">1.1.</span> <span class="toc-text">bash实现</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C实现示例代码"><span class="toc-number">1.</span> <span class="toc-text">C实现示例代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bash实现"><span class="toc-number">2.</span> <span class="toc-text">bash实现</span></a></li></ol>
 		
 		</div>
 		
 		<p>大家都知道在windows下的pause命令可以实现任意键继续，那么在linux下控制台如何实现按任意键继续，并且不回显按下的字符键呢？注意这里要求是任意键并且无回显。getchar()是不符合要求的，具体方法看下面。<br><a id="more"></a></p>
-<h2 id="示例c代码"><a href="#示例c代码" class="headerlink" title="示例c代码"></a>示例c代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;termios.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pause_</span><span class="params">( <span class="keyword">char</span>* str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> termios oldt,newt;</span><br><span class="line">    <span class="keyword">int</span> ch;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,str);</span><br><span class="line">    tcgetattr( STDIN_FILENO, &amp;oldt );</span><br><span class="line">    newt = oldt;</span><br><span class="line">    newt.c_lflag &amp;= ~( ICANON | ECHO );</span><br><span class="line">    tcsetattr( STDIN_FILENO, TCSANOW, &amp;newt );</span><br><span class="line">    ch = getchar();</span><br><span class="line">    tcsetattr( STDIN_FILENO, TCSANOW, &amp;oldt );</span><br><span class="line">    <span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world!\n"</span>);</span><br><span class="line">    pause_(<span class="string">"press any key to continue......"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="bash实现"><a href="#bash实现" class="headerlink" title="bash实现"></a>bash实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stty -echo &amp;&amp; <span class="built_in">echo</span> <span class="string">"press any key to continue......"</span> &amp;&amp; <span class="built_in">read</span> -n1 &amp;&amp; stty <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+<h2 id="C实现示例代码"><a href="#C实现示例代码" class="headerlink" title="C实现示例代码"></a>C实现示例代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;termios.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pause_</span><span class="params">( <span class="keyword">char</span>* str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> termios oldt,newt;</span><br><span class="line">    <span class="keyword">int</span> ch;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,str);</span><br><span class="line">    tcgetattr( STDIN_FILENO, &amp;oldt );</span><br><span class="line">    newt = oldt;</span><br><span class="line">    newt.c_lflag &amp;= ~( ICANON | ECHO );</span><br><span class="line">    tcsetattr( STDIN_FILENO, TCSANOW, &amp;newt );</span><br><span class="line">    ch = getchar();</span><br><span class="line">    tcsetattr( STDIN_FILENO, TCSANOW, &amp;oldt );</span><br><span class="line">    <span class="keyword">return</span> ch;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world!\n"</span>);</span><br><span class="line">    pause_(<span class="string">"press any key to continue......"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="bash实现"><a href="#bash实现" class="headerlink" title="bash实现"></a>bash实现</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stty -echo &amp;&amp; <span class="built_in">echo</span> <span class="string">"press any key to continue......"</span> &amp;&amp; <span class="built_in">read</span> -n1 &amp;&amp; stty <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -193,7 +193,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例c代码"><span class="toc-number">1.</span> <span class="toc-text">示例c代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash实现"><span class="toc-number">1.1.</span> <span class="toc-text">bash实现</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C实现示例代码"><span class="toc-number">1.</span> <span class="toc-text">C实现示例代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bash实现"><span class="toc-number">2.</span> <span class="toc-text">bash实现</span></a></li></ol>
  
   </div>
 
@@ -266,11 +266,11 @@
 			
 		
 			
-				<li><a href="/tags/c/" title="c++">c++<sup>5</sup></a></li>
+				<li><a href="/tags/cm/" title="cm">cm<sup>5</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/cm/" title="cm">cm<sup>5</sup></a></li>
+				<li><a href="/tags/c/" title="c++">c++<sup>5</sup></a></li>
 			
 		
 			
@@ -298,31 +298,11 @@
 			
 		
 			
-				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/安卓移植/" title="安卓移植">安卓移植<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/prop/" title="prop">prop<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+				<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
 			
 		
 			
@@ -335,6 +315,26 @@
 		
 			
 				<li><a href="/tags/反编译/" title="反编译">反编译<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/配置/" title="配置">配置<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/recovery/" title="recovery">recovery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/编译/" title="编译">编译<sup>1</sup></a></li>
 			
 		
 		</ul>
